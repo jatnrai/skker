@@ -9,30 +9,32 @@
   --color-accent-cool: var(--accent-cool);
   --color-border: var(--border);
 
-  --font-sans: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --font-serif: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; /* Fallback to sans for legacy classes */
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: var(--font-sans, sans-serif);
+  --font-serif: var(--font-sans, sans-serif);
+  /* Fallback to sans for legacy classes */
+  --font-mono: var(--font-mono, monospace);
 }
 
 :root {
-  --bg: #f7f9fa; /* Udemy light gray background */
-  --surface: #ffffff; /* White cards */
-  --text: #1c1d1f; /* Udemy dark gray text */
-  --muted: #6a6f73; /* Udemy muted text */
-  --accent: #5624d0; /* Udemy purple */
-  --accent-cool: #1c1d1f; /* Secondary dark button color */
-  --border: #d1d7dc; /* Udemy gray border */
+  --bg: #f6f8fa;
+  --surface: #ffffff;
+  --text: #1f2328;
+  --muted: #656d76;
+  --accent: #0969da;
+  --accent-cool: #218bff;
+  --border: #d1d7dc;
 }
 
-/* Force light mode globally, remove dark mode overrides */
-:root.dark, html.dark, .dark {
-  --bg: #f7f9fa;
-  --surface: #ffffff;
-  --text: #1c1d1f;
-  --muted: #6a6f73;
-  --accent: #5624d0;
-  --accent-cool: #1c1d1f;
-  --border: #d1d7dc;
+:root.dark,
+html.dark,
+.dark {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --text: #e6edf3;
+  --muted: #7d8590;
+  --accent: #00b8db;
+  --accent-cool: #6cf3ff;
+  --border: #30363d;
 }
 
 body {
@@ -42,9 +44,17 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Utility to replace glass-panel with a standard white card */
+/* Restoring the original glassmorphism UI */
 .glass-panel {
-  background-color: var(--surface);
-  border: 1px solid var(--border);
-  box-shadow: none;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+}
+
+.dark .glass-panel {
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
 }

@@ -1,15 +1,10 @@
 import type { Metadata } from "next";
-import { DM_Sans, Playfair_Display, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 
-const sans = DM_Sans({
+const sans = Space_Grotesk({
   variable: "--font-sans",
-  subsets: ["latin"],
-});
-
-const serif = Playfair_Display({
-  variable: "--font-serif",
   subsets: ["latin"],
 });
 
@@ -31,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${sans.variable} ${serif.variable} ${mono.variable} antialiased`}
+        className={`${sans.variable} ${mono.variable} antialiased`}
       >
         <Providers>
           {children}
