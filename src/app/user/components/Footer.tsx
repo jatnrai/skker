@@ -6,10 +6,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-2">
-            <span className="logo-name text-xl font-extrabold tracking-widest uppercase flex items-center gap-1">
-              <span className="text-accent">SK</span>
-              <span className="text-text">KER</span>
-            </span>
+            <img src="/assets/logos/logo-stacked-dark.jpg" alt="SKKER Logo" className="w-32 h-auto object-contain rounded-xl opacity-90 hover:opacity-100 transition-opacity" />
             <p className="mt-4 text-sm text-muted max-w-sm leading-relaxed">
               Premium strategic consultant website covering systems architecture, product leadership, AI strategy, and executive advisory.
             </p>

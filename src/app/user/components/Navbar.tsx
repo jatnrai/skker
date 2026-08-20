@@ -28,17 +28,13 @@ export default function Navbar() {
     <nav className="fixed top-0 w-full z-50 glass-panel border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          
+
           <div className="flex-shrink-0 flex items-center gap-3">
             <Link href="/user" className="group flex items-center gap-3">
-              <div className="flex items-center justify-center bg-gradient-to-r from-accent to-accent-cool text-white rounded-xl h-10 w-14 shadow-[0_0_15px_rgba(0,184,219,0.5)] transition-all group-hover:shadow-[0_0_25px_rgba(0,184,219,0.8)]">
-                <span className="font-bold text-lg">S</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-xl font-extrabold tracking-widest uppercase flex items-center text-text">
-                  SKKER
-                </span>
-              </div>
+              <img src="/assets/Logoicon.png" alt="SKKER Icon" className="h-10 w-10 object-contain shadow-[0_0_15px_rgba(0,184,219,0.5)] transition-all group-hover:shadow-[0_0_25px_rgba(0,184,219,0.8)] rounded-xl" />
+              <span className="text-xl font-extrabold tracking-[0.2em] uppercase text-text transition-colors duration-300">
+                SKKER
+              </span>
             </Link>
           </div>
 
@@ -46,15 +42,15 @@ export default function Navbar() {
             <Link href="/user#capabilities" className="text-text hover:text-accent font-sans text-sm font-semibold transition-colors">Capabilities</Link>
             <Link href="/user/about-me" className="text-text hover:text-accent font-sans text-sm font-semibold transition-colors">About Me</Link>
             <Link href="/user/coaching" className="text-text hover:text-accent font-sans text-sm font-semibold transition-colors">Coaching</Link>
-            
+
             <div className="relative group">
-              <Link 
+              <Link
                 href="/user/training"
                 className="flex items-center gap-1 text-text hover:text-accent font-sans text-sm font-semibold transition-colors py-4"
               >
                 Training <ChevronDown size={14} className="transition-transform group-hover:rotate-180" />
               </Link>
-              
+
               <div className="absolute top-[80%] left-0 w-56 glass-panel rounded-2xl border border-white/10 shadow-[0_0_20px_rgba(0,184,219,0.15)] flex flex-col z-50 overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all translate-y-2 group-hover:translate-y-0">
                 <Link href="/user/courses" className="relative z-10 px-5 py-3.5 text-sm font-semibold text-text hover:text-accent hover:bg-white/10 transition-colors border-b border-white/10">Courses</Link>
                 <Link href="/user/private-training" className="relative z-10 px-5 py-3.5 text-sm font-semibold text-text hover:text-accent hover:bg-white/10 transition-colors border-b border-white/10">Private Training</Link>
@@ -77,13 +73,13 @@ export default function Navbar() {
                 {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
               </button>
             )}
-            
+
             <div className="hidden sm:flex items-center gap-3">
               <Link href="/user/login" className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-accent to-accent-cool text-sm font-sans font-bold text-white shadow-[0_0_15px_rgba(0,184,219,0.3)] hover:shadow-[0_0_25px_rgba(0,184,219,0.5)] transition-all">Login</Link>
               <Link href="/user/about-me" className="px-5 py-2.5 rounded-xl glass-panel text-text text-sm font-sans font-bold border border-white/10 hover:bg-white/10 transition-all">Book Session</Link>
             </div>
 
-            <button 
+            <button
               className="md:hidden p-2 text-text"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
@@ -109,7 +105,7 @@ export default function Navbar() {
           </div>
           <Link href="/user/blog" className="text-text font-bold text-sm p-2 hover:text-accent">Blog</Link>
           <Link href="/user/case-studies" className="text-text font-bold text-sm p-2 hover:text-accent">Case Studies</Link>
-          
+
           <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-border">
             {mounted && (
               <button
