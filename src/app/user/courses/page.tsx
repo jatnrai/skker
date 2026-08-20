@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Search, Heart, Clock, BookOpen, Share2, CopyPlus, LayoutGrid, List, RotateCcw } from 'lucide-react';
+import { Search, Heart, Clock, BookOpen, Share2, CopyPlus, LayoutGrid, List, RotateCcw, User } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
