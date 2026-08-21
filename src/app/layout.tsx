@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
-import { Outfit, JetBrains_Mono } from "next/font/google";
+import { Outfit, JetBrains_Mono, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 
 const sans = Outfit({
   variable: "--font-sans",
+  subsets: ["latin"],
+});
+
+const serif = Playfair_Display({
+  variable: "--font-serif",
   subsets: ["latin"],
 });
 
@@ -26,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${sans.variable} ${mono.variable} antialiased`}
+        className={`${sans.variable} ${serif.variable} ${mono.variable} antialiased`}
       >
         <Providers>
           {children}

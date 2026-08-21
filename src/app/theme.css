@@ -1,0 +1,25 @@
+:root {
+  --page-bg: #f6f8fa;
+  --section-alt-bg: #e2e8f0;
+  --card-bg: #ffffff;
+  --card-hover-bg: #f8fafc;
+  --card-glass-bg: rgba(255, 255, 255, 0.8);
+  
+  --text-heading-primary: #0f172a;
+  --text-heading-secondary: #334155;
+  --btn-text: #ffffff;
+}
+
+:root.dark,
+html.dark,
+.dark {
+  --page-bg: #060e15;
+  --section-alt-bg: #020b12;
+  --card-bg: #0b1622;
+  --card-hover-bg: #0c1a29;
+  --card-glass-bg: rgba(10, 16, 30, 0.8);
+  
+  --text-heading-primary: #eef0f8;
+  --text-heading-secondary: #cdd4ea;
+  --btn-text: #04121d;
+}

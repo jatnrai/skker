@@ -2,125 +2,116 @@
 
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
-import { Menu, ChevronDown, Moon, Sun } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import { Menu, Settings } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isTrainingMenuOpen, setIsTrainingMenuOpen] = useState(false);
-  const trainingMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => setMounted(true), []);
 
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (trainingMenuRef.current && !trainingMenuRef.current.contains(event.target as Node)) {
-        setIsTrainingMenuOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
   return (
-    <nav className="fixed top-0 w-full z-50 glass-panel border-b border-white/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+    <div className="fixed top-3 left-0 right-0 z-50 w-full flex justify-center px-4 sm:px-8 pointer-events-none">
+      <nav className="w-full max-w-[1300px] bg-card-bg/80 backdrop-blur-[30px] border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.4)] rounded-full px-4 sm:px-6 py-2 flex justify-between items-center pointer-events-auto transition-all duration-300">
 
-          <div className="flex-shrink-0 flex items-center gap-3">
-            <Link href="/user" className="group flex items-center gap-3">
-              <img src="/assets/Logoicon.png" alt="SKKER Icon" className="h-10 w-10 object-contain shadow-[0_0_15px_rgba(0,184,219,0.5)] transition-all group-hover:shadow-[0_0_25px_rgba(0,184,219,0.8)] rounded-xl" />
-              <span className="text-xl font-extrabold tracking-[0.2em] uppercase text-text transition-colors duration-300">
-                SKKER
-              </span>
+        {/* Left: Logo */}
+        <div className="flex-shrink-0 flex items-center">
+          <Link href="/user" className="group flex items-center gap-4">
+            <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center bg-card-hover-bg overflow-hidden shadow-[0_0_15px_rgba(0,184,219,0.2)]">
+              <img src="/assets/Logoicon.png" alt="SKKER Icon" className="h-6 w-6 object-contain" />
+            </div>
+            <span className="text-[16px] font-bold tracking-[0.2em] uppercase text-text group-hover:text-accent transition-colors">
+              SKKER
+            </span>
+          </Link>
+        </div>
+
+        {/* Middle: Navigation Links */}
+        <div className="hidden lg:flex items-center space-x-6">
+          <Link href="/user#capabilities" className="text-[9.5px] font-mono font-bold tracking-[0.15em] uppercase text-muted hover:text-text transition-colors">Capabilities</Link>
+          <Link href="/user/about-me" className="text-[9.5px] font-mono font-bold tracking-[0.15em] uppercase text-muted hover:text-text transition-colors">About Me</Link>
+          <Link href="/user/coaching" className="text-[9.5px] font-mono font-bold tracking-[0.15em] uppercase text-muted hover:text-text transition-colors">Coaching</Link>
+          
+          <div className="relative group flex items-center gap-2 cursor-pointer py-4">
+            <Link href="/user/training" className="text-[9.5px] font-mono font-bold tracking-[0.15em] uppercase text-muted group-hover:text-text transition-colors">
+              Training
+            </Link>
+            {/* Hollow circle indicator for dropdown */}
+            <div className="w-5 h-5 rounded-full border border-border/50 group-hover:border-text/50 transition-colors flex items-center justify-center bg-surface/30" />
+            
+            {/* Dropdown Menu */}
+            <div className="absolute top-[90%] left-1/2 -translate-x-1/2 w-64 bg-card-bg/95 backdrop-blur-2xl rounded-2xl border border-white/10 shadow-2xl flex flex-col z-50 overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all translate-y-2 group-hover:translate-y-0 py-2">
+              <Link href="/user/training" className="px-6 py-3 text-[10px] font-mono font-bold tracking-[0.15em] uppercase text-muted hover:text-text hover:bg-white/5 transition-colors border-b border-white/5">Private Training</Link>
+              <Link href="/user/public-classes" className="px-6 py-3 text-[10px] font-mono font-bold tracking-[0.15em] uppercase text-muted hover:text-text hover:bg-white/5 transition-colors border-b border-white/5">Public Classes</Link>
+              <Link href="/user/corporate-training" className="px-6 py-3 text-[10px] font-mono font-bold tracking-[0.15em] uppercase text-muted hover:text-text hover:bg-white/5 transition-colors">Corporate Training</Link>
+            </div>
+          </div>
+
+          <Link href="/user/blog" className="text-[9.5px] font-mono font-bold tracking-[0.15em] uppercase text-muted hover:text-text transition-colors">Blog / Articles</Link>
+          <Link href="/user/case-studies" className="text-[9.5px] font-mono font-bold tracking-[0.15em] uppercase text-muted hover:text-text transition-colors">Case Studies</Link>
+        </div>
+
+        {/* Right: Actions */}
+        <div className="flex items-center gap-3">
+          {/* Theme Toggle - Dark Pill with glow */}
+          {mounted && (
+            <button
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              className="hidden sm:flex items-center justify-center px-6 py-2.5 rounded-full border border-white/10 bg-section-alt-bg transition-colors relative overflow-hidden group"
+              aria-label="Toggle Theme"
+            >
+              <div className="absolute inset-0 bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity blur-md" />
+              <div className="w-2.5 h-2.5 rounded-full bg-accent shadow-[0_0_10px_rgba(0,184,219,0.8)] relative z-10" />
+            </button>
+          )}
+
+          <div className="hidden sm:flex items-center gap-2">
+            <Link href="/user/login" className="px-5 py-2.5 rounded-full border border-white/5 bg-section-alt-bg text-[9.5px] font-mono font-bold tracking-[0.15em] uppercase text-muted hover:text-text hover:bg-white/5 transition-all">
+              Login
+            </Link>
+            <Link href="/academy/home/book_session" className="px-5 py-2.5 rounded-full border border-white/5 bg-section-alt-bg text-[9.5px] font-mono font-bold tracking-[0.15em] uppercase text-muted hover:text-text hover:bg-white/5 transition-all">
+              Contact
+            </Link>
+            <Link href="/academy/home/book_session" className="px-6 py-2.5 ml-1 rounded-full bg-gradient-to-r from-accent to-accent-cool text-[9.5px] font-mono font-extrabold tracking-[0.15em] uppercase text-btn-text shadow-[0_0_20px_rgba(0,184,219,0.3)] hover:shadow-[0_0_30px_rgba(0,184,219,0.5)] transition-all">
+              Book Session
             </Link>
           </div>
 
-          <div className="hidden md:flex space-x-6 items-center">
-            <Link href="/user#capabilities" className="text-text hover:text-accent font-sans text-sm font-semibold transition-colors">Capabilities</Link>
-            <Link href="/user/about-me" className="text-text hover:text-accent font-sans text-sm font-semibold transition-colors">About Me</Link>
-            <Link href="/user/coaching" className="text-text hover:text-accent font-sans text-sm font-semibold transition-colors">Coaching</Link>
-
-            <div className="relative group">
-              <Link
-                href="/user/training"
-                className="flex items-center gap-1 text-text hover:text-accent font-sans text-sm font-semibold transition-colors py-4"
-              >
-                Training <ChevronDown size={14} className="transition-transform group-hover:rotate-180" />
-              </Link>
-
-              <div className="absolute top-[80%] left-0 w-56 glass-panel rounded-2xl border border-white/10 shadow-[0_0_20px_rgba(0,184,219,0.15)] flex flex-col z-50 overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all translate-y-2 group-hover:translate-y-0">
-                <Link href="/user/courses" className="relative z-10 px-5 py-3.5 text-sm font-semibold text-text hover:text-accent hover:bg-white/10 transition-colors border-b border-white/10">Courses</Link>
-                <Link href="/user/private-training" className="relative z-10 px-5 py-3.5 text-sm font-semibold text-text hover:text-accent hover:bg-white/10 transition-colors border-b border-white/10">Private Training</Link>
-                <Link href="/user/public-classes" className="relative z-10 px-5 py-3.5 text-sm font-semibold text-text hover:text-accent hover:bg-white/10 transition-colors border-b border-white/10">Public Classes</Link>
-                <Link href="/user/corporate-training" className="relative z-10 px-5 py-3.5 text-sm font-semibold text-text hover:text-accent hover:bg-white/10 transition-colors">Corporate Training</Link>
-              </div>
-            </div>
-
-            <Link href="/user/blog" className="text-text hover:text-accent font-sans text-sm font-semibold transition-colors">Blog</Link>
-            <Link href="/user/case-studies" className="text-text hover:text-accent font-sans text-sm font-semibold transition-colors">Case Studies</Link>
-          </div>
-
-          <div className="flex items-center gap-3">
-            {mounted && (
-              <button
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="hidden sm:flex items-center justify-center w-10 h-10 rounded-md border border-border bg-surface text-text hover:bg-bg transition-colors"
-                aria-label="Toggle Theme"
-              >
-                {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-              </button>
-            )}
-
-            <div className="hidden sm:flex items-center gap-3">
-              <Link href="/user/login" className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-accent to-accent-cool text-sm font-sans font-bold text-white shadow-[0_0_15px_rgba(0,184,219,0.3)] hover:shadow-[0_0_25px_rgba(0,184,219,0.5)] transition-all">Login</Link>
-              <Link href="/user/about-me" className="px-5 py-2.5 rounded-xl glass-panel text-text text-sm font-sans font-bold border border-white/10 hover:bg-white/10 transition-all">Book Session</Link>
-            </div>
-
-            <button
-              className="md:hidden p-2 text-text"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              <Menu size={24} />
-            </button>
-          </div>
-
+          <button
+            className="lg:hidden p-2 text-text"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <Menu size={24} />
+          </button>
         </div>
-      </div>
+
+      </nav>
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden glass-panel border-t border-white/10 p-4 flex flex-col gap-4">
-          <Link href="/user#capabilities" className="text-text font-bold text-sm p-2 hover:text-accent">Capabilities</Link>
-          <Link href="/user/about-me" className="text-text font-bold text-sm p-2 hover:text-accent">About Me</Link>
-          <Link href="/user/coaching" className="text-text font-bold text-sm p-2 hover:text-accent">Coaching</Link>
-          <div className="p-2 border-y border-border flex flex-col gap-2 bg-bg rounded-md">
-            <span className="text-muted font-bold text-xs uppercase tracking-widest mb-1 px-2">Training</span>
-            <Link href="/user/courses" className="text-sm text-text font-semibold hover:text-accent px-2 py-1">Courses</Link>
-            <Link href="/user/training" className="text-sm text-text font-semibold hover:text-accent px-2 py-1">Private Training</Link>
-            <Link href="/user/public-classes" className="text-sm text-text font-semibold hover:text-accent px-2 py-1">Public Classes</Link>
-            <Link href="/user/corporate-training" className="text-sm text-text font-semibold hover:text-accent px-2 py-1">Corporate Training</Link>
+        <div className="absolute top-[80px] left-4 right-4 lg:hidden bg-card-bg/95 backdrop-blur-2xl border border-white/10 p-4 rounded-3xl flex flex-col gap-4 max-h-[80vh] overflow-y-auto pointer-events-auto shadow-2xl">
+          <Link href="/user#capabilities" className="text-text font-mono font-bold tracking-widest uppercase text-[10px] p-2 hover:text-accent">Capabilities</Link>
+          <Link href="/user/about-me" className="text-text font-mono font-bold tracking-widest uppercase text-[10px] p-2 hover:text-accent">About Me</Link>
+          <Link href="/user/coaching" className="text-text font-mono font-bold tracking-widest uppercase text-[10px] p-2 hover:text-accent">Coaching</Link>
+          
+          <div className="p-3 border border-white/5 flex flex-col gap-2 bg-section-alt-bg rounded-xl">
+            <span className="text-accent font-mono font-bold tracking-widest uppercase text-[10px] mb-2 px-2">Training</span>
+            <Link href="/user/training" className="text-text font-mono font-bold tracking-widest uppercase text-[10px] hover:text-accent px-2 py-1">Private Training</Link>
+            <Link href="/user/public-classes" className="text-text font-mono font-bold tracking-widest uppercase text-[10px] hover:text-accent px-2 py-1">Public Classes</Link>
+            <Link href="/user/corporate-training" className="text-text font-mono font-bold tracking-widest uppercase text-[10px] hover:text-accent px-2 py-1">Corporate Training</Link>
           </div>
-          <Link href="/user/blog" className="text-text font-bold text-sm p-2 hover:text-accent">Blog</Link>
-          <Link href="/user/case-studies" className="text-text font-bold text-sm p-2 hover:text-accent">Case Studies</Link>
+          
+          <Link href="/user/blog" className="text-text font-mono font-bold tracking-widest uppercase text-[10px] p-2 hover:text-accent">Blog / Articles</Link>
+          <Link href="/user/case-studies" className="text-text font-mono font-bold tracking-widest uppercase text-[10px] p-2 hover:text-accent">Case Studies</Link>
 
-          <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-border">
-            {mounted && (
-              <button
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-md border border-border bg-surface text-sm font-bold text-text hover:bg-bg"
-              >
-                {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-                {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
-              </button>
-            )}
-            <Link href="/user/login" className="text-center w-full px-4 py-3 rounded-xl bg-gradient-to-r from-accent to-accent-cool text-sm font-bold text-white shadow-[0_0_15px_rgba(0,184,219,0.3)]">Login</Link>
-            <Link href="/user/about-me" className="text-center w-full px-4 py-3 rounded-xl glass-panel text-text border border-white/10 text-sm font-bold">Book Session</Link>
+          <div className="flex flex-col gap-3 mt-4 pt-4 border-t border-white/10">
+            <Link href="/user/login" className="text-center w-full px-4 py-3 rounded-full border border-white/10 bg-section-alt-bg text-text font-mono font-bold tracking-widest uppercase text-[10px]">Login</Link>
+            <Link href="/academy/home/book_session" className="text-center w-full px-4 py-3 rounded-full bg-gradient-to-r from-accent to-accent-cool text-btn-text font-mono font-extrabold tracking-widest uppercase text-[10px]">Book Session</Link>
           </div>
         </div>
       )}
-    </nav>
+    </div>
   );
 }

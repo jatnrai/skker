@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./theme.css";
 
 @theme {
   --color-bg: var(--bg);
@@ -8,6 +9,16 @@
   --color-accent: var(--accent);
   --color-accent-cool: var(--accent-cool);
   --color-border: var(--border);
+
+  --color-page-bg: var(--page-bg);
+  --color-section-alt-bg: var(--section-alt-bg);
+  --color-card-bg: var(--card-bg);
+  --color-card-hover-bg: var(--card-hover-bg);
+  --color-card-glass-bg: var(--card-glass-bg);
+  
+  --color-heading-primary: var(--text-heading-primary);
+  --color-heading-secondary: var(--text-heading-secondary);
+  --color-btn-text: var(--btn-text);
 
   --font-sans: var(--font-sans, sans-serif);
   --font-serif: var(--font-sans, sans-serif);
