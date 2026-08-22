@@ -25,7 +25,7 @@ const fadeUp = {
 
 export default function Home() {
   return (
-    <main className="min-h-screen text-text selection:bg-accent/30 flex flex-col relative overflow-hidden font-sans bg-page-bg">
+    <main className="min-h-screen text-text selection:bg-accent/30 flex flex-col relative overflow-hidden font-sans bg-page">
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LCAyNTUsIDI1NSwgMC4wMikiLz48L3N2Zz4=')]" style={{ opacity: 0.1 }} />
       </div>

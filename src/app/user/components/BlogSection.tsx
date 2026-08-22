@@ -37,7 +37,7 @@ export default function BlogSection() {
   ];
 
   return (
-    <section id="insights" className="py-24 sm:py-32 px-4 sm:px-6 relative z-10 bg-section-alt-bg border-y border-white/5">
+    <section id="insights" className="py-24 sm:py-32 px-4 sm:px-6 relative z-10 bg-section border-y border-border">
       <div className="max-w-[1400px] mx-auto w-full relative z-10 flex flex-col gap-16">
         
         {/* Header Area */}
@@ -46,7 +46,7 @@ export default function BlogSection() {
             <div className="font-mono text-[10px] font-bold tracking-[0.22em] uppercase text-accent opacity-80 mb-6">
               07 &mdash; Blog / Articles
             </div>
-            <h2 className="text-[40px] sm:text-[55px] font-serif font-bold text-[#eef0f8] leading-[1.05] tracking-[-0.025em]">
+            <h2 className="text-[40px] sm:text-[55px] font-serif font-bold text-heading leading-[1.05] tracking-[-0.025em]">
               Ideas worth <br />
               <em className="text-transparent bg-clip-text bg-gradient-to-br from-accent via-[#a2f4fd] to-accent-cool italic font-serif">reading.</em>
             </h2>
@@ -54,7 +54,7 @@ export default function BlogSection() {
           <motion.div {...fadeUp} className="pb-3">
             <Link 
               href="/user/blog" 
-              className="inline-flex items-center gap-2 px-6 py-3 border border-white/10 rounded-full text-[9px] font-mono font-bold tracking-[0.15em] uppercase text-muted hover:text-text hover:bg-white/5 hover:border-white/20 transition-all group"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-border rounded-full text-[9px] font-mono font-bold tracking-[0.15em] uppercase text-muted hover:text-text hover:bg-white/5 hover:border-border transition-all group"
             >
               View All Articles <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
             </Link>
@@ -70,13 +70,13 @@ export default function BlogSection() {
             transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }} 
             className="lg:col-span-2"
           >
-            <Link href={articles[0].href} className="flex flex-col h-full group bg-[#06091a]/80 border border-white/5 rounded-[24px] p-4 hover:bg-white/[0.02] transition-colors shadow-2xl">
+            <Link href={articles[0].href} className="flex flex-col h-full group bg-section/80 border border-border rounded-[24px] p-4 hover:bg-white/[0.02] transition-colors shadow-2xl">
               <div className="w-full aspect-[16/10] sm:aspect-[4/3] rounded-[20px] overflow-hidden relative mb-6">
                 <img src={articles[0].img} alt={articles[0].title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#06091a]/80 via-transparent to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-section/80 via-transparent to-transparent"></div>
               </div>
               <div className="px-2 pb-2 flex flex-col flex-grow">
-                <h3 className="font-serif text-[18px] sm:text-[20px] text-white font-bold mb-4 leading-[1.4] group-hover:text-accent transition-colors">
+                <h3 className="font-serif text-[18px] sm:text-[20px] text-heading font-bold mb-4 leading-[1.4] group-hover:text-accent transition-colors">
                   {articles[0].title}
                 </h3>
                 <p className="text-[13px] text-muted/90 leading-[1.6] mb-8 flex-grow">
@@ -85,7 +85,7 @@ export default function BlogSection() {
                 <div className="font-mono text-[9px] font-bold tracking-[0.15em] uppercase text-accent mb-6">
                   {articles[0].tag}
                 </div>
-                <div className="font-mono text-[9px] font-bold tracking-[0.15em] uppercase text-muted group-hover:text-white transition-colors flex items-center gap-2 mt-auto">
+                <div className="font-mono text-[9px] font-bold tracking-[0.15em] uppercase text-muted group-hover:text-heading transition-colors flex items-center gap-2 mt-auto">
                   READ THE ARTICLE <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
@@ -98,13 +98,13 @@ export default function BlogSection() {
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className="lg:col-span-1"
           >
-            <Link href={articles[1].href} className="flex flex-col h-full group bg-[#06091a]/80 border border-white/5 rounded-[24px] p-4 hover:bg-white/[0.02] transition-colors shadow-2xl">
+            <Link href={articles[1].href} className="flex flex-col h-full group bg-section/80 border border-border rounded-[24px] p-4 hover:bg-white/[0.02] transition-colors shadow-2xl">
               <div className="w-full aspect-[4/3] sm:aspect-[4/3] rounded-[20px] overflow-hidden relative mb-6">
                 <img src={articles[1].img} alt={articles[1].title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#06091a]/80 via-transparent to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-section/80 via-transparent to-transparent"></div>
               </div>
               <div className="px-2 pb-2 flex flex-col flex-grow">
-                <h3 className="font-serif text-[15px] sm:text-[16px] text-white font-bold mb-4 leading-[1.4] group-hover:text-accent transition-colors">
+                <h3 className="font-serif text-[15px] sm:text-[16px] text-heading font-bold mb-4 leading-[1.4] group-hover:text-accent transition-colors">
                   {articles[1].title}
                 </h3>
                 <p className="text-[12px] text-muted/80 leading-[1.6] mb-8 flex-grow">
@@ -113,7 +113,7 @@ export default function BlogSection() {
                 <div className="font-mono text-[9px] font-bold tracking-[0.15em] uppercase text-accent mb-6">
                   {articles[1].tag}
                 </div>
-                <div className="font-mono text-[9px] font-bold tracking-[0.15em] uppercase text-muted group-hover:text-white transition-colors flex items-center gap-2 mt-auto">
+                <div className="font-mono text-[9px] font-bold tracking-[0.15em] uppercase text-muted group-hover:text-heading transition-colors flex items-center gap-2 mt-auto">
                   READ <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
@@ -126,13 +126,13 @@ export default function BlogSection() {
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
             className="lg:col-span-1"
           >
-            <Link href={articles[2].href} className="flex flex-col h-full group bg-[#06091a]/80 border border-white/5 rounded-[24px] p-4 hover:bg-white/[0.02] transition-colors shadow-2xl">
+            <Link href={articles[2].href} className="flex flex-col h-full group bg-section/80 border border-border rounded-[24px] p-4 hover:bg-white/[0.02] transition-colors shadow-2xl">
               <div className="w-full aspect-[4/3] sm:aspect-[4/3] rounded-[20px] overflow-hidden relative mb-6">
                 <img src={articles[2].img} alt={articles[2].title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#06091a]/80 via-transparent to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-section/80 via-transparent to-transparent"></div>
               </div>
               <div className="px-2 pb-2 flex flex-col flex-grow">
-                <h3 className="font-serif text-[15px] sm:text-[16px] text-white font-bold mb-4 leading-[1.4] group-hover:text-accent transition-colors">
+                <h3 className="font-serif text-[15px] sm:text-[16px] text-heading font-bold mb-4 leading-[1.4] group-hover:text-accent transition-colors">
                   {articles[2].title}
                 </h3>
                 <p className="text-[12px] text-muted/80 leading-[1.6] mb-8 flex-grow">
@@ -141,7 +141,7 @@ export default function BlogSection() {
                 <div className="font-mono text-[9px] font-bold tracking-[0.15em] uppercase text-accent mb-6">
                   {articles[2].tag}
                 </div>
-                <div className="font-mono text-[9px] font-bold tracking-[0.15em] uppercase text-muted group-hover:text-white transition-colors flex items-center gap-2 mt-auto">
+                <div className="font-mono text-[9px] font-bold tracking-[0.15em] uppercase text-muted group-hover:text-heading transition-colors flex items-center gap-2 mt-auto">
                   READ <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>

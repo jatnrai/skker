@@ -1,118 +1,189 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ChevronRight, ArrowRight } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 export default function CaseStudiesPage() {
   return (
-    <main className="min-h-screen bg-bg text-text selection:bg-accent/30 flex flex-col relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LCAyNTUsIDI1NSwgMC4wMikiLz48L3N2Zz4=')] pointer-events-none z-0" />
-      <div className="absolute top-1/4 left-[15%] w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px] pointer-events-none z-0" />
-      <div className="absolute top-1/4 right-[15%] w-[500px] h-[500px] bg-accent-cool/5 rounded-full blur-[120px] pointer-events-none z-0" />
-
+    <main className="min-h-screen bg-page font-sans flex flex-col relative overflow-hidden text-text">
       <Navbar />
       
-      <div className="flex-grow pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full relative z-10">
+      <div className="flex-grow pt-28 pb-24 px-4 sm:px-6 lg:px-8 max-w-[1400px] mx-auto w-full relative z-10">
         
-        {/* Hero Section */}
-        <header className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start mb-24">
-          <div className="lg:col-span-5 flex flex-col gap-6 lg:sticky lg:top-32">
-            <div className="inline-block px-4 py-1.5 rounded-full border border-accent/30 bg-accent/5 text-accent font-mono text-xs font-bold tracking-widest uppercase w-fit">
-              Case Studies
+        {/* Top Banner */}
+        <div className="relative w-full rounded-[32px] overflow-hidden bg-gradient-to-b from-card via-section to-page border border-border mb-12 min-h-[200px] sm:min-h-[220px] flex items-center px-8 sm:px-12 shadow-2xl">
+          <div className="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#00b8db]/15 via-transparent to-transparent pointer-events-none" />
+          
+          <div className="relative z-10 w-full flex justify-between items-center">
+            <div className="flex flex-col gap-4 max-w-2xl">
+              <nav className="flex items-center gap-2 text-[12px] font-semibold text-muted/70 tracking-wide">
+                <Link href="/" className="hover:text-heading transition-colors flex items-center gap-2">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                  Home
+                </Link>
+                <ChevronRight size={14} className="opacity-50" />
+                <span className="text-heading font-bold">Case Studies</span>
+              </nav>
+              <h1 className="text-4xl sm:text-[44px] font-bold tracking-tight text-heading mt-1">Case Studies</h1>
             </div>
-            <h1 className="text-5xl sm:text-6xl font-serif leading-tight">
-              Proof in<br />
-              <em className="text-muted italic font-serif">practice.</em>
-            </h1>
-            <p className="text-lg text-muted/80 leading-relaxed">
-              Examples of systems architecture, operating model design, AI readiness work, and leadership advisory engagements. Detailed stories live in the Academy page.
-            </p>
-            <div className="flex flex-wrap gap-4 pt-4">
-              <a 
-                href="/academy/page/case-studies" 
-                className="group relative inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-accent to-accent-cool rounded-xl text-white font-semibold shadow-lg shadow-accent/20 hover:shadow-accent/40 transition-all hover:-translate-y-0.5"
-              >
-                <span>Open Case Studies</span>
-                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-              </a>
-              <a 
-                href="/academy/home/book_session" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 px-8 py-4 rounded-xl text-text border border-white/10 bg-white/5 hover:bg-white/10 transition-all hover:-translate-y-0.5 glass-panel"
-              >
-                <span>Book a Session</span>
-              </a>
+            
+            <div className="hidden md:block relative w-[220px] h-[180px] -mr-8">
+              {/* Fallback image if actual book image is missing. Using course-library as proxy since it often has books */}
+              <img 
+                src="/assets/img/training/course-library.png" 
+                alt="" 
+                className="w-full h-full object-contain object-right drop-shadow-2xl opacity-90 transition-transform hover:scale-105 duration-700" 
+                onError={(e) => e.currentTarget.style.display = 'none'} 
+              />
             </div>
           </div>
+        </div>
+
+        {/* Case Studies Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           
-          <aside className="lg:col-span-7 w-full">
-            <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 shadow-xl bg-gradient-to-br from-white/5 to-transparent">
-              
-              <div className="flex flex-wrap gap-3 mb-8 pb-6 border-b border-white/10">
-                <a href="/academy/page/case-studies" className="px-4 py-2 rounded-full border border-white/10 bg-white/5 text-xs font-mono text-text hover:bg-white/10 transition-colors">All</a>
-                <a href="/academy/page/case-studies" className="px-4 py-2 rounded-full border border-white/10 bg-white/5 text-xs font-mono text-text hover:bg-white/10 transition-colors">Operating Model</a>
-                <a href="/academy/page/case-studies" className="px-4 py-2 rounded-full border border-white/10 bg-white/5 text-xs font-mono text-text hover:bg-white/10 transition-colors">AI Strategy</a>
-                <a href="/academy/page/case-studies" className="px-4 py-2 rounded-full border border-white/10 bg-white/5 text-xs font-mono text-text hover:bg-white/10 transition-colors">Kanban / Flow</a>
+          {/* Card 1 */}
+          <div className="flex flex-col bg-card rounded-[24px] border border-border overflow-hidden transition-all duration-300 hover:border-border hover:shadow-2xl group">
+            <div className="aspect-[16/10] relative bg-page overflow-hidden border-b border-border">
+               <img src="/assets/img/blog/systems-design.png" alt="Operating Model" className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" />
+            </div>
+            <div className="p-8 flex flex-col flex-grow items-start">
+              <div className="inline-block px-3 py-1 bg-highlight text-white text-[9.5px] font-extrabold tracking-widest uppercase rounded-full mb-5 shadow-[0_0_15px_rgba(42,167,255,0.4)] border border-border">
+                Operating Model
               </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                
-                {/* Card 1 */}
-                <a href="/academy/page/case-studies" className="group glass-panel rounded-2xl border border-white/10 overflow-hidden hover:border-accent/30 transition-all hover:-translate-y-1 block flex flex-col">
-                  <div className="aspect-[16/9] bg-surface relative overflow-hidden border-b border-white/10">
-                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" alt="Financial Services" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" />
-                  </div>
-                  <div className="p-5 flex flex-col flex-grow">
-                    <div className="text-[10px] font-mono tracking-widest uppercase text-accent mb-2">Financial Services</div>
-                    <h3 className="text-lg font-bold text-text mb-2 leading-snug">Product Operating Model Redesign</h3>
-                    <p className="text-sm text-muted/80 mb-6 flex-grow">Align decision rights, incentives, and delivery rhythms across units.</p>
-                    <div className="text-xs font-bold uppercase tracking-widest text-accent group-hover:text-accent-cool transition-colors inline-flex items-center gap-1 mt-auto">
-                      View <ArrowRight size={14} />
-                    </div>
-                  </div>
-                </a>
-
-                {/* Card 2 */}
-                <a href="/academy/page/case-studies" className="group glass-panel rounded-2xl border border-white/10 overflow-hidden hover:border-accent/30 transition-all hover:-translate-y-1 block flex flex-col">
-                  <div className="aspect-[16/9] bg-surface relative overflow-hidden border-b border-white/10">
-                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80" alt="Technology" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" />
-                  </div>
-                  <div className="p-5 flex flex-col flex-grow">
-                    <div className="text-[10px] font-mono tracking-widest uppercase text-accent mb-2">Technology</div>
-                    <h3 className="text-lg font-bold text-text mb-2 leading-snug">AI Adoption Strategy & Governance</h3>
-                    <p className="text-sm text-muted/80 mb-6 flex-grow">Move from tools to decision rights, capability, and accountable pilots.</p>
-                    <div className="text-xs font-bold uppercase tracking-widest text-accent group-hover:text-accent-cool transition-colors inline-flex items-center gap-1 mt-auto">
-                      View <ArrowRight size={14} />
-                    </div>
-                  </div>
-                </a>
-
-                {/* Card 3 */}
-                <a href="/academy/page/case-studies" className="group glass-panel rounded-2xl border border-white/10 overflow-hidden hover:border-accent/30 transition-all hover:-translate-y-1 block flex flex-col sm:col-span-2">
-                  <div className="aspect-[16/9] sm:aspect-[21/9] bg-surface relative overflow-hidden border-b border-white/10">
-                    <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80" alt="Delivery Systems" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" />
-                  </div>
-                  <div className="p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between flex-grow gap-4">
-                    <div>
-                      <div className="text-[10px] font-mono tracking-widest uppercase text-accent mb-2">Delivery Systems</div>
-                      <h3 className="text-lg font-bold text-text mb-1 leading-snug">Flow-System Implementation</h3>
-                      <p className="text-sm text-muted/80">Improve predictability with WIP limits, service classes, and metrics.</p>
-                    </div>
-                    <div className="text-xs font-bold uppercase tracking-widest text-accent group-hover:text-accent-cool transition-colors inline-flex items-center gap-1 shrink-0">
-                      View <ArrowRight size={14} />
-                    </div>
-                  </div>
-                </a>
-
+              <h3 className="text-[17px] font-bold text-heading leading-[1.5] mb-4">
+                Operating Model Redesign for a Regional Banking Group
+              </h3>
+              <p className="text-[14px] text-muted/70 leading-[1.65] mb-8">
+                A regional bank needed to reduce cross-team handoffs and speed up delivery without increasing headcount.
+              </p>
+              <div className="mt-auto">
+                <Link href="/academy/page/case-studies" className="text-[13px] font-semibold text-muted/60 hover:text-heading transition-colors flex items-center gap-1.5 group/link">
+                  Read case study <ArrowRight size={14} className="group-hover/link:translate-x-1 transition-transform" />
+                </Link>
               </div>
             </div>
-          </aside>
-        </header>
+          </div>
 
+          {/* Card 2 */}
+          <div className="flex flex-col bg-card rounded-[24px] border border-border overflow-hidden transition-all duration-300 hover:border-border hover:shadow-2xl group">
+            <div className="aspect-[16/10] relative bg-page overflow-hidden border-b border-border">
+               <img src="/assets/img/blog/ai-strategy.png" alt="AI Readiness" className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" />
+            </div>
+            <div className="p-8 flex flex-col flex-grow items-start">
+              <div className="inline-block px-3 py-1 bg-highlight text-white text-[9.5px] font-extrabold tracking-widest uppercase rounded-full mb-5 shadow-[0_0_15px_rgba(42,167,255,0.4)] border border-border">
+                AI Readiness
+              </div>
+              <h3 className="text-[17px] font-bold text-heading leading-[1.5] mb-4">
+                AI Adoption Strategy and Governance Blueprint
+              </h3>
+              <p className="text-[14px] text-muted/70 leading-[1.65] mb-8">
+                A fast-growing SaaS company needed a coherent AI strategy before their board-mandated AI initiative went live across ...
+              </p>
+              <div className="mt-auto">
+                <Link href="/academy/page/case-studies" className="text-[13px] font-semibold text-muted/60 hover:text-heading transition-colors flex items-center gap-1.5 group/link">
+                  Read case study <ArrowRight size={14} className="group-hover/link:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 3 */}
+          <div className="flex flex-col bg-card rounded-[24px] border border-border overflow-hidden transition-all duration-300 hover:border-border hover:shadow-2xl group">
+            <div className="aspect-[16/10] relative bg-page overflow-hidden border-b border-border">
+               <img src="/assets/img/blog/kanban.png" alt="Kanban & Flow" className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" />
+            </div>
+            <div className="p-8 flex flex-col flex-grow items-start">
+              <div className="inline-block px-3 py-1 bg-highlight text-white text-[9.5px] font-extrabold tracking-widest uppercase rounded-full mb-5 shadow-[0_0_15px_rgba(42,167,255,0.4)] border border-border">
+                Kanban & Flow
+              </div>
+              <h3 className="text-[17px] font-bold text-heading leading-[1.5] mb-4">
+                Kanban Flow System Implementation Across Functions
+              </h3>
+              <p className="text-[14px] text-muted/70 leading-[1.65] mb-8">
+                A telecoms operator needed to stabilise unpredictable delivery output across six operational teams without a costly t...
+              </p>
+              <div className="mt-auto">
+                <Link href="/academy/page/case-studies" className="text-[13px] font-semibold text-muted/60 hover:text-heading transition-colors flex items-center gap-1.5 group/link">
+                  Read case study <ArrowRight size={14} className="group-hover/link:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Duplicating the cards to match the 2-row layout shown in screenshot */}
+          {/* Card 4 */}
+          <div className="flex flex-col bg-card rounded-[24px] border border-border overflow-hidden transition-all duration-300 hover:border-border hover:shadow-2xl group">
+            <div className="aspect-[16/10] relative bg-page overflow-hidden border-b border-border">
+               <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" alt="Org Design" className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" />
+            </div>
+            <div className="p-8 flex flex-col flex-grow items-start">
+              <div className="inline-block px-3 py-1 bg-highlight text-white text-[9.5px] font-extrabold tracking-widest uppercase rounded-full mb-5 shadow-[0_0_15px_rgba(42,167,255,0.4)] border border-border">
+                ORG DESIGN
+              </div>
+              <h3 className="text-[17px] font-bold text-heading leading-[1.5] mb-4">
+                Enterprise Product Structure Realignment
+              </h3>
+              <p className="text-[14px] text-muted/70 leading-[1.65] mb-8">
+                Restructuring the engineering and product org to eliminate dependencies and accelerate delivery speed...
+              </p>
+              <div className="mt-auto">
+                <Link href="/academy/page/case-studies" className="text-[13px] font-semibold text-muted/60 hover:text-heading transition-colors flex items-center gap-1.5 group/link">
+                  Read case study <ArrowRight size={14} className="group-hover/link:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 5 */}
+          <div className="flex flex-col bg-card rounded-[24px] border border-border overflow-hidden transition-all duration-300 hover:border-border hover:shadow-2xl group">
+            <div className="aspect-[16/10] relative bg-page overflow-hidden border-b border-border">
+               <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80" alt="Strategy" className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" />
+            </div>
+            <div className="p-8 flex flex-col flex-grow items-start">
+              <div className="inline-block px-3 py-1 bg-highlight text-white text-[9.5px] font-extrabold tracking-widest uppercase rounded-full mb-5 shadow-[0_0_15px_rgba(42,167,255,0.4)] border border-border">
+                LEADERSHIP
+              </div>
+              <h3 className="text-[17px] font-bold text-heading leading-[1.5] mb-4">
+                Executive Transition Coaching Program
+              </h3>
+              <p className="text-[14px] text-muted/70 leading-[1.65] mb-8">
+                Supporting newly appointed product executives in establishing their operating cadence and board reporting...
+              </p>
+              <div className="mt-auto">
+                <Link href="/academy/page/case-studies" className="text-[13px] font-semibold text-muted/60 hover:text-heading transition-colors flex items-center gap-1.5 group/link">
+                  Read case study <ArrowRight size={14} className="group-hover/link:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 6 */}
+          <div className="flex flex-col bg-card rounded-[24px] border border-border overflow-hidden transition-all duration-300 hover:border-border hover:shadow-2xl group">
+            <div className="aspect-[16/10] relative bg-page overflow-hidden border-b border-border">
+               <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80" alt="Technology" className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" />
+            </div>
+            <div className="p-8 flex flex-col flex-grow items-start">
+              <div className="inline-block px-3 py-1 bg-highlight text-white text-[9.5px] font-extrabold tracking-widest uppercase rounded-full mb-5 shadow-[0_0_15px_rgba(42,167,255,0.4)] border border-border">
+                TRANSFORMATION
+              </div>
+              <h3 className="text-[17px] font-bold text-heading leading-[1.5] mb-4">
+                Digital Core Modernization Governance
+              </h3>
+              <p className="text-[14px] text-muted/70 leading-[1.65] mb-8">
+                Establishing the steering committee and decision rights structure for a multi-year cloud migration effort...
+              </p>
+              <div className="mt-auto">
+                <Link href="/academy/page/case-studies" className="text-[13px] font-semibold text-muted/60 hover:text-heading transition-colors flex items-center gap-1.5 group/link">
+                  Read case study <ArrowRight size={14} className="group-hover/link:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
 
       <Footer />

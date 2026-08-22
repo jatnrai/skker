@@ -33,7 +33,7 @@ export default function BlogPage() {
           </div>
           
           <aside className="lg:col-span-4 w-full">
-            <div className="glass-panel p-8 rounded-3xl border border-white/10 shadow-xl bg-gradient-to-br from-white/5 to-transparent">
+            <div className="glass-panel p-8 rounded-3xl border border-border shadow-xl bg-gradient-to-br from-white/5 to-transparent">
               <span className="text-accent text-xs font-mono tracking-widest uppercase mb-3 block">Current themes</span>
               <strong className="block text-2xl font-serif text-text leading-tight">
                 Systems, AI, product leadership, and flow.
@@ -44,7 +44,7 @@ export default function BlogPage() {
 
         {/* Featured Article */}
         <section aria-labelledby="featuredTitle" className="mb-32">
-          <article className="group glass-panel rounded-3xl border border-white/10 overflow-hidden shadow-2xl grid grid-cols-1 lg:grid-cols-2 relative hover:border-accent/30 transition-colors">
+          <article className="group glass-panel rounded-3xl border border-border overflow-hidden shadow-2xl grid grid-cols-1 lg:grid-cols-2 relative hover:border-accent/30 transition-colors">
             <figure className="relative h-64 lg:h-auto min-h-[400px] overflow-hidden bg-surface">
               <img 
                 src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1600&q=80" 
@@ -70,7 +70,7 @@ export default function BlogPage() {
               </p>
               <a 
                 href="/academy/blog/details/from-manager-to-architect-the-career-move-no-one-tells-you-about/3" 
-                className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-accent to-accent-cool rounded-xl text-white font-semibold shadow-lg shadow-accent/20 hover:shadow-accent/40 transition-all hover:-translate-y-0.5 w-fit"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-accent to-accent-cool rounded-xl text-heading font-semibold shadow-lg shadow-accent/20 hover:shadow-accent/40 transition-all hover:-translate-y-0.5 w-fit"
               >
                 <span>Read Article</span>
                 <ArrowRight size={18} />
@@ -87,7 +87,7 @@ export default function BlogPage() {
               <h2 id="latestTitle" className="text-4xl font-serif">Recent articles.</h2>
             </div>
             
-            <label className="relative flex items-center w-full md:w-72 glass-panel border border-white/10 rounded-full px-4 py-3 focus-within:border-accent/50 focus-within:shadow-[0_0_15px_rgba(0,184,219,0.15)] transition-all">
+            <label className="relative flex items-center w-full md:w-72 glass-panel border border-border rounded-full px-4 py-3 focus-within:border-accent/50 focus-within:shadow-[0_0_15px_rgba(0,184,219,0.15)] transition-all">
               <Search size={18} className="text-muted mr-3" />
               <input 
                 type="search" 
@@ -100,8 +100,8 @@ export default function BlogPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             
             {/* Article 1 */}
-            <article className="group glass-panel rounded-3xl border border-white/10 overflow-hidden hover:border-accent/30 transition-all hover:-translate-y-1 flex flex-col">
-              <a href="/academy/blog/details/from-manager-to-architect-the-career-move-no-one-tells-you-about/3" className="block aspect-[16/10] overflow-hidden border-b border-white/10 bg-surface">
+            <article className="group glass-panel rounded-3xl border border-border overflow-hidden hover:border-accent/30 transition-all hover:-translate-y-1 flex flex-col">
+              <a href="/academy/blog/details/from-manager-to-architect-the-career-move-no-one-tells-you-about/3" className="block aspect-[16/10] overflow-hidden border-b border-border bg-surface">
                 <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" alt="Product leadership" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" />
               </a>
               <div className="p-8 flex flex-col flex-grow">
@@ -124,8 +124,8 @@ export default function BlogPage() {
             </article>
 
             {/* Article 2 */}
-            <article className="group glass-panel rounded-3xl border border-white/10 overflow-hidden hover:border-accent/30 transition-all hover:-translate-y-1 flex flex-col">
-              <a href="/academy/blog/details/the-quiet-discipline-of-flow-what-kanban-actually-teaches/2" className="block aspect-[16/10] overflow-hidden border-b border-white/10 bg-surface">
+            <article className="group glass-panel rounded-3xl border border-border overflow-hidden hover:border-accent/30 transition-all hover:-translate-y-1 flex flex-col">
+              <a href="/academy/blog/details/the-quiet-discipline-of-flow-what-kanban-actually-teaches/2" className="block aspect-[16/10] overflow-hidden border-b border-border bg-surface">
                 <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80" alt="Systems design" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" />
               </a>
               <div className="p-8 flex flex-col flex-grow">
@@ -148,8 +148,8 @@ export default function BlogPage() {
             </article>
 
             {/* Article 3 */}
-            <article className="group glass-panel rounded-3xl border border-white/10 overflow-hidden hover:border-accent/30 transition-all hover:-translate-y-1 flex flex-col">
-              <a href="/academy/blog/details/why-most-organizations-are-misunderstanding-ai-adoption/1" className="block aspect-[16/10] overflow-hidden border-b border-white/10 bg-surface">
+            <article className="group glass-panel rounded-3xl border border-border overflow-hidden hover:border-accent/30 transition-all hover:-translate-y-1 flex flex-col">
+              <a href="/academy/blog/details/why-most-organizations-are-misunderstanding-ai-adoption/1" className="block aspect-[16/10] overflow-hidden border-b border-border bg-surface">
                 <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80" alt="AI strategy" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" />
               </a>
               <div className="p-8 flex flex-col flex-grow">

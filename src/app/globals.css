@@ -1,71 +1,88 @@
 @import "tailwindcss";
-@import "./theme.css";
 
 @theme {
-  --color-bg: var(--bg);
+  --color-page: var(--page);
+  --color-section: var(--section);
+  --color-card: var(--card);
   --color-surface: var(--surface);
+  
   --color-text: var(--text);
   --color-muted: var(--muted);
+  --color-heading: var(--heading);
+  
   --color-accent: var(--accent);
   --color-accent-cool: var(--accent-cool);
-  --color-border: var(--border);
-
-  --color-page-bg: var(--page-bg);
-  --color-section-alt-bg: var(--section-alt-bg);
-  --color-card-bg: var(--card-bg);
-  --color-card-hover-bg: var(--card-hover-bg);
-  --color-card-glass-bg: var(--card-glass-bg);
+  --color-highlight: var(--highlight);
+  --color-highlight-glow: var(--highlight-glow);
   
-  --color-heading-primary: var(--text-heading-primary);
-  --color-heading-secondary: var(--text-heading-secondary);
-  --color-btn-text: var(--btn-text);
+  --color-border: var(--border);
+  --color-border-focus: var(--border-focus);
 
   --font-sans: var(--font-sans, sans-serif);
-  --font-serif: var(--font-sans, sans-serif);
-  /* Fallback to sans for legacy classes */
+  --font-serif: var(--font-serif, serif);
   --font-mono: var(--font-mono, monospace);
 }
 
 :root {
-  --bg: #f6f8fa;
-  --surface: #ffffff;
-  --text: #1f2328;
-  --muted: #656d76;
-  --accent: #0969da;
-  --accent-cool: #218bff;
-  --border: #d1d7dc;
+  /* LIGHT MODE (Clean, airy, slightly cool grays/whites) */
+  --page: #f8fafc;
+  --section: #f1f5f9;
+  --card: #ffffff;
+  --surface: #e2e8f0;
+  
+  --text: #334155;
+  --muted: #64748b;
+  --heading: #0f172a;
+  
+  --accent: #0284c7;
+  --accent-cool: #0ea5e9;
+  --highlight: #2aa7ff; /* Brand bluish shade */
+  --highlight-glow: rgba(42, 167, 255, 0.4);
+  
+  --border: #e2e8f0;
+  --border-focus: #cbd5e1;
 }
 
 :root.dark,
 html.dark,
 .dark {
-  --bg: #0d1117;
-  --surface: #161b22;
-  --text: #e6edf3;
-  --muted: #7d8590;
+  /* DARK MODE (Deep space, glassmorphic, cool blues) */
+  --page: #040816;
+  --section: #06091a;
+  --card: #0b141e;
+  --surface: #0a1520;
+  
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --heading: #f8fafc;
+  
   --accent: #00b8db;
   --accent-cool: #6cf3ff;
-  --border: #30363d;
+  --highlight: #2aa7ff; /* Brand bluish shade */
+  --highlight-glow: rgba(42, 167, 255, 0.4);
+  
+  --border: rgba(255, 255, 255, 0.05);
+  --border-focus: rgba(255, 255, 255, 0.1);
 }
 
 body {
-  background-color: var(--bg);
+  background-color: var(--page);
   color: var(--text);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
 
-/* Restoring the original glassmorphism UI */
+/* Glassmorphism Classes (Dynamic for Light/Dark) */
 .glass-panel {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
 }
 
 .dark .glass-panel {
-  background-color: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(6, 9, 26, 0.5);
+  border: 1px solid var(--border);
   box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
 }

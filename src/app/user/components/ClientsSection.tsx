@@ -22,7 +22,7 @@ const clients = [
 
 export default function ClientsSection() {
   return (
-    <section id="clients" className="py-24 sm:py-32 px-4 sm:px-6 relative z-10 bg-[#040816]">
+    <section id="clients" className="py-24 sm:py-32 px-4 sm:px-6 relative z-10 bg-page">
       <div className="max-w-[1200px] mx-auto w-full relative z-10 flex flex-col gap-16">
         
         {/* Header Area */}
@@ -30,7 +30,7 @@ export default function ClientsSection() {
           <div className="font-mono text-[10px] font-bold tracking-[0.22em] uppercase text-accent opacity-80 mb-6">
             Our Clients
           </div>
-          <h2 className="text-[45px] sm:text-[60px] font-serif font-bold text-[#eef0f8] leading-[1.05] tracking-[-0.025em] mb-6">
+          <h2 className="text-[45px] sm:text-[60px] font-serif font-bold text-heading leading-[1.05] tracking-[-0.025em] mb-6">
             Organisations we have <br />
             <em className="text-transparent bg-clip-text bg-gradient-to-br from-accent via-[#a2f4fd] to-accent-cool italic font-serif">worked with.</em>
           </h2>
@@ -57,21 +57,21 @@ export default function ClientsSection() {
                 hidden: { opacity: 0, scale: 0.95 },
                 show: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: "easeOut" } }
               }}
-              className="bg-[#06091a]/80 border border-white/5 rounded-[24px] p-6 sm:p-8 flex flex-col items-center justify-center text-center hover:bg-white/[0.03] hover:border-white/10 transition-colors shadow-xl group"
+              className="bg-section/80 border border-border rounded-[24px] p-6 sm:p-8 flex flex-col items-center justify-center text-center hover:bg-white/[0.03] hover:border-border transition-colors shadow-xl group"
             >
               {/* Logo / Initial Area */}
               <div className="h-[40px] flex items-center justify-center mb-4">
                 {client.logo ? (
                   <img src={client.logo} alt={client.name} className="max-h-full max-w-[60px] opacity-70 group-hover:opacity-100 transition-opacity" />
                 ) : (
-                  <div className="font-mono text-[12px] font-bold tracking-widest text-muted group-hover:text-white transition-colors">
+                  <div className="font-mono text-[12px] font-bold tracking-widest text-muted group-hover:text-heading transition-colors">
                     {client.initial}
                   </div>
                 )}
               </div>
               
               {/* Client Name */}
-              <h3 className="font-mono text-[11px] font-bold tracking-[0.1em] text-white uppercase mb-2 group-hover:text-[#a2f4fd] transition-colors">
+              <h3 className="font-mono text-[11px] font-bold tracking-[0.1em] text-heading uppercase mb-2 group-hover:text-accent-cool transition-colors">
                 {client.name}
               </h3>
               

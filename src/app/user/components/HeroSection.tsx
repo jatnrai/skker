@@ -43,14 +43,14 @@ export default function HeroSection() {
           <div className="flex flex-wrap items-center gap-4 pt-4">
             <Link 
               href="/user/training" 
-              className="group inline-flex items-center gap-2 px-10 py-4 bg-gradient-to-r from-accent to-accent-cool rounded-full text-white font-mono text-[12px] font-extrabold tracking-[0.1em] uppercase shadow-[0_0_20px_rgba(0,184,219,0.3)] hover:shadow-[0_0_35px_rgba(0,184,219,0.5)] transition-all hover:-translate-y-1"
+              className="group inline-flex items-center gap-3 px-12 py-5 bg-gradient-to-r from-accent to-accent-cool rounded-full text-heading font-mono text-[14px] font-extrabold tracking-[0.1em] uppercase shadow-[0_0_20px_rgba(0,184,219,0.3)] hover:shadow-[0_0_35px_rgba(0,184,219,0.5)] transition-all hover:-translate-y-1"
             >
               <span>Explore Training</span>
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </Link>
             <a 
               href="/academy/home/book_session" 
-              className="group inline-flex items-center gap-2 px-10 py-4 rounded-full text-text border border-border bg-surface hover:bg-bg transition-all font-mono text-[12px] font-bold tracking-[0.1em] uppercase"
+              className="group inline-flex items-center gap-3 px-12 py-5 rounded-full text-text border border-border bg-surface hover:bg-page transition-all font-mono text-[14px] font-bold tracking-[0.1em] uppercase hover:-translate-y-1"
             >
               <span>Book a Strategy Session</span>
               <span className="group-hover:translate-x-1 transition-transform">→</span>
@@ -128,7 +128,7 @@ export default function HeroSection() {
         <Link href="/user/login" className="px-6 py-2.5 rounded-full border border-border bg-surface/50 hover:bg-surface transition-colors text-[9px] font-mono font-bold uppercase tracking-[0.15em] text-muted hover:text-text">
           Login to Academy
         </Link>
-        <Link href="/user/courses" className="px-6 py-2.5 rounded-full border border-border bg-surface/50 hover:bg-surface transition-colors text-[9px] font-mono font-bold uppercase tracking-[0.15em] text-muted hover:text-text">
+        <Link href="/user/training/courses" className="px-6 py-2.5 rounded-full border border-border bg-surface/50 hover:bg-surface transition-colors text-[9px] font-mono font-bold uppercase tracking-[0.15em] text-muted hover:text-text">
           Browse Courses
         </Link>
         <Link href="/academy/home/book_session" className="px-6 py-2.5 rounded-full border border-border bg-surface/50 hover:bg-surface transition-colors text-[9px] font-mono font-bold uppercase tracking-[0.15em] text-muted hover:text-text">

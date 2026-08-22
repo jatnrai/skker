@@ -33,25 +33,25 @@ export default function BookSessionPage() {
           
           {/* Details Column */}
           <div className="lg:col-span-5 space-y-8">
-            <div className="glass-panel p-8 rounded-3xl border border-white/10">
+            <div className="glass-panel p-8 rounded-3xl border border-border">
               <h2 className="text-xl font-bold text-text mb-6">Session Details</h2>
               <ul className="space-y-6">
                 <li className="flex items-start gap-4">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white/5 text-accent border border-white/10 shrink-0"><Clock size={18} /></div>
+                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white/5 text-accent border border-border shrink-0"><Clock size={18} /></div>
                   <div>
                     <strong className="block text-text text-sm mb-1">Duration</strong>
                     <p className="text-sm text-muted/80">60 Minutes</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-4">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white/5 text-accent border border-white/10 shrink-0"><Video size={18} /></div>
+                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white/5 text-accent border border-border shrink-0"><Video size={18} /></div>
                   <div>
                     <strong className="block text-text text-sm mb-1">Format</strong>
                     <p className="text-sm text-muted/80">Google Meet (Link provided upon booking)</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-4">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white/5 text-accent border border-white/10 shrink-0"><Calendar size={18} /></div>
+                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white/5 text-accent border border-border shrink-0"><Calendar size={18} /></div>
                   <div>
                     <strong className="block text-text text-sm mb-1">Scheduling</strong>
                     <p className="text-sm text-muted/80">Pick an available time on the calendar.</p>
@@ -60,7 +60,7 @@ export default function BookSessionPage() {
               </ul>
             </div>
 
-            <div className="glass-panel p-8 rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 to-transparent">
+            <div className="glass-panel p-8 rounded-3xl border border-border bg-gradient-to-br from-white/5 to-transparent">
               <h3 className="text-sm font-bold text-text mb-2">How to prepare</h3>
               <p className="text-sm text-muted/80">
                 You will be asked to provide context when booking. Please describe the specific decision or system challenge you want to focus on so we can jump straight into the work.
@@ -70,7 +70,7 @@ export default function BookSessionPage() {
 
           {/* Booking Form/Embed Column */}
           <div className="lg:col-span-7">
-            <div className="glass-panel rounded-3xl border border-white/10 shadow-xl overflow-hidden h-full min-h-[600px] flex flex-col items-center justify-center p-12 text-center relative">
+            <div className="glass-panel rounded-3xl border border-border shadow-xl overflow-hidden h-full min-h-[600px] flex flex-col items-center justify-center p-12 text-center relative">
               <div className="absolute inset-0 bg-gradient-to-br from-surface to-bg opacity-50 pointer-events-none" />
               
               <div className="relative z-10 max-w-md mx-auto">
