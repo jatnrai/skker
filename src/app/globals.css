@@ -18,7 +18,7 @@
   --color-border: var(--border);
   --color-border-focus: var(--border-focus);
 
-  --font-sans: var(--font-sans, sans-serif);
+  --font-sans: var(--font-serif, serif);
   --font-serif: var(--font-serif, serif);
   --font-mono: var(--font-mono, monospace);
 }
@@ -74,7 +74,7 @@ body {
     linear-gradient(180deg, var(--page) 0%, rgba(0, 184, 219, 0.04) 100%);
   background-attachment: fixed;
   color: var(--text);
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   -webkit-font-smoothing: antialiased;
 }
 

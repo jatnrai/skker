@@ -29,7 +29,8 @@ export default function HeroSection() {
 
           {/* Headline */}
           <h1 className="text-[48px] sm:text-[60px] lg:text-[72px] font-serif font-bold text-text leading-[1.05] tracking-tight">
-            Learn systems, strategy, <br />
+            Learn systems, <br />
+            strategy, <br />
             <em className="text-accent italic font-serif">and AI</em> with clarity.
           </h1>
 
