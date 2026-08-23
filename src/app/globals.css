@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+@custom-variant dark (&:where(.dark, .dark *));
 @theme {
   --color-page: var(--page);
   --color-section: var(--section);
@@ -67,9 +67,40 @@ html.dark,
 
 body {
   background-color: var(--page);
+  /* Light Mode Gradient */
+  background-image: 
+    radial-gradient(circle at 15% 5%, rgba(0, 184, 219, 0.12), transparent 40%),
+    radial-gradient(circle at 85% 15%, rgba(0, 184, 219, 0.08), transparent 45%),
+    linear-gradient(180deg, var(--page) 0%, rgba(0, 184, 219, 0.04) 100%);
+  background-attachment: fixed;
   color: var(--text);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+}
+
+.dark body {
+  background-image: 
+    radial-gradient(circle at 12% 0%, rgba(0, 184, 219, 0.18), transparent 34%),
+    radial-gradient(circle at 88% 10%, rgba(0, 184, 219, 0.12), transparent 30%),
+    linear-gradient(180deg, var(--page) 0%, rgba(0,0,0, 0.2) 100%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: -1;
+  /* Light Mode subtle glow */
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(0, 184, 219, 0.04), transparent 30%),
+    radial-gradient(circle at 80% 10%, rgba(0, 184, 219, 0.03), transparent 25%);
+}
+
+.dark body::before {
+  background-image:
+    radial-gradient(circle at 18% 16%, rgba(0, 184, 219, 0.10), transparent 24%),
+    radial-gradient(circle at 82% 8%, rgba(0, 184, 219, 0.08), transparent 22%);
 }
 
 /* Glassmorphism Classes (Dynamic for Light/Dark) */
@@ -85,4 +116,34 @@ body {
   background-color: rgba(6, 9, 26, 0.5);
   border: 1px solid var(--border);
   box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+/* Gradient Borders */
+.border-gradient {
+  border: 1px solid transparent;
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  background-image: linear-gradient(var(--card), var(--card)), linear-gradient(to bottom right, rgba(0, 184, 219, 0.5), rgba(255, 255, 255, 0.05));
+}
+.border-gradient-surface {
+  border: 1px solid transparent;
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  background-image: linear-gradient(var(--surface), var(--surface)), linear-gradient(to bottom right, rgba(0, 184, 219, 0.3), rgba(255, 255, 255, 0.05));
+}
+
+/* Authentic Card Gradients */
+.card-gradient {
+  background: radial-gradient(circle at 15% 0%, rgba(0, 184, 219, 0.16), transparent 42%), var(--card);
+}
+.surface-gradient {
+  background: radial-gradient(circle at 15% 0%, rgba(0, 184, 219, 0.12), transparent 42%), var(--surface);
+}
+
+.bg-corporate-gradient {
+  background: radial-gradient(circle at 12% 2%, rgba(0, 184, 219, 0.12), transparent 34rem), radial-gradient(circle at 88% 18%, rgba(74, 216, 255, 0.08), transparent 30rem), linear-gradient(180deg, var(--page) 0%, rgba(0, 184, 219, 0.02) 100%);
+}
+
+.dark .bg-corporate-gradient {
+  background: radial-gradient(circle at 12% 2%, rgba(0, 184, 219, 0.18), transparent 34rem), radial-gradient(circle at 88% 18%, rgba(74, 216, 255, 0.10), transparent 30rem), linear-gradient(180deg, rgba(7, 16, 29, 0.98), rgba(8, 13, 24, 0.98));
 }

@@ -26,7 +26,7 @@ export default function CoachingCTA() {
               Book a Session
             </Link>
             <a 
-              href="/#contact" 
+              href="/user#enquiry" 
               className="inline-flex items-center justify-center px-10 py-4 rounded-[100px] text-heading border border-border bg-transparent hover:bg-white/5 transition-all hover:-translate-y-0.5 font-mono text-[11px] font-bold tracking-[0.1em] uppercase"
             >
               Contact Me

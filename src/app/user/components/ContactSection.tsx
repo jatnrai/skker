@@ -12,7 +12,7 @@ const fadeUp = {
 
 export default function ContactSection() {
   return (
-    <section id="contact" className="py-24 sm:py-32 px-4 sm:px-6 relative z-10 bg-page">
+    <section id="enquiry" className="py-24 sm:py-25 px-4 sm:px-6 relative z-10 bg-page">
       <div className="max-w-[1300px] mx-auto w-full relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
         {/* Left Column: Text & Image */}
@@ -29,7 +29,7 @@ export default function ContactSection() {
             Use the enquiry form for advisory, coaching, training, speaking, or partnership requests.
           </p>
 
-          <div className="w-full max-w-[500px] aspect-[4/3] rounded-[32px] overflow-hidden relative border border-border shadow-2xl">
+          <div className="w-full aspect-[4/5] rounded-[32px] overflow-hidden relative border border-border shadow-2xl">
             <img
               src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80"
               alt="Handshake meeting"
@@ -98,7 +98,7 @@ export default function ContactSection() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Phone */}
                 <a href="tel:+19898000321" className="flex items-center gap-4 p-4 rounded-2xl bg-transparent border border-border hover:border-accent/40 hover:bg-white/[0.02] transition-colors group">
-                  <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center shrink-0 shadow-[0_0_30px_rgba(0,184,219,1)]">
                     <Phone size={18} className="fill-current" />
                   </div>
                   <div className="flex flex-col">
@@ -109,7 +109,7 @@ export default function ContactSection() {
 
                 {/* Email */}
                 <a href="mailto:hi@skker.com" className="flex items-center gap-4 p-4 rounded-2xl bg-transparent border border-border hover:border-accent/40 hover:bg-white/[0.02] transition-colors group">
-                  <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center shrink-0 shadow-[0_0_30px_rgba(0,184,219,1)]">
                     <Send size={18} className="fill-current" />
                   </div>
                   <div className="flex flex-col">
@@ -121,7 +121,7 @@ export default function ContactSection() {
 
               {/* Address */}
               <div className="flex items-center gap-4 p-4 rounded-2xl bg-transparent border border-border">
-                <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center shrink-0 shadow-[0_0_30px_rgba(0,184,219,1)]">
                   <MapPin size={18} className="fill-current" />
                 </div>
                 <div className="flex flex-col">
@@ -132,7 +132,7 @@ export default function ContactSection() {
 
               {/* Social Media */}
               <a href="https://www.linkedin.com/in/soon-kiat-ker-193b30108/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-2xl bg-transparent border border-border hover:border-accent/40 hover:bg-white/[0.02] transition-colors group">
-                <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center shrink-0 shadow-[0_0_30px_rgba(0,184,219,1)]">
                   <Share2 size={18} className="fill-current" />
                 </div>
                 <div className="flex flex-col">

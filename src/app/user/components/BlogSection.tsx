@@ -39,7 +39,7 @@ export default function BlogSection() {
   return (
     <section id="insights" className="py-24 sm:py-32 px-4 sm:px-6 relative z-10 bg-section border-y border-border">
       <div className="max-w-[1400px] mx-auto w-full relative z-10 flex flex-col gap-16">
-        
+
         {/* Header Area */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-8">
           <motion.div {...fadeUp}>
@@ -52,8 +52,8 @@ export default function BlogSection() {
             </h2>
           </motion.div>
           <motion.div {...fadeUp} className="pb-3">
-            <Link 
-              href="/user/blog" 
+            <Link
+              href="/user/blog"
               className="inline-flex items-center gap-2 px-6 py-3 border border-border rounded-full text-[9px] font-mono font-bold tracking-[0.15em] uppercase text-muted hover:text-text hover:bg-white/5 hover:border-border transition-all group"
             >
               View All Articles <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
@@ -63,11 +63,11 @@ export default function BlogSection() {
 
         {/* Grid Layout (2fr 1fr 1fr) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          
+
           {/* Featured Article (Left - Spans 2 columns) */}
-          <motion.div 
-            {...fadeUp} 
-            transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }} 
+          <motion.div
+            {...fadeUp}
+            transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
             className="lg:col-span-2"
           >
             <Link href={articles[0].href} className="flex flex-col h-full group bg-section/80 border border-border rounded-[24px] p-4 hover:bg-white/[0.02] transition-colors shadow-2xl">
@@ -93,8 +93,8 @@ export default function BlogSection() {
           </motion.div>
 
           {/* Article 2 */}
-          <motion.div 
-            {...fadeUp} 
+          <motion.div
+            {...fadeUp}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className="lg:col-span-1"
           >
@@ -121,8 +121,8 @@ export default function BlogSection() {
           </motion.div>
 
           {/* Article 3 */}
-          <motion.div 
-            {...fadeUp} 
+          <motion.div
+            {...fadeUp}
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
             className="lg:col-span-1"
           >

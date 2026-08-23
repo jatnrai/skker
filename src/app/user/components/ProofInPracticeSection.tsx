@@ -24,7 +24,7 @@ export default function ProofInPracticeSection() {
   return (
     <section id="work" className="py-24 sm:py-32 px-4 sm:px-6 relative z-10 bg-section">
       <div className="max-w-[1200px] mx-auto w-full relative z-10 flex flex-col gap-16">
-        
+
         {/* Header Area */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
           <div>
@@ -36,8 +36,8 @@ export default function ProofInPracticeSection() {
               <em className="text-transparent bg-clip-text bg-gradient-to-br from-accent via-[#a2f4fd] to-accent-cool italic font-serif">practice.</em>
             </h2>
           </div>
-          <Link 
-            href="/user/case-studies" 
+          <Link
+            href="/user/case-studies"
             className="inline-flex items-center gap-2 px-6 py-3 border border-border rounded-full text-[9px] font-mono font-bold tracking-[0.15em] uppercase text-muted hover:text-text hover:bg-white/5 hover:border-border transition-all shrink-0"
           >
             All Case Studies <ArrowRight size={14} />
@@ -45,7 +45,7 @@ export default function ProofInPracticeSection() {
         </div>
 
         {/* Case Studies List (Animated) */}
-        <motion.div 
+        <motion.div
           className="flex flex-col gap-4"
           variants={containerVariants}
           initial="hidden"
@@ -54,18 +54,18 @@ export default function ProofInPracticeSection() {
         >
           {caseStudies.map((study, idx) => (
             <motion.div key={study.id} variants={itemVariants}>
-              <Link 
+              <Link
                 href={`/user/case-studies/${study.id}`}
                 className="group relative flex flex-col md:flex-row items-center justify-between gap-6 bg-card/50 hover:bg-surface border border-border hover:border-border rounded-[32px] p-4 transition-all duration-300"
               >
-                
+
                 {/* Left: Image & Title */}
                 <div className="flex items-center gap-6 w-full md:w-auto">
                   <div className="w-[140px] h-[80px] shrink-0 rounded-2xl overflow-hidden border border-border">
-                    <img 
-                      src={study.thumbnailUrl} 
-                      alt={study.title} 
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                    <img
+                      src={study.thumbnailUrl}
+                      alt={study.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
                   </div>
                   <div className="flex flex-col">
@@ -80,7 +80,7 @@ export default function ProofInPracticeSection() {
 
                 {/* Right: Metrics & Arrow */}
                 <div className="flex items-center gap-8 w-full md:w-auto justify-between md:justify-end pr-4">
-                  
+
                   {/* Metrics Block */}
                   <div className="flex items-center gap-3">
                     {study.metrics.map((metric, i) => (

@@ -7,8 +7,8 @@ export default function HeroSection() {
   return (
     <section className="relative min-h-[90vh] flex flex-col justify-center pt-32 pb-8 overflow-hidden" id="hero">
       {/* Background glow effects - keeping them subtle */}
-      <div className="absolute top-[20%] left-[5%] w-[400px] h-[400px] bg-accent/10 rounded-full blur-[140px] pointer-events-none z-0" />
-      <div className="absolute bottom-[10%] right-[10%] w-[500px] h-[500px] bg-accent-cool/5 rounded-full blur-[160px] pointer-events-none z-0" />
+      <div className="absolute top-[20%] left-[10%] w-[500px] h-[500px] bg-accent/30 dark:bg-accent/15 rounded-full blur-[140px] pointer-events-none z-0" />
+      <div className="absolute bottom-[10%] right-[10%] w-[600px] h-[600px] bg-accent-cool/25 dark:bg-accent-cool/10 rounded-full blur-[160px] pointer-events-none z-0" />
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
 
@@ -28,9 +28,8 @@ export default function HeroSection() {
           </div>
 
           {/* Headline */}
-          <h1 className="text-[56px] sm:text-[72px] lg:text-[84px] font-serif font-bold text-text leading-[1.05] tracking-tight">
-            Learn systems, <br />
-            strategy, <br />
+          <h1 className="text-[48px] sm:text-[60px] lg:text-[72px] font-serif font-bold text-text leading-[1.05] tracking-tight">
+            Learn systems, strategy, <br />
             <em className="text-accent italic font-serif">and AI</em> with clarity.
           </h1>
 
@@ -39,21 +38,20 @@ export default function HeroSection() {
             Practical programs and advisory for leaders, teams, and professionals who want clearer systems, stronger decisions, and better execution.
           </p>
 
-          {/* Primary Buttons - Increased padding as requested */}
-          <div className="flex flex-wrap items-center gap-4 pt-4">
+          {/* Primary Buttons - Fixed Uniform Width */}
+          <div className="flex flex-col sm:flex-row items-center gap-4 pt-4 w-full max-w-[580px]">
             <Link
               href="/user/training"
-              className="group inline-flex items-center gap-3 px-12 py-5 bg-gradient-to-r from-accent to-accent-cool rounded-full text-heading font-mono text-[14px] font-extrabold tracking-[0.1em] uppercase shadow-[0_0_20px_rgba(0,184,219,0.3)] hover:shadow-[0_0_35px_rgba(0,184,219,0.5)] transition-all hover:-translate-y-1"
+              className="group flex justify-center items-center gap-3 w-full py-5 bg-gradient-to-r from-accent to-accent-cool rounded-full text-heading font-mono text-[13px] font-extrabold tracking-[0.1em] uppercase shadow-[0_0_20px_rgba(0,184,219,0.3)] hover:shadow-[0_0_35px_rgba(0,184,219,0.5)] transition-all hover:-translate-y-1"
             >
               <span>Explore Training</span>
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
             </Link>
             <a
-              href="/academy/home/book_session"
-              className="group inline-flex items-center gap-3 px-12 py-5 rounded-full text-text border border-border bg-surface hover:bg-page transition-all font-mono text-[14px] font-bold tracking-[0.1em] uppercase hover:-translate-y-1"
+              href="/user#enquiry"
+              className="group flex justify-center items-center gap-3 w-full py-5 rounded-full text-text border border-border bg-surface hover:bg-page transition-all font-mono text-[13px] font-bold tracking-[0.1em] uppercase hover:-translate-y-1"
             >
               <span>Book a Strategy Session</span>
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
             </a>
           </div>
 

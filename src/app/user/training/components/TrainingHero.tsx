@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function TrainingHero() {
   return (
-    <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center mb-32">
+    <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center mb-16">
       {/* Left Column: Text Content */}
       <div className="flex flex-col">
         <div className="font-mono text-[10px] font-bold tracking-[0.22em] uppercase text-accent opacity-80 mb-6">

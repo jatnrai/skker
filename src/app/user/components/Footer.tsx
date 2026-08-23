@@ -78,7 +78,7 @@ export default function Footer() {
               Connect
             </h3>
             <ul className="flex flex-col gap-4">
-              <li><Link href="#contact" className="text-[13px] font-medium text-muted hover:text-heading transition-colors">Contact</Link></li>
+              <li><Link href="/user/contact" className="text-[13px] font-medium text-muted hover:text-heading transition-colors">Contact</Link></li>
               <li><Link href="/user/login" className="text-[13px] font-medium text-muted hover:text-heading transition-colors">Login</Link></li>
               <li><Link href="/academy" className="text-[13px] font-medium text-muted hover:text-heading transition-colors">Open Academy</Link></li>
               <li><a href="mailto:hi@skker.com" className="text-[13px] font-medium text-muted hover:text-heading transition-colors">Email</a></li>

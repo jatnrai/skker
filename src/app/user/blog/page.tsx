@@ -14,9 +14,9 @@ export default function BlogPage() {
       <div className="absolute bottom-1/4 right-[10%] w-[400px] h-[400px] bg-accent-cool/5 rounded-full blur-[100px] pointer-events-none z-0" />
 
       <Navbar />
-      
-      <div className="flex-grow pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full relative z-10">
-        
+
+      <div className="flex-grow pt-32 pb-1 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full relative z-10">
+
         {/* Hero Section */}
         <header className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center mb-24">
           <div className="lg:col-span-8 flex flex-col gap-6">
@@ -31,7 +31,7 @@ export default function BlogPage() {
               Practical writing on systems architecture, product leadership, AI strategy, coaching, delivery, and organizational transformation.
             </p>
           </div>
-          
+
           <aside className="lg:col-span-4 w-full">
             <div className="glass-panel p-8 rounded-3xl border border-border shadow-xl bg-gradient-to-br from-white/5 to-transparent">
               <span className="text-accent text-xs font-mono tracking-widest uppercase mb-3 block">Current themes</span>
@@ -46,15 +46,15 @@ export default function BlogPage() {
         <section aria-labelledby="featuredTitle" className="mb-32">
           <article className="group glass-panel rounded-3xl border border-border overflow-hidden shadow-2xl grid grid-cols-1 lg:grid-cols-2 relative hover:border-accent/30 transition-colors">
             <figure className="relative h-64 lg:h-auto min-h-[400px] overflow-hidden bg-surface">
-              <img 
-                src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1600&q=80" 
-                alt="Product leadership" 
-                className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" 
+              <img
+                src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1600&q=80"
+                alt="Product leadership"
+                className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-bg/80 via-transparent to-transparent lg:hidden" />
               <div className="absolute inset-0 bg-gradient-to-l from-bg/80 via-transparent to-transparent hidden lg:block" />
             </figure>
-            
+
             <div className="flex flex-col justify-center p-8 lg:p-16 relative z-10 bg-gradient-to-br from-surface/50 to-transparent backdrop-blur-sm">
               <span className="text-accent text-xs font-mono tracking-widest uppercase mb-4 inline-block">Featured article</span>
               <h2 id="featuredTitle" className="text-3xl lg:text-4xl font-bold text-text mb-6 leading-tight">
@@ -68,8 +68,8 @@ export default function BlogPage() {
               <p className="text-muted/80 text-lg mb-8 leading-relaxed">
                 At some point in a product career, managing execution is not enough. The real shift is architectural: from task ownership to system ownership.
               </p>
-              <a 
-                href="/academy/blog/details/from-manager-to-architect-the-career-move-no-one-tells-you-about/3" 
+              <a
+                href="/academy/blog/details/from-manager-to-architect-the-career-move-no-one-tells-you-about/3"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-accent to-accent-cool rounded-xl text-heading font-semibold shadow-lg shadow-accent/20 hover:shadow-accent/40 transition-all hover:-translate-y-0.5 w-fit"
               >
                 <span>Read Article</span>
@@ -86,19 +86,19 @@ export default function BlogPage() {
               <div className="text-accent text-xs font-mono tracking-widest uppercase mb-4">Latest thinking</div>
               <h2 id="latestTitle" className="text-4xl font-serif">Recent articles.</h2>
             </div>
-            
+
             <label className="relative flex items-center w-full md:w-72 glass-panel border border-border rounded-full px-4 py-3 focus-within:border-accent/50 focus-within:shadow-[0_0_15px_rgba(0,184,219,0.15)] transition-all">
               <Search size={18} className="text-muted mr-3" />
-              <input 
-                type="search" 
-                placeholder="Search by topic" 
+              <input
+                type="search"
+                placeholder="Search by topic"
                 className="bg-transparent border-none outline-none text-sm text-text w-full placeholder:text-muted/50"
               />
             </label>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            
+
             {/* Article 1 */}
             <article className="group glass-panel rounded-3xl border border-border overflow-hidden hover:border-accent/30 transition-all hover:-translate-y-1 flex flex-col">
               <a href="/academy/blog/details/from-manager-to-architect-the-career-move-no-one-tells-you-about/3" className="block aspect-[16/10] overflow-hidden border-b border-border bg-surface">
