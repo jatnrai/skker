@@ -3,6 +3,7 @@ import { Outfit, JetBrains_Mono, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 import { ThemeProvider } from "./components/ThemeProvider";
+import { CookieBanner } from "@/components/CookieBanner";
 
 const sans = Outfit({
   variable: "--font-sans",
@@ -37,6 +38,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <Providers>
             {children}
+            <CookieBanner />
           </Providers>
         </ThemeProvider>
       </body>

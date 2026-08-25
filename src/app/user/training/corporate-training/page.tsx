@@ -1,11 +1,110 @@
 'use client';
 
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addLead } from '@/store/slices/adminSlice';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 export default function CorporateTrainingPage() {
+  const dispatch = useDispatch();
+  
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    company: '',
+    jobTitle: '',
+    requestType: 'Corporate Training',
+    topics: [] as string[],
+    customTopic: '',
+    objective: '',
+    industry: '',
+    companySize: '',
+    participants: '',
+    targetAudience: [] as string[],
+    format: '',
+    location: '',
+    timeline: '',
+    duration: '',
+    budget: '',
+    similarTraining: '',
+    pastIssues: '',
+    notes: '',
+    consent: false
+  });
+
+  const [formError, setFormError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [reference, setReference] = useState('');
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleTopicToggle = (topic: string) => {
+    setFormData(prev => ({
+      ...prev,
+      topics: prev.topics.includes(topic) ? prev.topics.filter(t => t !== topic) : [...prev.topics, topic]
+    }));
+  };
+
+  const handleAudienceToggle = (aud: string) => {
+    setFormData(prev => ({
+      ...prev,
+      targetAudience: prev.targetAudience.includes(aud) ? prev.targetAudience.filter(a => a !== aud) : [...prev.targetAudience, aud]
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormError('');
+    
+    if (formData.topics.length === 0) {
+      setFormError('Please select at least one training topic.');
+      return;
+    }
+    if (formData.targetAudience.length === 0) {
+      setFormError('Please select at least one target audience.');
+      return;
+    }
+
+    setIsSubmitting(true);
+    
+    // Simulate API delay
+    setTimeout(() => {
+      const ref = `CT-${Math.floor(Math.random() * 10000).toString().padStart(4, '0')}`;
+      
+      // Dispatch to Redux store
+      dispatch(addLead({
+        id: ref,
+        company: formData.company,
+        contact: formData.name,
+        email: formData.email,
+        topic: formData.topics.join(', '),
+        timeline: formData.timeline,
+        value: formData.budget || 'Not specified',
+        status: 'New',
+        date: 'Just now'
+      }));
+
+      setReference(ref);
+      setIsSuccess(true);
+      setIsSubmitting(false);
+      
+      // Reset form
+      setFormData({
+        name: '', email: '', phone: '', company: '', jobTitle: '', requestType: 'Corporate Training',
+        topics: [], customTopic: '', objective: '', industry: '', companySize: '', participants: '',
+        targetAudience: [], format: '', location: '', timeline: '', duration: '', budget: '',
+        similarTraining: '', pastIssues: '', notes: '', consent: false
+      });
+    }, 1200);
+  };
+
   return (
     <main className="min-h-screen font-sans relative overflow-hidden bg-page text-text bg-corporate-gradient">
       <Navbar />
@@ -335,211 +434,242 @@ export default function CorporateTrainingPage() {
 
           {/* Right: Form */}
           <div className="card-gradient border border-border rounded-3xl p-10 sm:p-14 shadow-xl">
-            <form className="flex flex-col gap-10">
-
-              {/* Row 1 */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="flex flex-col gap-3">
-                  <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Full Name</label>
-                  <input type="text" placeholder="Your name" className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading placeholder:text-muted/50 focus:outline-none focus:border-accent/50 transition-colors shadow-sm" />
+            {isSuccess ? (
+              <div className="flex flex-col items-center justify-center text-center py-12">
+                <div className="w-20 h-20 bg-emerald-500/10 border border-emerald-500/20 rounded-full flex items-center justify-center mb-6">
+                  <svg className="w-10 h-10 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
                 </div>
-                <div className="flex flex-col gap-3">
-                  <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Work Email</label>
-                  <input type="email" placeholder="you@company.com" className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading placeholder:text-muted/50 focus:outline-none focus:border-accent/50 transition-colors shadow-sm" />
-                </div>
-              </div>
-
-              {/* Row 2 */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="flex flex-col gap-3">
-                  <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Phone / Whatsapp</label>
-                  <input type="text" placeholder="+60 ..." className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading placeholder:text-muted/50 focus:outline-none focus:border-accent/50 transition-colors shadow-sm" />
-                </div>
-                <div className="flex flex-col gap-3">
-                  <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Company</label>
-                  <input type="text" placeholder="Company name" className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading placeholder:text-muted/50 focus:outline-none focus:border-accent/50 transition-colors shadow-sm" />
+                <h3 className="text-3xl font-bold text-heading mb-4">Request Received</h3>
+                <p className="text-[16px] text-muted/80 max-w-[400px] mb-8">
+                  Your enquiry reference is <span className="font-mono text-accent">{reference}</span>. We will review your requirements and respond within 2-3 business days.
+                </p>
+                <div className="flex flex-col gap-4 w-full max-w-[300px]">
+                  <Link href="/academy/home/book_session" className="flex items-center justify-center gap-2 bg-gradient-to-r from-accent to-accent-cool text-page rounded-full px-6 py-4 font-bold text-[14px] font-mono tracking-[0.1em] uppercase hover:-translate-y-0.5 hover:shadow-[0_16px_32px_rgba(0,184,219,0.3)] transition-all">
+                    Book Discovery Call
+                  </Link>
+                  <button onClick={() => setIsSuccess(false)} className="text-muted hover:text-heading text-sm font-medium transition-colors">
+                    Submit another request
+                  </button>
                 </div>
               </div>
-
-              {/* Row 3 */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="flex flex-col gap-3">
-                  <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Job Title / Role</label>
-                  <input type="text" placeholder="Your role" className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading placeholder:text-muted/50 focus:outline-none focus:border-accent/50 transition-colors shadow-sm" />
-                </div>
-                <div className="flex flex-col gap-3">
-                  <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Type of Request</label>
-                  <select className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading focus:outline-none focus:border-accent/50 transition-colors shadow-sm appearance-none">
-                    <option>Corporate Training</option>
-                    <option>Private Coaching</option>
-                    <option>Consulting</option>
-                  </select>
-                </div>
-              </div>
-
-              {/* Training Topics */}
-              <div className="flex flex-col gap-5">
-                <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Training Topics</label>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-y-5 gap-x-4">
-                  {['AI Strategy', 'Product Management', 'Kanban / Flow', 'Org Design', 'Custom'].map((topic, i) => (
-                    <label key={i} className="flex items-center gap-3 cursor-pointer group w-fit">
-                      <div className="w-5 h-5 rounded-md border border-border bg-page dark:bg-surface group-hover:border-accent/50 transition-colors flex items-center justify-center shrink-0">
-                        <div className="w-2.5 h-2.5 rounded-sm bg-accent opacity-0 group-hover:opacity-20 transition-opacity" />
-                      </div>
-                      <span className="font-mono text-[12px] font-bold tracking-[0.1em] text-muted/80 group-hover:text-heading transition-colors uppercase pt-0.5">{topic}</span>
-                    </label>
-                  ))}
-                </div>
-                <input type="text" placeholder="If Custom, briefly describe the topic" className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading placeholder:text-muted/50 focus:outline-none focus:border-accent/50 transition-colors shadow-sm mt-3" />
-              </div>
-
-              {/* Objective */}
-              <div className="flex flex-col gap-3">
-                <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Objective / Problem Statement</label>
-                <textarea rows={5} placeholder="What capability, behaviour, or operating problem should the training address?" className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading placeholder:text-muted/50 focus:outline-none focus:border-accent/50 transition-colors shadow-sm resize-none" />
-              </div>
-
-              {/* Industry & Size */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="flex flex-col gap-3">
-                  <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Industry</label>
-                  <input type="text" placeholder="e.g. Financial Services, Technology" className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading placeholder:text-muted/50 focus:outline-none focus:border-accent/50 transition-colors shadow-sm" />
-                </div>
-                <div className="flex flex-col gap-3">
-                  <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Company Size</label>
-                  <select className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading focus:outline-none focus:border-accent/50 transition-colors shadow-sm appearance-none text-muted/50">
-                    <option>Select...</option>
-                    <option>1-50</option>
-                    <option>51-200</option>
-                    <option>201-500</option>
-                    <option>500+</option>
-                  </select>
-                </div>
-              </div>
-
-              {/* Participants & Target Audience */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="flex flex-col gap-3">
-                  <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Number of Participants</label>
-                  <input type="text" placeholder="e.g. 15-20" className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading placeholder:text-muted/50 focus:outline-none focus:border-accent/50 transition-colors shadow-sm" />
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-5 -mt-3">
-                <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Target Audience</label>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-y-5 gap-x-4">
-                  {['Executives', 'Managers', 'Engineers', 'Cross-Functional Teams'].map((topic, i) => (
-                    <label key={i} className="flex items-center gap-3 cursor-pointer group w-fit">
-                      <div className="w-5 h-5 rounded-md border border-border bg-page dark:bg-surface group-hover:border-accent/50 transition-colors flex items-center justify-center shrink-0">
-                        <div className="w-2.5 h-2.5 rounded-sm bg-accent opacity-0 group-hover:opacity-20 transition-opacity" />
-                      </div>
-                      <span className="font-mono text-[12px] font-bold tracking-[0.1em] text-muted/80 group-hover:text-heading transition-colors uppercase pt-0.5">{topic}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              {/* Format & Location */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-3">
-                <div className="flex flex-col gap-3">
-                  <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Format</label>
-                  <select className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading focus:outline-none focus:border-accent/50 transition-colors shadow-sm appearance-none text-muted/50">
-                    <option>Select format</option>
-                    <option>In-Person</option>
-                    <option>Virtual</option>
-                    <option>Hybrid</option>
-                  </select>
-                </div>
-                <div className="flex flex-col gap-3">
-                  <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Location</label>
-                  <input type="text" placeholder="City / country, if on-site or hybrid" className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading placeholder:text-muted/50 focus:outline-none focus:border-accent/50 transition-colors shadow-sm" />
-                </div>
-              </div>
-
-              {/* Timeline & Duration */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="flex flex-col gap-3">
-                  <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Timeline</label>
-                  <select className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading focus:outline-none focus:border-accent/50 transition-colors shadow-sm appearance-none text-muted/50">
-                    <option>Select...</option>
-                    <option>Asap</option>
-                    <option>Within 1-3 Months</option>
-                    <option>Future Planning</option>
-                  </select>
-                </div>
-                <div className="flex flex-col gap-3">
-                  <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Duration</label>
-                  <select className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading focus:outline-none focus:border-accent/50 transition-colors shadow-sm appearance-none text-muted/50">
-                    <option>Select...</option>
-                    <option>Half Day</option>
-                    <option>Full Day</option>
-                    <option>Multi-Day</option>
-                  </select>
-                </div>
-              </div>
-
-              {/* Budget & Similar Training */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="flex flex-col gap-3">
-                  <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Estimated Budget <span className="normal-case opacity-70 tracking-normal">(optional)</span></label>
-                  <select className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading focus:outline-none focus:border-accent/50 transition-colors shadow-sm appearance-none">
-                    <option>Prefer not to say</option>
-                    <option>&lt; $5k</option>
-                    <option>$5k - $15k</option>
-                    <option>&gt; $15k</option>
-                  </select>
-                </div>
-                <div className="flex flex-col gap-3">
-                  <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Have you done similar training before?</label>
-                  <select className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading focus:outline-none focus:border-accent/50 transition-colors shadow-sm appearance-none text-muted/50">
-                    <option>Select...</option>
-                    <option>Yes</option>
-                    <option>No</option>
-                  </select>
-                </div>
-              </div>
-
-              {/* What didn't work previously */}
-              <div className="flex flex-col gap-3">
-                <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">If yes, what didn't work previously?</label>
-                <textarea rows={4} placeholder="Optional — helps us avoid repeating the same gaps" className="bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading placeholder:text-muted/50 focus:outline-none focus:border-accent/50 transition-colors shadow-sm resize-none" />
-              </div>
-
-              {/* Attachment */}
-              <div className="flex flex-col gap-3">
-                <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Attachment <span className="normal-case opacity-70 tracking-normal">(optional — brief, RFP, org chart, etc.)</span></label>
-                <div className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-3 flex items-center gap-4 shadow-sm">
-                  <label className="px-4 py-2 bg-surface dark:bg-white/10 hover:bg-card dark:hover:bg-white/15 text-[14px] font-medium text-heading rounded-lg cursor-pointer transition-colors border border-border dark:border-white/5 shadow-sm">
-                    Choose file
-                    <input type="file" className="hidden" />
-                  </label>
-                  <span className="text-[14px] text-muted/60">No file chosen</span>
-                </div>
-              </div>
-
-              {/* Additional Notes */}
-              <div className="flex flex-col gap-3">
-                <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Additional Notes</label>
-                <textarea rows={5} placeholder="Anything else that would help us shape the proposal?" className="bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading placeholder:text-muted/50 focus:outline-none focus:border-accent/50 transition-colors shadow-sm resize-none" />
-              </div>
-
-              {/* Consent & Submit */}
-              <div className="flex flex-col gap-8 mt-8 border-t border-border pt-10">
-                <label className="flex items-center gap-4 cursor-pointer group w-fit">
-                  <div className="w-5 h-5 rounded-md border border-border bg-surface group-hover:border-accent/50 transition-colors flex items-center justify-center shrink-0">
-                    <div className="w-2.5 h-2.5 rounded-sm bg-accent opacity-0 group-hover:opacity-20 transition-opacity" />
+            ) : (
+              <form onSubmit={handleSubmit} className="flex flex-col gap-10">
+                {formError && (
+                  <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm font-medium">
+                    {formError}
                   </div>
-                  <span className="font-mono text-[12px] font-bold tracking-[0.1em] text-muted/90 group-hover:text-heading transition-colors uppercase pt-0.5">
-                    I consent to Skker storing this information to prepare a proposal. <span className="text-accent ml-1">*</span>
-                  </span>
-                </label>
+                )}
+                {/* Row 1 */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="flex flex-col gap-3">
+                    <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Full Name *</label>
+                    <input required type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="Your name" className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading placeholder:text-muted/50 focus:outline-none focus:border-accent/50 transition-colors shadow-sm" />
+                  </div>
+                  <div className="flex flex-col gap-3">
+                    <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Work Email *</label>
+                    <input required type="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="you@company.com" className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading placeholder:text-muted/50 focus:outline-none focus:border-accent/50 transition-colors shadow-sm" />
+                  </div>
+                </div>
 
-                <button type="button" className="w-fit flex items-center justify-center gap-2 bg-gradient-to-r from-accent to-accent-cool text-page rounded-full px-10 py-4 font-bold text-[14px] font-mono tracking-[0.1em] uppercase hover:-translate-y-0.5 hover:shadow-[0_16px_32px_rgba(0,184,219,0.3)] transition-all">
-                  Request Proposal <ArrowRight size={18} className="-mr-1" />
-                </button>
-              </div>
+                {/* Row 2 */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="flex flex-col gap-3">
+                    <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Phone / Whatsapp</label>
+                    <input type="text" name="phone" value={formData.phone} onChange={handleInputChange} placeholder="+60 ..." className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading placeholder:text-muted/50 focus:outline-none focus:border-accent/50 transition-colors shadow-sm" />
+                  </div>
+                  <div className="flex flex-col gap-3">
+                    <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Company *</label>
+                    <input required type="text" name="company" value={formData.company} onChange={handleInputChange} placeholder="Company name" className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading placeholder:text-muted/50 focus:outline-none focus:border-accent/50 transition-colors shadow-sm" />
+                  </div>
+                </div>
 
-            </form>
+                {/* Row 3 */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="flex flex-col gap-3">
+                    <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Job Title / Role *</label>
+                    <input required type="text" name="jobTitle" value={formData.jobTitle} onChange={handleInputChange} placeholder="Your role" className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading placeholder:text-muted/50 focus:outline-none focus:border-accent/50 transition-colors shadow-sm" />
+                  </div>
+                  <div className="flex flex-col gap-3">
+                    <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Type of Request *</label>
+                    <select name="requestType" value={formData.requestType} onChange={handleInputChange} className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading focus:outline-none focus:border-accent/50 transition-colors shadow-sm appearance-none">
+                      <option>Corporate Training</option>
+                      <option>Workshop</option>
+                      <option>Coaching</option>
+                      <option>Consulting</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Training Topics */}
+                <div className="flex flex-col gap-5">
+                  <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Training Topics *</label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-y-5 gap-x-4">
+                    {['AI Strategy', 'Product Management', 'Kanban & Flow', 'Org Design', 'Custom'].map((topic, i) => (
+                      <label key={i} className="flex items-center gap-3 cursor-pointer group w-fit">
+                        <div className={`w-5 h-5 rounded-md border flex items-center justify-center shrink-0 transition-colors ${formData.topics.includes(topic) ? 'border-accent bg-accent/10' : 'border-border bg-page dark:bg-surface group-hover:border-accent/50'}`}>
+                          <input type="checkbox" className="hidden" checked={formData.topics.includes(topic)} onChange={() => handleTopicToggle(topic)} />
+                          <div className={`w-2.5 h-2.5 rounded-sm bg-accent transition-opacity ${formData.topics.includes(topic) ? 'opacity-100' : 'opacity-0 group-hover:opacity-20'}`} />
+                        </div>
+                        <span className="font-mono text-[12px] font-bold tracking-[0.1em] text-muted/80 group-hover:text-heading transition-colors uppercase pt-0.5">{topic}</span>
+                      </label>
+                    ))}
+                  </div>
+                  {formData.topics.includes('Custom') && (
+                    <input type="text" name="customTopic" value={formData.customTopic} onChange={handleInputChange} placeholder="Briefly describe the custom topic" className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading placeholder:text-muted/50 focus:outline-none focus:border-accent/50 transition-colors shadow-sm mt-3" />
+                  )}
+                </div>
+
+                {/* Objective */}
+                <div className="flex flex-col gap-3">
+                  <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Objective / Problem Statement *</label>
+                  <textarea required name="objective" value={formData.objective} onChange={handleInputChange} rows={5} placeholder="What capability, behaviour, or operating problem should the training address?" className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading placeholder:text-muted/50 focus:outline-none focus:border-accent/50 transition-colors shadow-sm resize-none" />
+                </div>
+
+                {/* Industry & Size */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="flex flex-col gap-3">
+                    <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Industry *</label>
+                    <input required type="text" name="industry" value={formData.industry} onChange={handleInputChange} placeholder="e.g. Financial Services, Technology" className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading placeholder:text-muted/50 focus:outline-none focus:border-accent/50 transition-colors shadow-sm" />
+                  </div>
+                  <div className="flex flex-col gap-3">
+                    <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Company Size *</label>
+                    <select required name="companySize" value={formData.companySize} onChange={handleInputChange} className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading focus:outline-none focus:border-accent/50 transition-colors shadow-sm appearance-none">
+                      <option value="">Select...</option>
+                      <option>1-50</option>
+                      <option>51-200</option>
+                      <option>201-1000</option>
+                      <option>1000+</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Participants & Target Audience */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="flex flex-col gap-3">
+                    <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Number of Participants *</label>
+                    <input required type="text" name="participants" value={formData.participants} onChange={handleInputChange} placeholder="e.g. 15-20" className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading placeholder:text-muted/50 focus:outline-none focus:border-accent/50 transition-colors shadow-sm" />
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-5 -mt-3">
+                  <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Target Audience *</label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-y-5 gap-x-4">
+                    {['Executives', 'Managers', 'Engineers', 'Cross-Functional Teams'].map((topic, i) => (
+                      <label key={i} className="flex items-center gap-3 cursor-pointer group w-fit">
+                        <div className={`w-5 h-5 rounded-md border flex items-center justify-center shrink-0 transition-colors ${formData.targetAudience.includes(topic) ? 'border-accent bg-accent/10' : 'border-border bg-page dark:bg-surface group-hover:border-accent/50'}`}>
+                          <input type="checkbox" className="hidden" checked={formData.targetAudience.includes(topic)} onChange={() => handleAudienceToggle(topic)} />
+                          <div className={`w-2.5 h-2.5 rounded-sm bg-accent transition-opacity ${formData.targetAudience.includes(topic) ? 'opacity-100' : 'opacity-0 group-hover:opacity-20'}`} />
+                        </div>
+                        <span className="font-mono text-[12px] font-bold tracking-[0.1em] text-muted/80 group-hover:text-heading transition-colors uppercase pt-0.5">{topic}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Format & Location */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-3">
+                  <div className="flex flex-col gap-3">
+                    <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Format *</label>
+                    <select required name="format" value={formData.format} onChange={handleInputChange} className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading focus:outline-none focus:border-accent/50 transition-colors shadow-sm appearance-none">
+                      <option value="">Select format</option>
+                      <option>On-site</option>
+                      <option>Virtual</option>
+                      <option>Hybrid</option>
+                    </select>
+                  </div>
+                  {(formData.format === 'On-site' || formData.format === 'Hybrid') && (
+                    <div className="flex flex-col gap-3">
+                      <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Location *</label>
+                      <input required type="text" name="location" value={formData.location} onChange={handleInputChange} placeholder="City / country" className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading placeholder:text-muted/50 focus:outline-none focus:border-accent/50 transition-colors shadow-sm" />
+                    </div>
+                  )}
+                </div>
+
+                {/* Timeline & Duration */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="flex flex-col gap-3">
+                    <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Timeline *</label>
+                    <select required name="timeline" value={formData.timeline} onChange={handleInputChange} className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading focus:outline-none focus:border-accent/50 transition-colors shadow-sm appearance-none">
+                      <option value="">Select...</option>
+                      <option>ASAP</option>
+                      <option>1-3 months</option>
+                      <option>3-6 months</option>
+                      <option>Flexible</option>
+                    </select>
+                  </div>
+                  <div className="flex flex-col gap-3">
+                    <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Duration *</label>
+                    <select required name="duration" value={formData.duration} onChange={handleInputChange} className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading focus:outline-none focus:border-accent/50 transition-colors shadow-sm appearance-none">
+                      <option value="">Select...</option>
+                      <option>Half-day</option>
+                      <option>1 day</option>
+                      <option>Multi-day</option>
+                      <option>Not sure</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Budget & Similar Training */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="flex flex-col gap-3">
+                    <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Estimated Budget <span className="normal-case opacity-70 tracking-normal">(optional)</span></label>
+                    <select name="budget" value={formData.budget} onChange={handleInputChange} className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading focus:outline-none focus:border-accent/50 transition-colors shadow-sm appearance-none">
+                      <option value="">Not sure</option>
+                      <option>&lt; RM10k</option>
+                      <option>RM10k - 30k</option>
+                      <option>RM30k - 80k</option>
+                      <option>RM80k+</option>
+                    </select>
+                  </div>
+                  <div className="flex flex-col gap-3">
+                    <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Similar training before?</label>
+                    <select name="similarTraining" value={formData.similarTraining} onChange={handleInputChange} className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading focus:outline-none focus:border-accent/50 transition-colors shadow-sm appearance-none">
+                      <option value="">Select...</option>
+                      <option>Yes</option>
+                      <option>No</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* What didn't work previously */}
+                {formData.similarTraining === 'Yes' && (
+                  <div className="flex flex-col gap-3">
+                    <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">What didn't work previously?</label>
+                    <textarea name="pastIssues" value={formData.pastIssues} onChange={handleInputChange} rows={3} placeholder="Optional — helps us avoid repeating the same gaps" className="bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading placeholder:text-muted/50 focus:outline-none focus:border-accent/50 transition-colors shadow-sm resize-none" />
+                  </div>
+                )}
+
+                {/* Additional Notes */}
+                <div className="flex flex-col gap-3">
+                  <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Additional Notes</label>
+                  <textarea name="notes" value={formData.notes} onChange={handleInputChange} rows={3} placeholder="Anything else that would help us shape the proposal?" className="bg-surface border border-border rounded-xl px-5 py-4 text-[15px] text-heading placeholder:text-muted/50 focus:outline-none focus:border-accent/50 transition-colors shadow-sm resize-none" />
+                </div>
+
+                {/* Consent & Submit */}
+                <div className="flex flex-col gap-8 mt-8 border-t border-border pt-10">
+                  <label className="flex items-center gap-4 cursor-pointer group w-fit">
+                    <div className={`w-5 h-5 rounded-md border flex items-center justify-center shrink-0 transition-colors ${formData.consent ? 'border-accent bg-accent/10' : 'border-border bg-surface group-hover:border-accent/50'}`}>
+                      <input required type="checkbox" name="consent" checked={formData.consent} onChange={(e) => setFormData(prev => ({...prev, consent: e.target.checked}))} className="hidden" />
+                      <div className={`w-2.5 h-2.5 rounded-sm bg-accent transition-opacity ${formData.consent ? 'opacity-100' : 'opacity-0 group-hover:opacity-20'}`} />
+                    </div>
+                    <span className="font-mono text-[12px] font-bold tracking-[0.1em] text-muted/90 group-hover:text-heading transition-colors uppercase pt-0.5">
+                      I consent to Skker storing this information to prepare a proposal. <span className="text-accent ml-1">*</span>
+                    </span>
+                  </label>
+
+                  <button 
+                    type="submit" 
+                    disabled={isSubmitting}
+                    className="w-fit flex items-center justify-center gap-2 bg-gradient-to-r from-accent to-accent-cool text-page rounded-full px-10 py-4 font-bold text-[14px] font-mono tracking-[0.1em] uppercase hover:-translate-y-0.5 hover:shadow-[0_16px_32px_rgba(0,184,219,0.3)] transition-all disabled:opacity-50 disabled:hover:-translate-y-0 disabled:hover:shadow-none"
+                  >
+                    {isSubmitting ? 'Submitting...' : 'Request Proposal'} <ArrowRight size={18} className="-mr-1" />
+                  </button>
+                </div>
+
+              </form>
+            )}
           </div>
         </section>
 

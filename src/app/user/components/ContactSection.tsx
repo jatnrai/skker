@@ -1,7 +1,6 @@
-'use client';
-
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, Send, MapPin, ArrowRight, Share2 } from 'lucide-react';
+import { Phone, Send, MapPin, ArrowRight, Share2, CheckCircle2 } from 'lucide-react';
 
 const fadeUp = {
   initial: { opacity: 0, y: 40 },
@@ -11,6 +10,19 @@ const fadeUp = {
 };
 
 export default function ContactSection() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (isSubmitting || isSuccess) return; // Idempotent check
+    
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSuccess(true);
+    }, 1500);
+  };
   return (
     <section id="enquiry" className="py-24 sm:py-25 px-4 sm:px-6 relative z-10 bg-page">
       <div className="max-w-[1300px] mx-auto w-full relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
@@ -48,37 +60,59 @@ export default function ContactSection() {
             transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
             className="bg-section/90 border border-border rounded-[32px] p-8 sm:p-10 shadow-2xl backdrop-blur-sm"
           >
-            <form className="flex flex-col gap-6" onSubmit={(e) => e.preventDefault()}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="flex flex-col gap-2">
-                  <label className="font-mono text-[9px] font-bold tracking-[0.15em] uppercase text-accent">First Name</label>
-                  <input type="text" placeholder="First" className="bg-transparent border border-border rounded-xl px-4 py-3.5 text-heading text-[14px] placeholder:text-muted/50 focus:outline-none focus:border-accent/50 focus:bg-white/[0.02] transition-colors" />
+            {isSuccess ? (
+              <div className="flex flex-col items-center justify-center h-full min-h-[350px] gap-6 text-center">
+                <div className="w-16 h-16 rounded-full bg-success/10 flex items-center justify-center text-success mb-2 shadow-[0_0_30px_rgba(16,185,129,0.3)]">
+                  <CheckCircle2 size={32} />
                 </div>
-                <div className="flex flex-col gap-2">
-                  <label className="font-mono text-[9px] font-bold tracking-[0.15em] uppercase text-accent">Last Name</label>
-                  <input type="text" placeholder="Last" className="bg-transparent border border-border rounded-xl px-4 py-3.5 text-heading text-[14px] placeholder:text-muted/50 focus:outline-none focus:border-accent/50 focus:bg-white/[0.02] transition-colors" />
+                <h3 className="font-serif text-[28px] text-heading font-bold">Request Received</h3>
+                <p className="text-[14px] text-muted max-w-[300px]">
+                  Thank you for reaching out. Your enquiry has been received and you will hear from us shortly.
+                </p>
+                <button 
+                  onClick={() => setIsSuccess(false)}
+                  className="mt-4 px-6 py-2.5 rounded-full border border-border bg-transparent text-[11px] font-mono font-bold tracking-[0.1em] uppercase text-muted hover:text-heading transition-colors"
+                >
+                  Send Another
+                </button>
+              </div>
+            ) : (
+              <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="flex flex-col gap-2">
+                    <label className="font-mono text-[9px] font-bold tracking-[0.15em] uppercase text-accent">First Name</label>
+                    <input required type="text" placeholder="First" className="bg-transparent border border-border rounded-xl px-4 py-3.5 text-heading text-[14px] placeholder:text-muted/50 focus:outline-none focus:border-accent/50 focus:bg-white/[0.02] transition-colors" />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label className="font-mono text-[9px] font-bold tracking-[0.15em] uppercase text-accent">Last Name</label>
+                    <input required type="text" placeholder="Last" className="bg-transparent border border-border rounded-xl px-4 py-3.5 text-heading text-[14px] placeholder:text-muted/50 focus:outline-none focus:border-accent/50 focus:bg-white/[0.02] transition-colors" />
+                  </div>
                 </div>
-              </div>
 
-              <div className="flex flex-col gap-2">
-                <label className="font-mono text-[9px] font-bold tracking-[0.15em] uppercase text-accent">Email</label>
-                <input type="email" placeholder="you@company.com" className="bg-transparent border border-border rounded-xl px-4 py-3.5 text-heading text-[14px] placeholder:text-muted/50 focus:outline-none focus:border-accent/50 focus:bg-white/[0.02] transition-colors" />
-              </div>
+                <div className="flex flex-col gap-2">
+                  <label className="font-mono text-[9px] font-bold tracking-[0.15em] uppercase text-accent">Email</label>
+                  <input required type="email" placeholder="you@company.com" className="bg-transparent border border-border rounded-xl px-4 py-3.5 text-heading text-[14px] placeholder:text-muted/50 focus:outline-none focus:border-accent/50 focus:bg-white/[0.02] transition-colors" />
+                </div>
 
-              <div className="flex flex-col gap-2">
-                <label className="font-mono text-[9px] font-bold tracking-[0.15em] uppercase text-accent">Subject</label>
-                <input type="text" placeholder="e.g. Strategy Session Request" className="bg-transparent border border-border rounded-xl px-4 py-3.5 text-heading text-[14px] placeholder:text-muted/50 focus:outline-none focus:border-accent/50 focus:bg-white/[0.02] transition-colors" />
-              </div>
+                <div className="flex flex-col gap-2">
+                  <label className="font-mono text-[9px] font-bold tracking-[0.15em] uppercase text-accent">Subject</label>
+                  <input required type="text" placeholder="e.g. Strategy Session Request" className="bg-transparent border border-border rounded-xl px-4 py-3.5 text-heading text-[14px] placeholder:text-muted/50 focus:outline-none focus:border-accent/50 focus:bg-white/[0.02] transition-colors" />
+                </div>
 
-              <div className="flex flex-col gap-2 mb-2">
-                <label className="font-mono text-[9px] font-bold tracking-[0.15em] uppercase text-accent">Message</label>
-                <textarea rows={4} placeholder="Tell me about your situation and what you are trying to solve." className="bg-transparent border border-border rounded-xl px-4 py-4 text-heading text-[14px] placeholder:text-muted/50 focus:outline-none focus:border-accent/50 focus:bg-white/[0.02] transition-colors resize-none"></textarea>
-              </div>
+                <div className="flex flex-col gap-2 mb-2">
+                  <label className="font-mono text-[9px] font-bold tracking-[0.15em] uppercase text-accent">Message</label>
+                  <textarea required rows={4} placeholder="Tell me about your situation and what you are trying to solve." className="bg-transparent border border-border rounded-xl px-4 py-4 text-heading text-[14px] placeholder:text-muted/50 focus:outline-none focus:border-accent/50 focus:bg-white/[0.02] transition-colors resize-none"></textarea>
+                </div>
 
-              <button type="submit" className="w-full bg-gradient-to-r from-accent to-accent-cool text-page font-mono text-[11px] font-bold tracking-[0.1em] uppercase py-4 rounded-xl flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(0,184,219,0.4)] transition-all group">
-                Send Message <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-              </button>
-            </form>
+                <button 
+                  type="submit" 
+                  disabled={isSubmitting}
+                  className="w-full bg-gradient-to-r from-accent to-accent-cool text-page font-mono text-[11px] font-bold tracking-[0.1em] uppercase py-4 rounded-xl flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(0,184,219,0.4)] disabled:opacity-70 disabled:cursor-not-allowed transition-all group"
+                >
+                  {isSubmitting ? 'Sending...' : 'Send Message'} {!isSubmitting && <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />}
+                </button>
+              </form>
+            )}
           </motion.div>
 
           {/* Contact Info Card */}

@@ -6,7 +6,7 @@ export default function TermsOfUsePage() {
     <main className="min-h-screen bg-bg text-text selection:bg-accent/30 flex flex-col">
       <Navbar />
       <div className="flex-grow flex items-center justify-center pt-24 pb-12">
-        <h1 className="text-4xl font-serif text-accent">Terms Of Use - Premium Page Placeholder</h1>
+        <h1 className="text-4xl font-serif text-accent">Terms Of Use</h1>
       </div>
       <Footer />
     </main>

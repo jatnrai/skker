@@ -82,7 +82,7 @@ export default function HeroSection() {
           className="lg:col-span-5 relative hidden lg:flex justify-end h-full items-center"
         >
           {/* Container holding the image and nameplate */}
-          <div className="relative w-[380px] h-[480px]">
+          <div className="relative w-full max-w-[380px] aspect-[38/48] mx-auto lg:mx-0">
 
             {/* Main Image Container */}
             <div className="absolute inset-0 rounded-[32px] border border-border bg-surface overflow-hidden shadow-2xl">

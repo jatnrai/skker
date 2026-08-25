@@ -30,10 +30,10 @@ export default function AboutHero() {
       </div>
 
       {/* Right Column: Profile Image with Info Panel */}
-      <div className="lg:ml-auto w-full max-w-[420px] flex justify-end pt-10 lg:pt-0">
-        <div className="relative w-[380px] h-[480px]">
+      <div className="lg:ml-auto mx-auto lg:mx-0 w-full max-w-[420px] flex justify-center lg:justify-end pt-10 lg:pt-0">
+        <div className="relative w-full max-w-[380px] aspect-[38/48]">
           {/* Main Image Container */}
-          <div className="absolute inset-0 rounded-[32px] border border-border bg-section/90 overflow-hidden shadow-2xl">
+          <div className="absolute inset-0 rounded-[32px] overflow-hidden border border-border shadow-[0_20px_40px_rgba(0,184,219,0.15)] bg-section group">
              <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-white/10 to-transparent z-10 pointer-events-none" />
              <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)', backgroundSize: '24px 24px' }}></div>
              <div className="absolute inset-0 flex items-end justify-center z-10 pb-8">

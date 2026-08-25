@@ -18,6 +18,10 @@
   --color-border: var(--border);
   --color-border-focus: var(--border-focus);
 
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+
   --font-sans: var(--font-serif, serif);
   --font-serif: var(--font-serif, serif);
   --font-mono: var(--font-mono, monospace);
@@ -41,6 +45,16 @@
   
   --border: #e2e8f0;
   --border-focus: #cbd5e1;
+
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  
+  /* SPACING SCALE */
+  --spacing-mobile: 1rem;
+  --spacing-tablet: 2rem;
+  --spacing-desktop: 4rem;
+  --content-max-width: 1200px;
 }
 
 :root.dark,
@@ -63,6 +77,10 @@ html.dark,
   
   --border: rgba(255, 255, 255, 0.05);
   --border-focus: rgba(255, 255, 255, 0.1);
+
+  --success: #34d399;
+  --warning: #fbbf24;
+  --error: #f87171;
 }
 
 body {
