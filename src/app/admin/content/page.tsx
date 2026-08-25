@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
-import { deleteContent } from '@/store/slices/adminSlice';
+import { deleteContent, restoreContent } from '@/store/slices/adminSlice';
 import { 
   FileText, 
   Search, 
@@ -33,6 +33,7 @@ const sidebarModules = [
   { id: 'faq', name: 'FAQ & Support', icon: HelpCircle },
   { id: 'legal', name: 'Legal Pages', icon: Shield },
   { id: 'seo', name: 'Global SEO Defaults', icon: SearchIcon },
+  { id: 'trash', name: 'Trash / Archived', icon: Trash2 },
 ];
 
 const statusStyles: Record<string, string> = {
@@ -49,33 +50,35 @@ export default function ContentAdmin() {
   const content = useSelector((state: RootState) => state.admin.content);
 
   const filteredContent = content.filter(c => 
-    c.module === activeModule && 
+    (activeModule === 'trash' ? c.isDeleted : (!c.isDeleted && c.module === activeModule)) && 
     c.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
     <div className="flex flex-col lg:flex-row gap-8">
       {/* Sidebar Navigation */}
-      <div className="lg:w-64 shrink-0 space-y-1">
-        <h2 className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-4 px-3">Website Modules</h2>
-        {sidebarModules.map((mod) => {
-          const Icon = mod.icon;
-          const isActive = activeModule === mod.id;
-          return (
-            <button
-              key={mod.id}
-              onClick={() => setActiveModule(mod.id)}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                isActive 
-                  ? 'bg-blue-600/10 text-blue-500' 
-                  : 'text-neutral-400 hover:bg-neutral-900 hover:text-white'
-              }`}
-            >
-              <Icon size={18} />
-              {mod.name}
-            </button>
-          );
-        })}
+      <div className="lg:w-64 shrink-0 flex flex-col gap-1 -mx-6 px-6 lg:mx-0 lg:px-0">
+        <h2 className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-4 px-3 hidden lg:block">Website Modules</h2>
+        <div className="flex lg:flex-col gap-2 lg:gap-1 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 scrollbar-hide">
+          {sidebarModules.map((mod) => {
+            const Icon = mod.icon;
+            const isActive = activeModule === mod.id;
+            return (
+              <button
+                key={mod.id}
+                onClick={() => setActiveModule(mod.id)}
+                className={`flex items-center gap-2 lg:gap-3 px-3 py-2 lg:py-2.5 rounded-lg text-sm font-medium transition-colors shrink-0 border lg:border-transparent ${
+                  isActive 
+                    ? 'bg-blue-600/10 text-blue-500 border-blue-500/20 lg:border-transparent' 
+                    : 'bg-neutral-900 lg:bg-transparent text-neutral-400 border-neutral-800 hover:bg-neutral-800 hover:text-white'
+                }`}
+              >
+                <Icon size={16} className="lg:w-[18px] lg:h-[18px]" />
+                {mod.name}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Main Content Area */}
@@ -162,10 +165,16 @@ export default function ContentAdmin() {
                         </td>
                         <td className="px-6 py-4 text-right">
                           <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity">
-                            <button className="text-neutral-500 hover:text-white p-1.5 rounded transition-colors" title="Preview">
+                            <button 
+                              className="text-neutral-500 hover:text-white p-1.5 rounded transition-colors" 
+                              title="Preview"
+                            >
                               <Eye size={16} />
                             </button>
-                            <button className="text-neutral-500 hover:text-white p-1.5 rounded transition-colors" title="Edit">
+                            <button 
+                              className="text-neutral-500 hover:text-white p-1.5 rounded transition-colors" 
+                              title="Edit"
+                            >
                               <Edit size={16} />
                             </button>
                             <button 
@@ -194,8 +203,60 @@ export default function ContentAdmin() {
             <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4 flex gap-3 text-sm text-blue-400">
               <Shield className="shrink-0 mt-0.5" size={16} />
               <p>
-                <strong>Workflow Note:</strong> Content deletion is soft-restricted. Deleting an article will permanently remove it from the database and break any active links. Use "Draft" status to unpublish content safely instead.
+                <strong>Workflow Note:</strong> Content deletion is soft-restricted. Deleting an article will move it to the Trash, where it can be recovered. 
               </p>
+            </div>
+          </div>
+        ) : activeModule === 'trash' ? (
+          <div className="space-y-6">
+            <div className="bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm text-left whitespace-nowrap">
+                  <thead className="text-xs text-neutral-400 uppercase bg-neutral-950/50 border-b border-neutral-800">
+                    <tr>
+                      <th className="px-6 py-4 font-medium">Title & Author</th>
+                      <th className="px-6 py-4 font-medium">Original Module</th>
+                      <th className="px-6 py-4 font-medium">Date Deleted</th>
+                      <th className="px-6 py-4 font-medium text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-neutral-800">
+                    {filteredContent.map((item) => (
+                      <tr key={item.id} className="hover:bg-neutral-800/50 transition-colors group">
+                        <td className="px-6 py-4">
+                          <div className="flex flex-col">
+                            <span className="font-semibold text-neutral-400 line-through">{item.title}</span>
+                            <div className="flex items-center gap-2 text-neutral-500 text-xs mt-1">
+                              <span>{item.author}</span>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 text-neutral-400 text-xs uppercase">
+                          {item.module}
+                        </td>
+                        <td className="px-6 py-4 text-neutral-400 text-xs">
+                          {item.date}
+                        </td>
+                        <td className="px-6 py-4 text-right">
+                          <button 
+                            className="text-emerald-500 hover:text-emerald-400 px-3 py-1.5 rounded transition-colors font-medium text-xs border border-emerald-500/20 bg-emerald-500/10 hover:bg-emerald-500/20"
+                            onClick={() => dispatch(restoreContent(item.id))}
+                          >
+                            Restore
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                    {filteredContent.length === 0 && (
+                      <tr>
+                        <td colSpan={4} className="px-6 py-8 text-center text-neutral-500">
+                          Trash is empty.
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         ) : (

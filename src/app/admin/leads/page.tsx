@@ -28,6 +28,8 @@ export default function CorporateLeads() {
   const [selectedLeadId, setSelectedLeadId] = useState<string | null>(null);
   const [selectedLeads, setSelectedLeads] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState<'details' | 'crm' | 'activity'>('crm');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   // Filtered Leads
   const filteredLeads = leads.filter(lead => {
@@ -37,6 +39,10 @@ export default function CorporateLeads() {
     const matchesStatus = statusFilter === '' || lead.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
+
+  // Pagination
+  const totalPages = Math.ceil(filteredLeads.length / itemsPerPage);
+  const paginatedLeads = filteredLeads.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   const selectedLead = leads.find(l => l.id === selectedLeadId);
 
@@ -76,6 +82,34 @@ export default function CorporateLeads() {
     }
   };
 
+  const handleExport = () => {
+    if (filteredLeads.length === 0) {
+      alert("No leads to export based on current filters.");
+      return;
+    }
+
+    // AT-11: Only authorized fields exported (omitting internal notes/tags)
+    const headers = ['ID', 'Company', 'Contact', 'Email', 'Topic', 'Status', 'Date'];
+    const csvContent = [
+      headers.join(','),
+      ...filteredLeads.map(l => 
+        `"${l.id}","${l.company}","${l.contact}","${l.email}","${l.topic}","${l.status}","${l.date}"`
+      )
+    ].join('\n');
+
+    // Trigger download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute('download', 'skker_leads_export.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // Record in audit log (simulated)
+    alert(`Audit Log: Exported ${filteredLeads.length} leads.`);
+  };
+
   return (
     <div className="space-y-6">
       {/* Header & Actions */}
@@ -96,7 +130,10 @@ export default function CorporateLeads() {
               <Trash2 size={16} /> Delete ({selectedLeads.length})
             </button>
           )}
-          <button className="flex items-center gap-2 bg-neutral-900 border border-neutral-800 hover:bg-neutral-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+          <button 
+            onClick={handleExport}
+            className="flex items-center gap-2 bg-neutral-900 border border-neutral-800 hover:bg-neutral-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+          >
             <Download size={16} /> Export CSV
           </button>
         </div>
@@ -138,13 +175,19 @@ export default function CorporateLeads() {
                 placeholder="Search company, contact..." 
                 className="w-full bg-neutral-950 border border-neutral-800 text-white rounded-lg py-2 pl-9 pr-4 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all placeholder:text-neutral-500"
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                  setCurrentPage(1);
+                }}
               />
             </div>
             <select 
               className="bg-neutral-950 border border-neutral-800 text-white rounded-lg py-2 px-3 text-sm focus:outline-none focus:border-blue-500 appearance-none w-full"
               value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
+              onChange={(e) => {
+                setStatusFilter(e.target.value);
+                setCurrentPage(1);
+              }}
             >
               <option value="">All Statuses</option>
               {Object.keys(statusStyles).map(s => <option key={s} value={s}>{s}</option>)}
@@ -164,7 +207,7 @@ export default function CorporateLeads() {
             </div>
             
             <div className="divide-y divide-neutral-800/50">
-              {filteredLeads.map((lead) => {
+              {paginatedLeads.map((lead) => {
                 const sStyle = statusStyles[lead.status] || statusStyles['Lost'];
                 return (
                   <div 
@@ -197,13 +240,38 @@ export default function CorporateLeads() {
                   </div>
                 );
               })}
-              {filteredLeads.length === 0 && (
+              {paginatedLeads.length === 0 && (
                 <div className="p-8 text-center text-neutral-500 text-sm">
                   No leads found.
                 </div>
               )}
             </div>
           </div>
+          
+          {/* Pagination Controls */}
+          {filteredLeads.length > 0 && (
+            <div className="p-3 border-t border-neutral-800 flex items-center justify-between bg-neutral-950/50 shrink-0">
+              <span className="text-xs text-neutral-500 font-medium">
+                Showing {(currentPage - 1) * itemsPerPage + 1}-{Math.min(currentPage * itemsPerPage, filteredLeads.length)} of {filteredLeads.length}
+              </span>
+              <div className="flex gap-1">
+                <button 
+                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className="px-2 py-1 bg-neutral-900 border border-neutral-800 rounded text-xs text-neutral-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-neutral-800"
+                >
+                  Prev
+                </button>
+                <button 
+                  onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                  className="px-2 py-1 bg-neutral-900 border border-neutral-800 rounded text-xs text-neutral-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-neutral-800"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Right Pane: Lead Detail */}
@@ -229,9 +297,9 @@ export default function CorporateLeads() {
                   </div>
                   <button 
                     onClick={() => setSelectedLeadId(null)}
-                    className="lg:hidden p-2 text-neutral-400 hover:text-white bg-neutral-800 rounded-lg"
+                    className="lg:hidden px-3 py-2 text-neutral-400 hover:text-white bg-neutral-800 rounded-lg flex items-center gap-1.5 text-sm font-medium"
                   >
-                    <X size={18} />
+                    <X size={16} /> Back
                   </button>
                 </div>
                 
@@ -248,7 +316,7 @@ export default function CorporateLeads() {
               </div>
 
               {/* Tabs */}
-              <div className="flex border-b border-neutral-800 px-6 shrink-0 bg-neutral-950/30">
+              <div className="flex border-b border-neutral-800 px-6 shrink-0 bg-neutral-950/30 overflow-x-auto whitespace-nowrap no-scrollbar">
                 {[
                   { id: 'crm', label: 'CRM & Notes', icon: Briefcase },
                   { id: 'details', label: 'Enquiry Details', icon: BookOpen },
@@ -270,11 +338,11 @@ export default function CorporateLeads() {
               </div>
 
               {/* Tab Content */}
-              <div className="flex-1 overflow-y-auto p-6 bg-neutral-950/20">
+              <div className="flex-1 overflow-y-auto p-4 sm:p-6 bg-neutral-950/20">
                 {activeTab === 'crm' && (
                   <div className="max-w-2xl flex flex-col gap-8">
                     {/* CRM Form */}
-                    <div className="grid grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                       <div className="flex flex-col gap-2">
                         <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Pipeline Status</label>
                         <select 

@@ -66,6 +66,16 @@ export interface ContentItem {
   status: string;
   date: string;
   tags?: string[];
+  isDeleted?: boolean;
+}
+
+export interface CaseStudy {
+  id: string;
+  client: string;
+  industry: string;
+  outcome: string;
+  focus: string;
+  image: string;
 }
 
 export interface Integration {
@@ -102,6 +112,7 @@ interface AdminState {
   sessions: Session[];
   bookings: Booking[];
   content: ContentItem[];
+  cases: CaseStudy[];
   system: SystemState;
 }
 
@@ -164,6 +175,11 @@ const initialState: AdminState = {
     { id: 'CNT-01', title: 'The Future of Kanban in Enterprise Environments', module: 'insights', author: 'Soon Kiat Ker', status: 'Published', date: 'Aug 20, 2026', tags: ['Flow Metrics'] },
     { id: 'CNT-02', title: '5 AI Strategies for 2027', module: 'insights', author: 'Soon Kiat Ker', status: 'Scheduled', date: 'Sep 01, 2026 (MYT)', tags: ['AI'] },
     { id: 'CNT-03', title: 'Draft: Managing Remote Teams', module: 'insights', author: 'Soon Kiat Ker', status: 'Draft', date: 'Last edited 2h ago' },
+  ],
+  cases: [
+    { id: 'CAS-01', client: 'TechFlow Inc', industry: 'SaaS / Software', outcome: '+40% Delivery Speed', focus: 'Agile Transformation', image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&q=80' },
+    { id: 'CAS-02', client: 'Nexus Retail', industry: 'E-commerce', outcome: 'Reduced silos by 60%', focus: 'Org Design', image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80' },
+    { id: 'CAS-03', client: 'Global Logistics', industry: 'Supply Chain', outcome: 'Launched AI tracking', focus: 'Product Strategy', image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80' },
   ],
   system: {
     integrations: [
@@ -237,7 +253,16 @@ const adminSlice = createSlice({
       }
     },
     deleteContent: (state, action: PayloadAction<string>) => {
-      state.content = state.content.filter(c => c.id !== action.payload);
+      const idx = state.content.findIndex(c => c.id === action.payload);
+      if (idx !== -1) {
+        state.content[idx].isDeleted = true;
+      }
+    },
+    restoreContent: (state, action: PayloadAction<string>) => {
+      const idx = state.content.findIndex(c => c.id === action.payload);
+      if (idx !== -1) {
+        state.content[idx].isDeleted = false;
+      }
     },
     retryJob: (state, action: PayloadAction<string>) => {
       const idx = state.system.jobs.findIndex(j => j.id === action.payload);
@@ -251,14 +276,17 @@ const adminSlice = createSlice({
       if (idx !== -1) {
         state.system.retentionRules[idx].duration = action.payload.duration;
       }
+    },
+    addCaseStudy: (state, action: PayloadAction<CaseStudy>) => {
+      state.cases.unshift(action.payload);
     }
   },
 });
 
 export const { 
   addLead, deleteLead, updateLeadStatus, updateLeadDetail, addLeadActivity, 
-  addCourse, addSession, updateBookingStatus, deleteContent,
-  retryJob, updateRetentionRule
+  addCourse, addSession, updateBookingStatus, deleteContent, restoreContent,
+  retryJob, updateRetentionRule, addCaseStudy
 } = adminSlice.actions;
 export default adminSlice.reducer;
 

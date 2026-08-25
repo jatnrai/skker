@@ -13,6 +13,7 @@ import {
   Video
 } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 
@@ -30,11 +31,26 @@ export default function AdminDashboard() {
   const paidBookings = bookings.filter(b => b.payment === 'Paid').length;
   const pendingBookings = bookings.filter(b => b.payment === 'Pending').length;
 
+  const router = useRouter();
+
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
-        <p className="text-neutral-400 text-sm mt-1">Overview of your operations and recent activity.</p>
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
+          <p className="text-neutral-400 text-sm mt-1">Overview of your operations and recent activity.</p>
+        </div>
+        <div className="flex gap-2 overflow-x-auto pb-1 sm:pb-0 scrollbar-hide">
+          <Link href="/admin/content" className="whitespace-nowrap px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm font-medium transition-colors">
+            + New Content
+          </Link>
+          <Link href="/admin/academy/new-session" className="whitespace-nowrap px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg text-sm font-medium transition-colors">
+            + New Session
+          </Link>
+          <Link href="/admin/leads?status=New" className="whitespace-nowrap px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg text-sm font-medium transition-colors">
+            View Leads
+          </Link>
+        </div>
       </div>
 
       {/* KPI Cards */}
@@ -137,6 +153,9 @@ export default function AdminDashboard() {
                   <Calendar size={18} className="text-emerald-500" />
                   Upcoming Sessions
                 </h3>
+                <Link href="/admin/academy" className="text-sm text-emerald-500 hover:text-emerald-400 flex items-center transition-colors">
+                  View all <ArrowRight size={14} className="ml-1" />
+                </Link>
               </div>
               <div className="p-5 flex flex-col gap-4 flex-1">
                 {sessions.slice(0, 2).map((s) => (
@@ -172,6 +191,9 @@ export default function AdminDashboard() {
                   <Video size={18} className="text-blue-500" />
                   Recent Bookings
                 </h3>
+                <Link href="/admin/bookings" className="text-sm text-blue-500 hover:text-blue-400 flex items-center transition-colors">
+                  View all <ArrowRight size={14} className="ml-1" />
+                </Link>
               </div>
               <div className="p-5 flex flex-col gap-4 flex-1">
                 {bookings.slice(0, 2).map((b) => (
@@ -202,7 +224,7 @@ export default function AdminDashboard() {
               </Link>
             </div>
             <div className="overflow-x-auto">
-              <table className="w-full text-sm text-left">
+              <table className="w-full text-sm text-left whitespace-nowrap">
                 <thead className="text-xs text-neutral-500 uppercase bg-neutral-950/50">
                   <tr>
                     <th className="px-5 py-3 font-medium">Company</th>
@@ -213,8 +235,12 @@ export default function AdminDashboard() {
                 </thead>
                 <tbody className="divide-y divide-neutral-800">
                   {leads.slice(0, 3).map(l => (
-                    <tr key={l.id} className="hover:bg-neutral-800/50 transition-colors">
-                      <td className="px-5 py-3 font-medium text-white">{l.company}</td>
+                    <tr 
+                      key={l.id} 
+                      onClick={() => router.push(`/admin/leads?id=${l.id}`)}
+                      className="hover:bg-neutral-800/50 transition-colors cursor-pointer group"
+                    >
+                      <td className="px-5 py-3 font-medium text-white group-hover:text-blue-400 transition-colors">{l.company}</td>
                       <td className="px-5 py-3 text-neutral-300">{l.topic}</td>
                       <td className="px-5 py-3">
                         <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20`}>

@@ -40,6 +40,30 @@ export default function CorporateTrainingPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [reference, setReference] = useState('');
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormError('');
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      // Validation: 5MB limit
+      if (file.size > 5 * 1024 * 1024) {
+        setFormError('Upload failed: File exceeds the 5MB size limit.');
+        setSelectedFile(null);
+        e.target.value = ''; // Reset input
+        return;
+      }
+      // Validation: Allowed types (PDF, Word, Images)
+      const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpeg', 'image/png'];
+      if (!allowedTypes.includes(file.type)) {
+        setFormError('Upload failed: Only PDF, DOC/DOCX, and images (JPG/PNG) are allowed.');
+        setSelectedFile(null);
+        e.target.value = ''; // Reset input
+        return;
+      }
+      setSelectedFile(file);
+    }
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -649,6 +673,12 @@ export default function CorporateTrainingPage() {
 
                 {/* Consent & Submit */}
                 <div className="flex flex-col gap-8 mt-8 border-t border-border pt-10">
+                  <div className="flex flex-col gap-3">
+                    <label className="font-mono text-[12px] font-bold tracking-[0.15em] uppercase text-muted/90">Supporting Document <span className="normal-case opacity-70 tracking-normal">(optional)</span></label>
+                    <input type="file" onChange={handleFileChange} accept=".pdf,.doc,.docx,.jpg,.png" className="bg-page dark:bg-surface border border-border rounded-xl px-5 py-3.5 text-[14px] text-heading file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-[11px] file:font-mono file:font-bold file:tracking-[0.1em] file:uppercase file:bg-accent/10 file:text-accent hover:file:bg-accent/20 transition-colors shadow-sm focus:outline-none focus:border-accent/50 cursor-pointer" />
+                    <p className="text-[12px] text-muted/60 mt-1">Max 5MB. PDF, Word, JPG or PNG.</p>
+                  </div>
+
                   <label className="flex items-center gap-4 cursor-pointer group w-fit">
                     <div className={`w-5 h-5 rounded-md border flex items-center justify-center shrink-0 transition-colors ${formData.consent ? 'border-accent bg-accent/10' : 'border-border bg-surface group-hover:border-accent/50'}`}>
                       <input required type="checkbox" name="consent" checked={formData.consent} onChange={(e) => setFormData(prev => ({...prev, consent: e.target.checked}))} className="hidden" />
