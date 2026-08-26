@@ -34,12 +34,12 @@ export default function Navbar() {
           <Link href="/user#capabilities" className="text-[9.5px] font-mono font-bold tracking-[0.15em] uppercase text-muted hover:text-text transition-colors">Capabilities</Link>
           <Link href="/user/about-me" className="text-[9.5px] font-mono font-bold tracking-[0.15em] uppercase text-muted hover:text-text transition-colors">About Me</Link>
           <Link href="/user/coaching" className="text-[9.5px] font-mono font-bold tracking-[0.15em] uppercase text-muted hover:text-text transition-colors">Coaching</Link>
-          
+
           <div className="relative group flex items-center cursor-pointer py-4">
             <Link href="/user/training" className="text-[9.5px] font-mono font-bold tracking-[0.15em] uppercase text-muted group-hover:text-text transition-colors">
               Training
             </Link>
-            
+
             {/* Dropdown Menu */}
             <div className="absolute top-[90%] left-1/2 -translate-x-1/2 w-48 bg-card/95 backdrop-blur-2xl rounded-2xl border border-border shadow-2xl flex flex-col z-50 overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all translate-y-2 group-hover:translate-y-0 py-2">
               <Link href="/user/training/courses" className="px-4 py-3 text-[9px] font-mono font-bold tracking-[0.15em] uppercase text-muted hover:text-text hover:bg-white/5 transition-colors border-b border-border">Courses</Link>
@@ -49,19 +49,19 @@ export default function Navbar() {
             </div>
           </div>
 
-          <Link href="/user/blog" className="text-[9.5px] font-mono font-bold tracking-[0.15em] uppercase text-muted hover:text-text transition-colors">Blog / Articles</Link>
+          <Link href="/user/blog" className="text-[9.5px] font-mono font-bold tracking-[0.15em] uppercase text-muted hover:text-text transition-colors">Blog</Link>
           <Link href="/user/case-studies" className="text-[9.5px] font-mono font-bold tracking-[0.15em] uppercase text-muted hover:text-text transition-colors">Case Studies</Link>
         </div>
 
         {/* Right: Actions */}
         <div className="flex items-center gap-2">
-          
+
           {/* Search Bar */}
-          <div className="relative hidden md:flex items-center">
+          <div className="relative hidden md:flex lg:hidden xl:flex items-center">
             <Search size={14} className="absolute left-3 text-muted pointer-events-none" />
-            <input 
-              type="text" 
-              placeholder="Search..." 
+            <input
+              type="text"
+              placeholder="Search..."
               className="w-32 lg:w-48 bg-surface border border-border rounded-full py-1.5 pl-9 pr-3 text-[11px] text-text focus:outline-none focus:border-accent/50 transition-all placeholder:text-muted/60"
             />
           </div>
@@ -75,7 +75,7 @@ export default function Navbar() {
               >
                 {theme === 'dark' ? <Moon size={16} /> : theme === 'light' ? <Sun size={16} /> : <Monitor size={16} />}
               </button>
-              
+
               <div className="absolute top-[90%] right-0 w-32 bg-card/95 backdrop-blur-2xl rounded-xl border border-border shadow-2xl flex flex-col z-50 overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all translate-y-2 group-hover:translate-y-0 py-2">
                 <button onClick={() => setTheme('light')} className={`flex items-center gap-2 px-4 py-2 text-[10px] font-mono font-bold tracking-[0.1em] uppercase hover:bg-white/5 transition-colors ${theme === 'light' ? 'text-accent' : 'text-muted'}`}>
                   <Sun size={12} /> Light
@@ -118,7 +118,7 @@ export default function Navbar() {
           <Link href="/user#capabilities" className="text-text font-mono font-bold tracking-widest uppercase text-[10px] p-2 hover:text-accent">Capabilities</Link>
           <Link href="/user/about-me" className="text-text font-mono font-bold tracking-widest uppercase text-[10px] p-2 hover:text-accent">About Me</Link>
           <Link href="/user/coaching" className="text-text font-mono font-bold tracking-widest uppercase text-[10px] p-2 hover:text-accent">Coaching</Link>
-          
+
           <div className="p-3 border border-border flex flex-col gap-2 bg-section rounded-xl">
             <span className="text-accent font-mono font-bold tracking-widest uppercase text-[10px] mb-2 px-2">Training</span>
             <Link href="/user/training/courses" className="text-text font-mono font-bold tracking-widest uppercase text-[10px] hover:text-accent px-2 py-1">Courses</Link>
@@ -126,8 +126,8 @@ export default function Navbar() {
             <Link href="/user/training/public-classes" className="text-text font-mono font-bold tracking-widest uppercase text-[10px] hover:text-accent px-2 py-1">Public Classes</Link>
             <Link href="/user/training/corporate-training" className="text-text font-mono font-bold tracking-widest uppercase text-[10px] hover:text-accent px-2 py-1">Corporate Training</Link>
           </div>
-          
-          <Link href="/user/blog" className="text-text font-mono font-bold tracking-widest uppercase text-[10px] p-2 hover:text-accent">Blog / Articles</Link>
+
+          <Link href="/user/blog" className="text-text font-mono font-bold tracking-widest uppercase text-[10px] p-2 hover:text-accent">Blogs</Link>
           <Link href="/user/case-studies" className="text-text font-mono font-bold tracking-widest uppercase text-[10px] p-2 hover:text-accent">Case Studies</Link>
 
           <div className="flex flex-col gap-3 mt-4 pt-4 border-t border-border">
