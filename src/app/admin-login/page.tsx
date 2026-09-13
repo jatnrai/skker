@@ -125,6 +125,7 @@ export default function AdminLogin() {
                 </div>
               </div>
 
+
               <button
                 type="submit"
                 className="w-full bg-[#00E5FF] hover:bg-[#00CBE6] text-black font-bold text-sm py-2.5 rounded-lg transition-colors mt-2"
