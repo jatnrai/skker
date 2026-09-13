@@ -14,14 +14,28 @@ export default function AdminLogin() {
   const [error, setError] = useState('');
   const router = useRouter();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email === 'soonkiat.ker@gmail.com' && password === 'SkkerAdmin#734403!') {
-      document.cookie = "skker_admin_auth=true; path=/; max-age=86400"; // 1 day
-      router.push('/admin');
-      router.refresh(); // Ensure middleware picks up the new cookie
-    } else {
-      setError('Invalid credentials. Please try again.');
+    setError('');
+    
+    try {
+      const res = await fetch('http://localhost:5001/api/users/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      
+      const data = await res.json();
+      
+      if (res.ok && data.token) {
+        document.cookie = `skker_admin_auth=${data.token}; path=/; max-age=604800`; // 7 days
+        router.push('/admin');
+        router.refresh();
+      } else {
+        setError(data.error || 'Invalid credentials. Please try again.');
+      }
+    } catch (err) {
+      setError('Unable to connect to the server. Please try again later.');
     }
   };
 

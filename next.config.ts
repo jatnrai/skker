@@ -7,6 +7,16 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'images.unsplash.com',
       },
+      {
+        // Tencent COS - UAT bucket (Singapore)
+        protocol: 'https',
+        hostname: 'skker-cos-uat-1323270986.cos.ap-singapore.myqcloud.com',
+      },
+      {
+        // Tencent COS - Production bucket (Singapore)
+        protocol: 'https',
+        hostname: 'skker-cos-prod-1323270986.cos.ap-singapore.myqcloud.com',
+      },
     ],
   },
   async rewrites() {

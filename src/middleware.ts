@@ -7,7 +7,7 @@ export function middleware(request: NextRequest) {
   if (pathname.startsWith('/admin') && !pathname.startsWith('/admin-login')) {
     const authCookie = request.cookies.get('skker_admin_auth');
     
-    if (!authCookie || authCookie.value !== 'true') {
+    if (!authCookie || !authCookie.value) {
       return NextResponse.redirect(new URL('/admin-login', request.url));
     }
   }

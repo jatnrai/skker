@@ -29,7 +29,6 @@ const sidebarModules = [
   { id: 'home', name: 'Homepage', icon: Home },
   { id: 'about', name: 'About Page', icon: FileText },
   { id: 'portfolio', name: 'Portfolio (Case Studies)', icon: Layout },
-  { id: 'insights', name: 'Insights (Blog)', icon: MessageSquare },
   { id: 'faq', name: 'FAQ & Support', icon: HelpCircle },
   { id: 'legal', name: 'Legal Pages', icon: Shield },
   { id: 'seo', name: 'Global SEO Defaults', icon: SearchIcon },
@@ -43,7 +42,7 @@ const statusStyles: Record<string, string> = {
 };
 
 export default function ContentAdmin() {
-  const [activeModule, setActiveModule] = useState('insights');
+  const [activeModule, setActiveModule] = useState('portfolio');
   const [searchTerm, setSearchTerm] = useState('');
   
   const dispatch = useDispatch();

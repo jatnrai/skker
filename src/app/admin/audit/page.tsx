@@ -1,25 +1,46 @@
 "use client";
 
-import { useState } from 'react';
-import { Search, Filter, Download, Activity, AlertCircle } from 'lucide-react';
-
-const DUMMY_LOGS = [
-  { id: 'LOG-001', actor: 'Soon Kiat Ker', action: 'EXPORT_LEADS', resource: 'Corporate Leads (CSV)', ip: '192.168.1.45', time: '10 mins ago', status: 'Success' },
-  { id: 'LOG-002', actor: 'System', action: 'WEBHOOK_FAILED', resource: 'HubSpot Sync (Lead #1042)', ip: 'N/A', time: '15 mins ago', status: 'Failed' },
-  { id: 'LOG-003', actor: 'Jane Doe', action: 'STATUS_CHANGE', resource: 'Lead #1040 (Proposal Sent)', ip: '10.0.0.12', time: '2 hours ago', status: 'Success' },
-  { id: 'LOG-004', actor: 'Soon Kiat Ker', action: 'PUBLISH_COURSE', resource: 'Course: AI Strategy', ip: '192.168.1.45', time: '5 hours ago', status: 'Success' },
-  { id: 'LOG-005', actor: 'Jane Doe', action: 'LOGIN', resource: 'Admin Panel', ip: '10.0.0.12', time: '1 day ago', status: 'Success' },
-  { id: 'LOG-006', actor: 'Unknown', action: 'LOGIN_FAILED', resource: 'Admin Panel', ip: '45.22.11.9', time: '2 days ago', status: 'Failed' },
-];
+import { useState, useEffect } from 'react';
+import { Search, Filter, Download, Activity, AlertCircle, Loader2 } from 'lucide-react';
+import { API_BASE_URL } from '../../environment/env';
 
 export default function AuditLogPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterAction, setFilterAction] = useState('');
 
-  const filteredLogs = DUMMY_LOGS.filter(l => 
-    (filterAction === '' || l.action.includes(filterAction)) &&
-    (l.actor.toLowerCase().includes(searchTerm.toLowerCase()) || 
-     l.resource.toLowerCase().includes(searchTerm.toLowerCase()))
+  const [logs, setLogs] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState('');
+  
+  useEffect(() => {
+    fetchLogs();
+  }, []);
+
+  const getAuthToken = () => {
+    const match = document.cookie.match(new RegExp('(^| )skker_admin_auth=([^;]+)'));
+    return match ? match[2] : null;
+  };
+
+  const fetchLogs = async () => {
+    try {
+      const token = getAuthToken();
+      const res = await fetch(`${API_BASE_URL}/audit`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (!res.ok) throw new Error(await res.text());
+      const data = await res.json();
+      setLogs(data.logs || []);
+    } catch (err) {
+      setErrorMsg("Failed to load audit logs");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const filteredLogs = logs.filter(l => 
+    (filterAction === '' || l.action.toLowerCase().includes(filterAction.toLowerCase())) &&
+    ((l.user_name || '').toLowerCase().includes(searchTerm.toLowerCase()) || 
+     (l.resource || '').toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   return (
@@ -71,47 +92,61 @@ export default function AuditLogPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-admin-border">
-              {filteredLogs.map((log) => (
-                <tr key={log.id} className="hover:bg-admin-surface border border-admin-border/50 transition-colors">
-                  <td className="px-6 py-4 font-mono text-xs text-admin-muted">
-                    {log.id}
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex flex-col">
-                      <span className={`font-medium text-xs uppercase tracking-wider ${log.status === 'Failed' ? 'text-red-400' : 'text-admin-text'}`}>
-                        {log.action}
-                      </span>
-                      <span className="text-admin-muted text-sm mt-0.5">{log.resource}</span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-2">
-                      {log.actor === 'System' ? (
-                        <Activity size={14} className="text-blue-500" />
-                      ) : log.actor === 'Unknown' ? (
-                        <AlertCircle size={14} className="text-amber-500" />
-                      ) : (
-                        <div className="w-5 h-5 rounded-full bg-admin-surface border border-admin-border flex items-center justify-center text-[10px] font-bold text-admin-text shrink-0">
-                          {log.actor.charAt(0)}
-                        </div>
-                      )}
-                      <span className="text-admin-text">{log.actor}</span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 font-mono text-xs text-admin-muted">
-                    {log.ip}
-                  </td>
-                  <td className="px-6 py-4 text-admin-muted text-right text-xs">
-                    {log.time}
+              {isLoading ? (
+                <tr>
+                  <td colSpan={5} className="px-6 py-8 text-center text-admin-muted">
+                    <Loader2 size={24} className="animate-spin mx-auto mb-2" />
+                    Loading logs...
                   </td>
                 </tr>
-              ))}
-              {filteredLogs.length === 0 && (
+              ) : errorMsg ? (
+                <tr>
+                  <td colSpan={5} className="px-6 py-8 text-center text-red-500">
+                    {errorMsg}
+                  </td>
+                </tr>
+              ) : filteredLogs.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="px-6 py-8 text-center text-admin-muted">
                     No logs found.
                   </td>
                 </tr>
+              ) : (
+                filteredLogs.map((log) => (
+                  <tr key={log.id} className="hover:bg-admin-surface border border-admin-border/50 transition-colors">
+                    <td className="px-6 py-4 font-mono text-xs text-admin-muted">
+                      LOG-{log.id}
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex flex-col">
+                        <span className={`font-medium text-xs uppercase tracking-wider ${log.action.includes('Failed') ? 'text-red-400' : 'text-admin-text'}`}>
+                          {log.action}
+                        </span>
+                        <span className="text-admin-muted text-sm mt-0.5">{log.resource}</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-2">
+                        {log.user_name === 'System' ? (
+                          <Activity size={14} className="text-blue-500" />
+                        ) : !log.user_name ? (
+                          <AlertCircle size={14} className="text-amber-500" />
+                        ) : (
+                          <div className="w-5 h-5 rounded-full bg-admin-surface border border-admin-border flex items-center justify-center text-[10px] font-bold text-admin-text shrink-0">
+                            {log.user_name.charAt(0)}
+                          </div>
+                        )}
+                        <span className="text-admin-text">{log.user_name || 'Unknown'}</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 font-mono text-xs text-admin-muted">
+                      {log.ip_address || 'N/A'}
+                    </td>
+                    <td className="px-6 py-4 text-admin-muted text-right text-xs">
+                      {new Date(log.created_at).toLocaleString()}
+                    </td>
+                  </tr>
+                ))
               )}
             </tbody>
           </table>

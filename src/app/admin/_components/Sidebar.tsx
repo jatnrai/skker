@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { 
@@ -19,7 +20,9 @@ import {
   Link as LinkIcon, 
   Activity, 
   Server,
-  LogOut
+  LogOut,
+  ChevronDown,
+  X
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
@@ -33,7 +36,23 @@ const navItems = [
   { name: 'Website Content', path: '/admin/content', icon: FileText },
   { name: 'Portfolio & Cases', path: '/admin/portfolio', icon: ImageIcon },
   { name: 'Insights / Blog', path: '/admin/insights', icon: Lightbulb },
-  { name: 'Academy', path: '/admin/academy', icon: GraduationCap },
+  { 
+    name: 'Academy', 
+    path: '/admin/academy', 
+    icon: GraduationCap,
+    subItems: [
+      { name: 'Overview', path: '/admin/academy' },
+      { name: 'Public Classes', path: '/admin/academy/public' },
+      { name: 'Corporate Training', path: '/admin/academy/corporate' },
+      { name: 'Private Training', path: '/admin/academy/private' },
+      { name: 'Self-Paced Courses', path: '/admin/academy/self-paced' },
+      { name: 'Sessions & Calendar', path: '/admin/academy/sessions' },
+      { name: 'Enrolments', path: '/admin/academy/enrolments' },
+      { name: 'Certificates', path: '/admin/academy/certificates' },
+      { name: 'Categories & Instructors', path: '/admin/academy/categories' },
+      { name: 'Settings', path: '/admin/academy/settings' },
+    ]
+  },
   { name: 'Bookings', path: '/admin/bookings', icon: Calendar },
   { name: 'Corporate Leads', path: '/admin/leads', icon: Briefcase },
   { name: 'Contacts / CRM', path: '/admin/crm', icon: Users },
@@ -47,10 +66,16 @@ const navItems = [
   { name: 'System', path: '/admin/system', icon: Server },
 ];
 
-import { X } from 'lucide-react'; // Added above, wait I need to check if X is imported. Let's just import it here or at top.
 export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
+  const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>({
+    'Academy': pathname.startsWith('/admin/academy')
+  });
+
+  const toggleMenu = (name: string) => {
+    setExpandedMenus(prev => ({ ...prev, [name]: !prev[name] }));
+  };
 
   const handleLogout = () => {
     document.cookie = "skker_admin_auth=; path=/; max-age=0";
@@ -85,7 +110,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
           </div>
         </Link>
         <button onClick={() => setIsOpen(false)} className="md:hidden text-admin-muted hover:text-admin-text">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          <X size={20} />
         </button>
       </div>
       
@@ -93,8 +118,53 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
         <ul className="flex flex-col gap-1">
           {navItems.map((item) => {
             const Icon = item.icon;
-            const isActive = pathname === item.path || (pathname.startsWith(item.path) && item.path !== '/admin');
             
+            // If it has subItems, handle the accordion
+            if (item.subItems) {
+              const isExpanded = expandedMenus[item.name];
+              const isChildActive = item.subItems.some(sub => pathname === sub.path);
+              
+              return (
+                <li key={item.path} className="flex flex-col gap-1">
+                  <button 
+                    onClick={() => toggleMenu(item.name)}
+                    className={`w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                      isChildActive 
+                        ? 'bg-admin-primary-bg/50 text-admin-primary' 
+                        : 'text-admin-muted hover:bg-admin-surface hover:text-admin-text'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <Icon size={18} className="shrink-0" />
+                      <span className="whitespace-nowrap">{item.name}</span>
+                    </div>
+                    <ChevronDown size={16} className={`transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                  </button>
+                  
+                  {isExpanded && (
+                    <ul className="flex flex-col gap-1 pl-11 pr-2 py-1">
+                      {item.subItems.map(sub => (
+                        <li key={sub.path}>
+                          <Link 
+                            href={sub.path}
+                            className={`block px-3 py-2 rounded-md text-xs font-medium transition-colors ${
+                              pathname === sub.path 
+                                ? 'bg-admin-primary/10 text-admin-primary' 
+                                : 'text-admin-muted hover:text-admin-text hover:bg-admin-surface'
+                            }`}
+                          >
+                            {sub.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              );
+            }
+            
+            // Standard link
+            const isActive = pathname === item.path || (pathname.startsWith(item.path) && item.path !== '/admin');
             return (
               <li key={item.path}>
                 <Link 

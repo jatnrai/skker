@@ -14,6 +14,7 @@ export interface Lead {
   email: string;
   phone?: string;
   jobTitle?: string;
+  serviceType?: string;
   topic: string;
   timeline: string;
   value: string;
@@ -24,6 +25,13 @@ export interface Lead {
   tags?: string[];
   followUpDate?: string;
   activities?: LeadActivity[];
+  source?: string;
+  attachments?: any[];
+  probability?: number;
+  expectedValue?: number | string;
+  lossReason?: string;
+  pipelineStage?: string;
+  nextAction?: string;
 }
 
 export interface Course {

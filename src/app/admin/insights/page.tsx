@@ -1,117 +1,104 @@
 "use client";
 
-import { useState } from 'react';
-import { Search, Plus, Eye, Edit, Trash2, Tag, BarChart2 } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Plus } from 'lucide-react';
+import { API_BASE_URL } from '@/app/environment/env';
+import BlogList from './components/BlogList';
+import BlogEditor from './components/BlogEditor';
 
-const DUMMY_INSIGHTS = [
-  { id: '1', title: 'The Future of Product Management', author: 'Soon Kiat Ker', status: 'Published', date: '2026-08-20', views: '2.4k', category: 'Product' },
-  { id: '2', title: 'Kanban vs Scrum: What to choose?', author: 'Jane Doe', status: 'Published', date: '2026-08-15', views: '1.8k', category: 'Agile' },
-  { id: '3', title: 'Navigating Organizational Change', author: 'Soon Kiat Ker', status: 'Draft', date: '-', views: '-', category: 'Org Design' },
-  { id: '4', title: 'AI Strategy for Non-Technical Leaders', author: 'Jane Doe', status: 'Published', date: '2026-08-01', views: '5.1k', category: 'AI' },
-];
+export interface Blog {
+  id: string;
+  title: string;
+  slug: string;
+  content: string;
+  author: string;
+  category: string;
+  tags: string[];
+  readTime: string;
+  status: string;
+  publishDate: string;
+  seoTitle: string;
+  seoDescription: string;
+  canonicalUrl: string;
+  ogImage: string;
+  indexing: string;
+  sitemap: boolean;
+}
 
 export default function InsightsPage() {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [view, setView] = useState<'list' | 'editor'>('list');
+  const [selectedBlogId, setSelectedBlogId] = useState<string | null>(null);
 
-  const filtered = DUMMY_INSIGHTS.filter(i => 
-    i.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const fetchBlogs = async () => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/blogs`);
+      if (res.ok) {
+        const data = await res.json();
+        setBlogs(data.blogs || []);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
+
+  const handleCreateNew = () => {
+    setSelectedBlogId(null);
+    setView('editor');
+  };
+
+  const handleEdit = (id: string) => {
+    setSelectedBlogId(id);
+    setView('editor');
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this blog post?')) return;
+    try {
+      await fetch(`${API_BASE_URL}/blogs`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids: [id] })
+      });
+      fetchBlogs();
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Insights / Blog</h1>
-          <p className="text-admin-muted text-sm mt-1">Manage articles, thought leadership, and SEO content.</p>
+          <h1 className="text-2xl font-semibold tracking-tight">Insights & Articles</h1>
+          <p className="text-admin-muted text-sm mt-1">Manage thought leadership, SEO content, and blog posts.</p>
         </div>
-        <button className="whitespace-nowrap px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
-          <Plus size={16} /> Create Post
-        </button>
+        {view === 'list' && (
+          <button 
+            onClick={handleCreateNew}
+            className="whitespace-nowrap px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm font-medium transition-colors flex items-center gap-2"
+          >
+            <Plus size={16} /> Create Post
+          </button>
+        )}
       </div>
 
-      <div className="bg-admin-surface border border-admin-border rounded-xl overflow-hidden">
-        <div className="p-4 border-b border-admin-border bg-admin-bg flex flex-col sm:flex-row items-center gap-4">
-          <div className="relative w-full sm:w-64">
-            <input 
-              type="text" 
-              placeholder="Search articles..." 
-              className="bg-admin-bg border border-admin-border text-admin-text rounded-lg py-2 pl-9 pr-4 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 w-full"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <Search size={16} className="absolute left-3 top-2.5 text-admin-muted" />
-          </div>
-          <select className="bg-admin-bg border border-admin-border text-admin-text rounded-lg py-2 px-3 text-sm focus:outline-none focus:border-blue-500 appearance-none w-full sm:w-auto">
-            <option value="">All Categories</option>
-            <option value="Product">Product Management</option>
-            <option value="Agile">Agile & Kanban</option>
-            <option value="AI">AI Strategy</option>
-          </select>
-        </div>
-
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm text-left whitespace-nowrap">
-            <thead className="text-xs text-admin-muted uppercase bg-admin-bg">
-              <tr>
-                <th className="px-6 py-4 font-medium">Title & Author</th>
-                <th className="px-6 py-4 font-medium">Category</th>
-                <th className="px-6 py-4 font-medium">Status</th>
-                <th className="px-6 py-4 font-medium">Date</th>
-                <th className="px-6 py-4 font-medium text-right">Views</th>
-                <th className="px-6 py-4 font-medium text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-admin-border">
-              {filtered.map((post) => (
-                <tr key={post.id} className="hover:bg-admin-surface border border-admin-border/50 transition-colors group">
-                  <td className="px-6 py-4">
-                    <div className="flex flex-col">
-                      <span className="font-semibold text-admin-text">{post.title}</span>
-                      <span className="text-admin-muted text-xs mt-0.5">by {post.author}</span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="inline-flex items-center gap-1 px-2 py-1 bg-admin-bg border border-admin-border rounded text-xs text-admin-muted">
-                      <Tag size={10} /> {post.category}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium border ${
-                      post.status === 'Published' 
-                        ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' 
-                        : 'bg-admin-surface border border-admin-border text-admin-muted border-admin-primary'
-                    }`}>
-                      {post.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-admin-muted text-xs">
-                    {post.date}
-                  </td>
-                  <td className="px-6 py-4 text-right">
-                    <div className="flex items-center justify-end gap-1 text-admin-muted text-xs">
-                      {post.status === 'Published' && <BarChart2 size={12} />} {post.views}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 text-right">
-                    <div className="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <button className="text-admin-muted hover:text-admin-text p-1.5 rounded transition-colors"><Eye size={16} /></button>
-                      <button className="text-admin-muted hover:text-admin-text p-1.5 rounded transition-colors"><Edit size={16} /></button>
-                      <button className="text-admin-muted hover:text-red-400 p-1.5 rounded transition-colors"><Trash2 size={16} /></button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-              {filtered.length === 0 && (
-                <tr>
-                  <td colSpan={6} className="px-6 py-8 text-center text-admin-muted">
-                    No articles found.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      {view === 'list' ? (
+        <BlogList 
+          blogs={blogs} 
+          onEdit={handleEdit} 
+          onDelete={handleDelete} 
+        />
+      ) : (
+        <BlogEditor 
+          blog={selectedBlogId ? blogs.find(b => b.id === selectedBlogId) : undefined}
+          onClose={() => { setView('list'); fetchBlogs(); }}
+        />
+      )}
     </div>
   );
 }

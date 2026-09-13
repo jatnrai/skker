@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { Sidebar } from './_components/Sidebar';
 import { Header } from './_components/Header';
@@ -14,7 +14,11 @@ export default function AdminLayout({
   const pathname = usePathname();
 
   // Close sidebar automatically on route change on mobile
-  // We can just rely on the overlay click for now to keep it simple.
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      setIsSidebarOpen(false);
+    }
+  }, [pathname]);
 
 
 
