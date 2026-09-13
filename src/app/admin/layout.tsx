@@ -19,7 +19,7 @@ export default function AdminLayout({
 
 
   return (
-    <div className="flex h-screen bg-neutral-950 text-neutral-50 overflow-hidden antialiased relative">
+    <div className="flex h-screen bg-admin-bg text-admin-text overflow-hidden antialiased relative transition-colors duration-300">
       {/* Mobile Overlay */}
       {isSidebarOpen && (
         <div 

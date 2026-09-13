@@ -17,7 +17,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="lg:col-span-7 flex flex-col gap-8"
+          className="lg:col-span-8 xl:col-span-7 flex flex-col gap-8"
         >
           {/* Kicker */}
           <div className="flex items-center gap-4">
@@ -28,9 +28,8 @@ export default function HeroSection() {
           </div>
 
           {/* Headline */}
-          <h1 className="text-[48px] sm:text-[60px] lg:text-[72px] font-serif font-bold text-text leading-[1.05] tracking-tight">
-            Learn systems, <br />
-            strategy, <br />
+          <h1 className="text-[48px] sm:text-[60px] lg:text-[60px] xl:text-[72px] font-serif font-bold text-text leading-[1.05] tracking-tight">
+            Learn systems, strategy, <br />
             <em className="text-accent italic font-serif">and AI</em> with clarity.
           </h1>
 
@@ -79,10 +78,10 @@ export default function HeroSection() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-          className="lg:col-span-5 relative hidden lg:flex justify-end h-full items-center"
+          className="lg:col-span-4 xl:col-span-5 relative hidden lg:flex justify-end h-full items-center"
         >
           {/* Container holding the image and nameplate */}
-          <div className="relative w-full max-w-[380px] aspect-[38/48] mx-auto lg:mx-0">
+          <div className="relative w-full lg:max-w-[340px] xl:max-w-[400px] aspect-[2/3] mx-auto lg:mx-0">
 
             {/* Main Image Container */}
             <div className="absolute inset-0 rounded-[32px] border border-border bg-surface overflow-hidden shadow-2xl">
@@ -128,17 +127,17 @@ export default function HeroSection() {
           <Link href="/user/login" className="w-full sm:w-auto text-center px-8 py-3.5 rounded-full hover:bg-surface transition-colors text-[11px] font-mono font-bold uppercase tracking-[0.1em] text-muted hover:text-heading">
             Login to Academy
           </Link>
-          
+
           <div className="w-[1px] h-5 bg-border hidden sm:block"></div>
           <div className="h-[1px] w-full bg-border block sm:hidden"></div>
-          
+
           <Link href="/user/training/courses" className="w-full sm:w-auto text-center px-8 py-3.5 rounded-full hover:bg-surface transition-colors text-[11px] font-mono font-bold uppercase tracking-[0.1em] text-muted hover:text-heading">
             Browse Courses
           </Link>
-          
+
           <div className="w-[1px] h-5 bg-border hidden sm:block"></div>
           <div className="h-[1px] w-full bg-border block sm:hidden"></div>
-          
+
           <Link href="/academy/home/book_session" className="w-full sm:w-auto text-center px-8 py-3.5 rounded-full hover:bg-surface transition-colors text-[11px] font-mono font-bold uppercase tracking-[0.1em] text-muted hover:text-heading">
             Book a Session
           </Link>

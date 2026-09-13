@@ -62,7 +62,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
     <aside 
       className={`
         fixed md:relative top-0 left-0 h-full flex flex-col 
-        bg-neutral-950 border-r border-neutral-800 
+        bg-admin-bg border-r border-admin-border 
         transition-all duration-300 ease-in-out z-50 md:z-0 overflow-hidden
         ${isOpen 
           ? 'w-64 translate-x-0' 
@@ -70,11 +70,21 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
         }
       `}
     >
-      <div className="h-[70px] flex items-center justify-between px-6 border-b border-neutral-800 shrink-0">
-        <div className="text-xl font-bold text-white tracking-tight">
-          <span className="text-blue-500">SKKER</span> Admin
-        </div>
-        <button onClick={() => setIsOpen(false)} className="md:hidden text-neutral-400 hover:text-white">
+      <div className="h-[70px] flex items-center justify-between px-6 border-b border-admin-border shrink-0">
+        <Link href="/admin" className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-full border border-admin-border flex items-center justify-center bg-admin-surface overflow-hidden shadow-[0_0_15px_rgba(0,184,219,0.2)]">
+            <img src="/assets/Logoicon.png" alt="SKKER Icon" className="h-5 w-5 object-contain" />
+          </div>
+          <div className="flex items-baseline gap-1">
+            <span className="text-[14px] font-bold tracking-[0.2em] uppercase text-admin-text">
+              SKKER
+            </span>
+            <span className="text-[10px] font-medium text-admin-muted uppercase tracking-widest">
+              Admin
+            </span>
+          </div>
+        </Link>
+        <button onClick={() => setIsOpen(false)} className="md:hidden text-admin-muted hover:text-admin-text">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
         </button>
       </div>
@@ -91,8 +101,8 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                   href={item.path} 
                   className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                     isActive 
-                      ? 'bg-blue-500/10 text-blue-500' 
-                      : 'text-neutral-400 hover:bg-neutral-900 hover:text-white'
+                      ? 'bg-admin-primary-bg text-admin-primary' 
+                      : 'text-admin-muted hover:bg-admin-surface hover:text-admin-text'
                   }`}
                 >
                   <Icon size={18} className="shrink-0" />
@@ -104,19 +114,19 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
         </ul>
       </nav>
       
-      <div className="p-4 border-t border-neutral-800 shrink-0 space-y-3">
-        <div className="flex items-center gap-3 p-2 rounded-lg bg-neutral-900 border border-neutral-800">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-600 to-blue-400 flex items-center justify-center text-xs font-bold text-white shrink-0">
+      <div className="p-4 border-t border-admin-border shrink-0 space-y-3">
+        <div className="flex items-center gap-3 p-2 rounded-lg bg-admin-surface border border-admin-border">
+          <div className="w-8 h-8 rounded-full bg-admin-primary flex items-center justify-center text-xs font-bold text-white shrink-0">
             SK
           </div>
           <div className="flex flex-col overflow-hidden">
-            <span className="text-sm font-semibold text-white truncate">Soon Kiat Ker</span>
-            <span className="text-[10px] text-neutral-400 uppercase tracking-wider truncate">Owner / Super Admin</span>
+            <span className="text-sm font-semibold text-admin-text truncate">Soon Kiat Ker</span>
+            <span className="text-[10px] text-admin-muted uppercase tracking-wider truncate">Owner / Super Admin</span>
           </div>
         </div>
         <button 
           onClick={handleLogout}
-          className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-neutral-400 hover:text-red-400 hover:bg-red-500/10 transition-colors"
+          className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-admin-muted hover:text-red-500 hover:bg-red-500/10 transition-colors"
         >
           <LogOut size={16} /> Log Out
         </button>

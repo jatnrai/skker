@@ -1,0 +1,34 @@
+/* Admin Panel specific CSS variables */
+:root {
+  /* LIGHT MODE (Clean, airy, slightly cool grays/whites) */
+  --admin-bg: #f8fafc;
+  --admin-surface: #ffffff;
+  --admin-border: #e2e8f0;
+  --admin-text: #0f172a;
+  --admin-muted: #64748b;
+  --admin-primary: #3b82f6; /* blue-500 */
+  --admin-primary-bg: #eff6ff; /* blue-50 */
+}
+
+:root.dark,
+html.dark,
+.dark {
+  /* DARK MODE (Deep space, glassmorphic, cool blues) */
+  --admin-bg: #030712;
+  --admin-surface: #0a0a0a;
+  --admin-border: #262626;
+  --admin-text: #f8fafc;
+  --admin-muted: #a3a3a3;
+  --admin-primary: #3b82f6;
+  --admin-primary-bg: rgba(59, 130, 246, 0.1);
+}
+
+@theme {
+  --color-admin-bg: var(--admin-bg);
+  --color-admin-surface: var(--admin-surface);
+  --color-admin-border: var(--admin-border);
+  --color-admin-text: var(--admin-text);
+  --color-admin-muted: var(--admin-muted);
+  --color-admin-primary: var(--admin-primary);
+  --color-admin-primary-bg: var(--admin-primary-bg);
+}

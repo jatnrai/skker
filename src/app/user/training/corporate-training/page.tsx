@@ -287,10 +287,10 @@ export default function CorporateTrainingPage() {
                 <div className="w-[42px] h-[42px] rounded-[15px] bg-[#00b8db]/10 border border-[#00b8db]/20 flex items-center justify-center font-sans text-[13px] font-black text-accent mb-[22px]">
                   {area.tag}
                 </div>
-                <h3 className="text-[20.5px] font-black text-heading leading-[1.2] tracking-[-0.02em] mb-2.5">{area.title}</h3>
+                <h3 className="text-[20.5px] font-black text-heading text-center leading-[1.2] tracking-[-0.02em] mb-2.5">{area.title}</h3>
                 <p className="text-[15px] text-muted/70 leading-[1.6] mb-5">{area.desc}</p>
                 
-                <ul className="grid gap-[10px] mt-auto">
+                <ul className="grid gap-[10px] mb-2">
                   {area.bullets.map((bullet, idx) => (
                     <li key={idx} className="text-[14.5px] text-muted/70 leading-[1.55] grid grid-cols-[12px_1fr] gap-2.5 items-start">
                       <div className="w-[6px] h-[6px] rounded-full bg-accent mt-[8px]" />

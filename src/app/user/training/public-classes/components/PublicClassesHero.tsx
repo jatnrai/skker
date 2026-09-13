@@ -20,7 +20,7 @@ export default function PublicClassesHero() {
           </div>
           
           <h1 className="text-[48px] sm:text-[60px] lg:text-[75px] font-sans font-bold text-heading leading-[1.02] tracking-[-0.03em] mb-6">
-            Live cohort classes<br />for practical<br />operators.
+            Live cohort classes<br />for <span className="text-transparent bg-clip-text bg-gradient-to-br from-[#00b8db] to-[#005a8c]">practical<br />operators.</span>
           </h1>
           
           <p className="text-[16px] text-muted/80 leading-[1.7] font-sans max-w-[500px] mb-10">

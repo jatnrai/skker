@@ -87,7 +87,7 @@ export default function TrainingPaths({ exclude }: { exclude?: string }) {
                 </div>
               </div>
               
-              <h3 className="text-[20px] font-serif font-bold text-heading mb-3 group-hover:text-accent transition-colors">{path.title}</h3>
+              <h3 className="text-[20px] font-serif font-bold text-heading text-center mb-3 group-hover:text-accent transition-colors">{path.title}</h3>
               <p className="text-[12.5px] text-muted/80 leading-[1.6] mb-6">{path.desc}</p>
               
               <ul className="space-y-3 mb-8 mt-auto">

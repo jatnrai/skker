@@ -97,7 +97,7 @@ export default function Navbar() {
             <Link href="/user/contact" className="px-5 py-2.5 rounded-full border border-border bg-section text-[10px] font-mono font-bold tracking-[0.15em] uppercase text-muted hover:text-text hover:bg-white/5 transition-all">
               Contact
             </Link>
-            <Link href="/user/contact" className="px-5 py-2.5 rounded-full bg-gradient-to-r from-accent to-accent-cool text-[11px] font-mono font-extrabold tracking-[0.15em] uppercase text-page shadow-[0_0_20px_rgba(0,184,219,0.3)] hover:shadow-[0_0_30px_rgba(0,184,219,0.5)] transition-all">
+            <Link href="/user/book-session" className="px-5 py-2.5 rounded-full bg-gradient-to-r from-accent to-accent-cool text-[11px] font-mono font-extrabold tracking-[0.15em] uppercase text-page shadow-[0_0_20px_rgba(0,184,219,0.3)] hover:shadow-[0_0_30px_rgba(0,184,219,0.5)] transition-all">
               Book Session
             </Link>
           </div>
@@ -133,7 +133,7 @@ export default function Navbar() {
           <div className="flex flex-col gap-3 mt-4 pt-4 border-t border-border">
             <Link href="/user/login" className="text-center w-full px-4 py-3 rounded-full border border-border bg-section text-text font-mono font-bold tracking-widest uppercase text-[11px]">Login</Link>
             <Link href="/user/contact" className="text-center w-full px-4 py-3 rounded-full border border-border bg-section text-text font-mono font-bold tracking-widest uppercase text-[11px]">Contact</Link>
-            <Link href="/user/contact" className="text-center w-full px-4 py-3 rounded-full bg-gradient-to-r from-accent to-accent-cool text-page font-mono font-extrabold tracking-widest uppercase text-[11px]">Book Session</Link>
+            <Link href="/user/book-session" className="text-center w-full px-4 py-3 rounded-full bg-gradient-to-r from-accent to-accent-cool text-page font-mono font-extrabold tracking-widest uppercase text-[11px]">Book Session</Link>
           </div>
         </div>
       )}

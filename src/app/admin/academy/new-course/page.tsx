@@ -33,16 +33,16 @@ export default function NewCourse() {
     <div className="space-y-6 max-w-5xl mx-auto pb-12">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Link href="/admin/academy" className="p-2 hover:bg-neutral-800 rounded-lg transition-colors text-neutral-400 hover:text-white">
+          <Link href="/admin/academy" className="p-2 hover:bg-admin-surface border border-admin-border rounded-lg transition-colors text-admin-muted hover:text-admin-text">
             <ArrowLeft size={20} />
           </Link>
           <div>
             <h1 className="text-2xl font-semibold tracking-tight">Create New Course</h1>
-            <p className="text-neutral-400 text-sm mt-1">Configure curriculum, pricing, and visibility settings.</p>
+            <p className="text-admin-muted text-sm mt-1">Configure curriculum, pricing, and visibility settings.</p>
           </div>
         </div>
         <div className="flex gap-3">
-          <button className="px-4 py-2 bg-neutral-900 border border-neutral-800 hover:bg-neutral-800 rounded-lg text-sm font-medium transition-colors">
+          <button className="px-4 py-2 bg-admin-surface border border-admin-border hover:bg-admin-surface border border-admin-border rounded-lg text-sm font-medium transition-colors">
             Save Draft
           </button>
           <button 
@@ -57,39 +57,39 @@ export default function NewCourse() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
           {/* General Info */}
-          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 space-y-6">
-            <h3 className="text-lg font-semibold border-b border-neutral-800 pb-4">General Information</h3>
+          <div className="bg-admin-surface border border-admin-border rounded-xl p-6 space-y-6">
+            <h3 className="text-lg font-semibold border-b border-admin-border pb-4">General Information</h3>
             
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-neutral-300 mb-1.5">Course Title</label>
+                <label className="block text-sm font-medium text-admin-text mb-1.5">Course Title</label>
                 <input 
                   type="text" 
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-2.5 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none" 
+                  className="w-full bg-admin-bg border border-admin-border rounded-lg px-4 py-2.5 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none" 
                   placeholder="e.g. AI Strategy for Executives"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-neutral-300 mb-1.5">URL Slug</label>
-                <div className="flex bg-neutral-950 border border-neutral-800 rounded-lg overflow-hidden focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500">
-                  <span className="bg-neutral-900 px-4 py-2.5 text-sm text-neutral-500 border-r border-neutral-800">skker.com/courses/</span>
+                <label className="block text-sm font-medium text-admin-text mb-1.5">URL Slug</label>
+                <div className="flex bg-admin-bg border border-admin-border rounded-lg overflow-hidden focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500">
+                  <span className="bg-admin-surface px-4 py-2.5 text-sm text-admin-muted border-r border-admin-border">skker.com/courses/</span>
                   <input type="text" className="w-full bg-transparent px-4 py-2.5 text-sm outline-none" placeholder="ai-strategy" />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-neutral-300 mb-1.5">Short Summary</label>
-                <textarea className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-2.5 text-sm h-20 resize-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none" placeholder="A brief 1-2 sentence description for cards and previews..."></textarea>
+                <label className="block text-sm font-medium text-admin-text mb-1.5">Short Summary</label>
+                <textarea className="w-full bg-admin-bg border border-admin-border rounded-lg px-4 py-2.5 text-sm h-20 resize-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none" placeholder="A brief 1-2 sentence description for cards and previews..."></textarea>
               </div>
               <div>
-                <label className="block text-sm font-medium text-neutral-300 mb-1.5">Full Description</label>
-                <div className="border border-neutral-800 rounded-lg overflow-hidden bg-neutral-950 h-64">
+                <label className="block text-sm font-medium text-admin-text mb-1.5">Full Description</label>
+                <div className="border border-admin-border rounded-lg overflow-hidden bg-admin-bg h-64">
                   {/* Dummy Rich Text Toolbar */}
-                  <div className="bg-neutral-900 border-b border-neutral-800 p-2 flex gap-2">
-                    <div className="w-6 h-6 bg-neutral-800 rounded"></div>
-                    <div className="w-6 h-6 bg-neutral-800 rounded"></div>
-                    <div className="w-6 h-6 bg-neutral-800 rounded"></div>
+                  <div className="bg-admin-surface border-b border-admin-border p-2 flex gap-2">
+                    <div className="w-6 h-6 bg-admin-surface border border-admin-border rounded"></div>
+                    <div className="w-6 h-6 bg-admin-surface border border-admin-border rounded"></div>
+                    <div className="w-6 h-6 bg-admin-surface border border-admin-border rounded"></div>
                   </div>
                   <textarea className="w-full h-full bg-transparent p-4 text-sm resize-none outline-none" placeholder="Detailed course description..."></textarea>
                 </div>
@@ -98,30 +98,30 @@ export default function NewCourse() {
           </div>
 
           {/* Curriculum & Details */}
-          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 space-y-6">
-            <h3 className="text-lg font-semibold border-b border-neutral-800 pb-4">Curriculum & Details</h3>
+          <div className="bg-admin-surface border border-admin-border rounded-xl p-6 space-y-6">
+            <h3 className="text-lg font-semibold border-b border-admin-border pb-4">Curriculum & Details</h3>
             
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-neutral-300 mb-1.5">Learning Outcomes (One per line)</label>
-                <textarea className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-2.5 text-sm h-32 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="- Understand AI principles..."></textarea>
+                <label className="block text-sm font-medium text-admin-text mb-1.5">Learning Outcomes (One per line)</label>
+                <textarea className="w-full bg-admin-bg border border-admin-border rounded-lg px-4 py-2.5 text-sm h-32 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="- Understand AI principles..."></textarea>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-neutral-300 mb-1.5">Target Audience</label>
-                  <input type="text" className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-blue-500" placeholder="e.g. C-Level, VP" />
+                  <label className="block text-sm font-medium text-admin-text mb-1.5">Target Audience</label>
+                  <input type="text" className="w-full bg-admin-bg border border-admin-border rounded-lg px-4 py-2.5 text-sm outline-none focus:border-blue-500" placeholder="e.g. C-Level, VP" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-neutral-300 mb-1.5">Prerequisites</label>
-                  <input type="text" className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-blue-500" placeholder="e.g. None" />
+                  <label className="block text-sm font-medium text-admin-text mb-1.5">Prerequisites</label>
+                  <input type="text" className="w-full bg-admin-bg border border-admin-border rounded-lg px-4 py-2.5 text-sm outline-none focus:border-blue-500" placeholder="e.g. None" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-neutral-300 mb-1.5">Duration</label>
-                  <input type="text" className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-blue-500" placeholder="e.g. 2 Days / 16 Hours" />
+                  <label className="block text-sm font-medium text-admin-text mb-1.5">Duration</label>
+                  <input type="text" className="w-full bg-admin-bg border border-admin-border rounded-lg px-4 py-2.5 text-sm outline-none focus:border-blue-500" placeholder="e.g. 2 Days / 16 Hours" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-neutral-300 mb-1.5">Language</label>
-                  <select className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-blue-500">
+                  <label className="block text-sm font-medium text-admin-text mb-1.5">Language</label>
+                  <select className="w-full bg-admin-bg border border-admin-border rounded-lg px-4 py-2.5 text-sm outline-none focus:border-blue-500">
                     <option>English</option>
                     <option>Malay</option>
                     <option>Mandarin</option>
@@ -134,14 +134,14 @@ export default function NewCourse() {
 
         {/* Sidebar settings */}
         <div className="space-y-8">
-          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 space-y-6">
-            <h3 className="text-sm font-semibold uppercase text-neutral-500 tracking-wider">Settings</h3>
+          <div className="bg-admin-surface border border-admin-border rounded-xl p-6 space-y-6">
+            <h3 className="text-sm font-semibold uppercase text-admin-muted tracking-wider">Settings</h3>
             
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-neutral-300 mb-1.5">Visibility Mode</label>
+                <label className="block text-sm font-medium text-admin-text mb-1.5">Visibility Mode</label>
                 <select 
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-blue-500"
+                  className="w-full bg-admin-bg border border-admin-border rounded-lg px-4 py-2.5 text-sm outline-none focus:border-blue-500"
                   value={type}
                   onChange={(e) => setType(e.target.value)}
                 >
@@ -153,8 +153,8 @@ export default function NewCourse() {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-neutral-300 mb-1.5">Category</label>
-                <select className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-blue-500">
+                <label className="block text-sm font-medium text-admin-text mb-1.5">Category</label>
+                <select className="w-full bg-admin-bg border border-admin-border rounded-lg px-4 py-2.5 text-sm outline-none focus:border-blue-500">
                   <option>Product Management</option>
                   <option>AI & Strategy</option>
                   <option>Agile & Kanban</option>
@@ -162,8 +162,8 @@ export default function NewCourse() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-neutral-300 mb-1.5">Delivery Mode</label>
-                <select className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-blue-500">
+                <label className="block text-sm font-medium text-admin-text mb-1.5">Delivery Mode</label>
+                <select className="w-full bg-admin-bg border border-admin-border rounded-lg px-4 py-2.5 text-sm outline-none focus:border-blue-500">
                   <option>Hybrid</option>
                   <option>Virtual</option>
                   <option>On-site</option>
@@ -171,31 +171,31 @@ export default function NewCourse() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-neutral-300 mb-1.5">Instructor</label>
-                <select className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-blue-500">
+                <label className="block text-sm font-medium text-admin-text mb-1.5">Instructor</label>
+                <select className="w-full bg-admin-bg border border-admin-border rounded-lg px-4 py-2.5 text-sm outline-none focus:border-blue-500">
                   <option>Soon Kiat Ker</option>
                 </select>
               </div>
             </div>
           </div>
 
-          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 space-y-6">
-            <h3 className="text-sm font-semibold uppercase text-neutral-500 tracking-wider">Pricing</h3>
+          <div className="bg-admin-surface border border-admin-border rounded-xl p-6 space-y-6">
+            <h3 className="text-sm font-semibold uppercase text-admin-muted tracking-wider">Pricing</h3>
             
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-neutral-300 mb-1.5">Currency</label>
-                  <select className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-blue-500">
+                  <label className="block text-sm font-medium text-admin-text mb-1.5">Currency</label>
+                  <select className="w-full bg-admin-bg border border-admin-border rounded-lg px-4 py-2.5 text-sm outline-none focus:border-blue-500">
                     <option>MYR (RM)</option>
                     <option>USD ($)</option>
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-neutral-300 mb-1.5">Price</label>
+                  <label className="block text-sm font-medium text-admin-text mb-1.5">Price</label>
                   <input 
                     type="number" 
-                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-blue-500" 
+                    className="w-full bg-admin-bg border border-admin-border rounded-lg px-4 py-2.5 text-sm outline-none focus:border-blue-500" 
                     placeholder="0.00"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
@@ -204,27 +204,27 @@ export default function NewCourse() {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-neutral-300 mb-1.5">Discount Price (Optional)</label>
-                <input type="number" className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-blue-500" placeholder="0.00" />
+                <label className="block text-sm font-medium text-admin-text mb-1.5">Discount Price (Optional)</label>
+                <input type="number" className="w-full bg-admin-bg border border-admin-border rounded-lg px-4 py-2.5 text-sm outline-none focus:border-blue-500" placeholder="0.00" />
               </div>
               
               <div>
-                <label className="flex items-center justify-between text-sm font-medium text-neutral-300 mb-1.5">
-                  Tax Note <HelpCircle size={14} className="text-neutral-500" />
+                <label className="flex items-center justify-between text-sm font-medium text-admin-text mb-1.5">
+                  Tax Note <HelpCircle size={14} className="text-admin-muted" />
                 </label>
-                <input type="text" className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-blue-500" placeholder="e.g. Exclusive of 8% SST" />
+                <input type="text" className="w-full bg-admin-bg border border-admin-border rounded-lg px-4 py-2.5 text-sm outline-none focus:border-blue-500" placeholder="e.g. Exclusive of 8% SST" />
               </div>
             </div>
           </div>
 
-          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 space-y-6">
-            <h3 className="text-sm font-semibold uppercase text-neutral-500 tracking-wider">Media & Assets</h3>
-            <div className="border-2 border-dashed border-neutral-800 rounded-xl p-8 flex flex-col items-center justify-center text-center">
-              <div className="w-12 h-12 bg-neutral-800 rounded-full mb-3 flex items-center justify-center">
+          <div className="bg-admin-surface border border-admin-border rounded-xl p-6 space-y-6">
+            <h3 className="text-sm font-semibold uppercase text-admin-muted tracking-wider">Media & Assets</h3>
+            <div className="border-2 border-dashed border-admin-border rounded-xl p-8 flex flex-col items-center justify-center text-center">
+              <div className="w-12 h-12 bg-admin-surface border border-admin-border rounded-full mb-3 flex items-center justify-center">
                 <span className="text-xl">+</span>
               </div>
               <p className="text-sm font-medium">Upload Course Image</p>
-              <p className="text-xs text-neutral-500 mt-1">1920x1080px (16:9) recommended</p>
+              <p className="text-xs text-admin-muted mt-1">1920x1080px (16:9) recommended</p>
             </div>
           </div>
         </div>

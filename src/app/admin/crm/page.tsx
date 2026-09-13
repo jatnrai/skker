@@ -25,26 +25,26 @@ export default function CRMPage() {
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Contacts / CRM</h1>
-          <p className="text-neutral-400 text-sm mt-1">Master database of all individuals, leads, and learners.</p>
+          <p className="text-admin-muted text-sm mt-1">Master database of all individuals, leads, and learners.</p>
         </div>
-        <button className="whitespace-nowrap px-4 py-2 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
+        <button className="whitespace-nowrap px-4 py-2 bg-admin-surface border border-admin-border hover:bg-admin-muted text-admin-text rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
           <Download size={16} /> Export Contacts
         </button>
       </div>
 
-      <div className="bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
-        <div className="p-4 border-b border-neutral-800 bg-neutral-950/50 flex flex-col sm:flex-row items-center gap-4">
+      <div className="bg-admin-surface border border-admin-border rounded-xl overflow-hidden">
+        <div className="p-4 border-b border-admin-border bg-admin-bg flex flex-col sm:flex-row items-center gap-4">
           <div className="relative w-full sm:w-64">
             <input 
               type="text" 
               placeholder="Search contacts..." 
-              className="bg-neutral-950 border border-neutral-800 text-white rounded-lg py-2 pl-9 pr-4 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 w-full"
+              className="bg-admin-bg border border-admin-border text-admin-text rounded-lg py-2 pl-9 pr-4 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 w-full"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <Search size={16} className="absolute left-3 top-2.5 text-neutral-500" />
+            <Search size={16} className="absolute left-3 top-2.5 text-admin-muted" />
           </div>
-          <select className="bg-neutral-950 border border-neutral-800 text-white rounded-lg py-2 px-3 text-sm focus:outline-none focus:border-blue-500 appearance-none w-full sm:w-auto">
+          <select className="bg-admin-bg border border-admin-border text-admin-text rounded-lg py-2 px-3 text-sm focus:outline-none focus:border-blue-500 appearance-none w-full sm:w-auto">
             <option value="">All Types</option>
             <option value="Client">Clients</option>
             <option value="Lead">Leads</option>
@@ -55,7 +55,7 @@ export default function CRMPage() {
 
         <div className="overflow-x-auto">
           <table className="w-full text-sm text-left whitespace-nowrap">
-            <thead className="text-xs text-neutral-500 uppercase bg-neutral-950/50">
+            <thead className="text-xs text-admin-muted uppercase bg-admin-bg">
               <tr>
                 <th className="px-6 py-4 font-medium">Contact</th>
                 <th className="px-6 py-4 font-medium">Company</th>
@@ -63,26 +63,26 @@ export default function CRMPage() {
                 <th className="px-6 py-4 font-medium text-right">Last Active</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-neutral-800">
+            <tbody className="divide-y divide-admin-border">
               {filtered.map((contact) => (
-                <tr key={contact.id} className="hover:bg-neutral-800/50 transition-colors cursor-pointer group">
+                <tr key={contact.id} className="hover:bg-admin-surface border border-admin-border/50 transition-colors cursor-pointer group">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center font-semibold text-white shrink-0">
+                      <div className="w-10 h-10 rounded-full bg-admin-surface border border-admin-border flex items-center justify-center font-semibold text-admin-text shrink-0">
                         {contact.name.split(' ').map(n => n[0]).join('')}
                       </div>
                       <div className="flex flex-col">
-                        <span className="font-semibold text-white group-hover:text-blue-400 transition-colors">{contact.name}</span>
-                        <div className="flex items-center gap-2 mt-0.5 text-xs text-neutral-500">
+                        <span className="font-semibold text-admin-text group-hover:text-blue-400 transition-colors">{contact.name}</span>
+                        <div className="flex items-center gap-2 mt-0.5 text-xs text-admin-muted">
                           <span className="flex items-center gap-1"><Mail size={10} /> {contact.email}</span>
                           {contact.phone !== '-' && <span className="flex items-center gap-1 hidden sm:flex"><Phone size={10} /> {contact.phone}</span>}
                         </div>
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-neutral-300">
+                  <td className="px-6 py-4 text-admin-text">
                     {contact.company !== '-' ? (
-                      <span className="flex items-center gap-1.5"><Building2 size={14} className="text-neutral-500" /> {contact.company}</span>
+                      <span className="flex items-center gap-1.5"><Building2 size={14} className="text-admin-muted" /> {contact.company}</span>
                     ) : (
                       <span className="text-neutral-600">-</span>
                     )}
@@ -92,19 +92,19 @@ export default function CRMPage() {
                       contact.type === 'Client' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' :
                       contact.type === 'Lead' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' :
                       contact.type === 'Learner' ? 'bg-purple-500/10 text-purple-400 border-purple-500/20' :
-                      'bg-neutral-800 text-neutral-400 border-neutral-700'
+                      'bg-admin-surface border border-admin-border text-admin-muted border-admin-primary'
                     }`}>
                       {contact.type}
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-neutral-400 text-right text-xs">
+                  <td className="px-6 py-4 text-admin-muted text-right text-xs">
                     {contact.lastActive}
                   </td>
                 </tr>
               ))}
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={4} className="px-6 py-8 text-center text-neutral-500">
+                  <td colSpan={4} className="px-6 py-8 text-center text-admin-muted">
                     No contacts found.
                   </td>
                 </tr>

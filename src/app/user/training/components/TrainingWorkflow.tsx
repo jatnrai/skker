@@ -13,7 +13,7 @@ export default function TrainingWorkflow() {
 
   return (
     <section id="private-training" className="mb-12">
-      <div className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-6 lg:gap-8 items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-[0.75fr_1.25fr] xl:grid-cols-[0.7fr_1.3fr] gap-6 lg:gap-8 items-stretch">
         
         {/* Left: How to Choose */}
         <div className="border-gradient rounded-[28px] p-8 sm:p-10 flex flex-col justify-center relative overflow-hidden group shadow-lg">
@@ -51,14 +51,14 @@ export default function TrainingWorkflow() {
           
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             {steps.map((step, index) => (
-              <div key={index} className="border-gradient-surface rounded-[20px] p-5 flex flex-col items-center text-center h-full hover:border-accent/30 transition-colors shadow-sm">
+              <div key={index} className="border-gradient-surface rounded-[20px] px-3 py-5 flex flex-col items-center text-center h-full hover:border-accent/30 transition-colors shadow-sm">
                 <span className="font-mono text-[10px] font-bold tracking-[0.15em] text-accent mb-4 block">
                   {step.num}
                 </span>
-                <strong className="text-[15px] text-heading font-medium leading-[1.3] block mb-3 min-h-[40px] flex items-center justify-center capitalize">
+                <strong className="text-[14px] xl:text-[15px] text-heading font-medium leading-[1.3] block mb-3 min-h-[40px] flex items-center justify-center capitalize">
                   {step.title}
                 </strong>
-                <p className="text-[12.5px] text-muted/80 leading-[1.6] m-0 mt-auto">
+                <p className="text-[12.5px] text-muted/80 leading-[1.6] m-0 mt-auto px-2">
                   {step.desc}
                 </p>
               </div>

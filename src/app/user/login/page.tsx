@@ -1,13 +1,51 @@
 'use client';
 
 import Link from 'next/link';
-import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { API_BASE_URL } from '../../environment/env';
 
 export default function LoginPage() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/users/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Login failed');
+      }
+
+      // Store token
+      localStorage.setItem('skker_auth_token', data.token);
+      localStorage.setItem('skker_user', JSON.stringify(data.user));
+
+      // Redirect to home
+      router.push('/');
+    } catch (err: any) {
+      setError(err.message || 'Invalid credentials');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <main className="min-h-screen bg-page text-text selection:bg-accent/30 flex flex-col">
@@ -50,8 +88,15 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              <form className="flex flex-col gap-5">
+              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                 
+                {error && (
+                  <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 flex items-start gap-2">
+                    <AlertCircle size={16} className="text-red-500 mt-0.5 shrink-0" />
+                    <p className="text-sm text-red-500">{error}</p>
+                  </div>
+                )}
+
                 <div className="flex flex-col gap-2">
                   <label className="text-[13px] font-bold text-heading">Your email</label>
                   <div className="relative">
@@ -60,6 +105,9 @@ export default function LoginPage() {
                     </div>
                     <input
                       type="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email"
                       className="w-full pl-11 pr-4 py-3 bg-surface border border-border rounded-xl focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/50 transition-all text-[14px] text-heading placeholder:text-muted/50"
                     />
@@ -74,6 +122,9 @@ export default function LoginPage() {
                     </div>
                     <input
                       type={showPassword ? "text" : "password"}
+                      required
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                       placeholder="Enter your valid password"
                       className="w-full pl-11 pr-12 py-3 bg-surface border border-border rounded-xl focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/50 transition-all text-[14px] text-heading placeholder:text-muted/50"
                     />
@@ -92,9 +143,10 @@ export default function LoginPage() {
 
                 <button
                   type="submit"
-                  className="w-full py-3.5 bg-accent text-page font-bold text-[14px] rounded-xl shadow-[0_0_20px_rgba(0,184,219,0.2)] hover:shadow-[0_0_30px_rgba(0,184,219,0.4)] transition-all hover:-translate-y-0.5 mt-2"
+                  disabled={loading}
+                  className="w-full py-3.5 bg-accent text-page font-bold text-[14px] rounded-xl shadow-[0_0_20px_rgba(0,184,219,0.2)] hover:shadow-[0_0_30px_rgba(0,184,219,0.4)] transition-all hover:-translate-y-0.5 mt-2 disabled:opacity-70 disabled:hover:translate-y-0"
                 >
-                  Access academy
+                  {loading ? 'Authenticating...' : 'Access academy'}
                 </button>
 
                 <div className="text-center mt-4">

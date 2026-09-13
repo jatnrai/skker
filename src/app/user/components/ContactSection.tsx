@@ -16,7 +16,7 @@ export default function ContactSection() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (isSubmitting || isSuccess) return; // Idempotent check
-    
+
     setIsSubmitting(true);
     setTimeout(() => {
       setIsSubmitting(false);
@@ -69,7 +69,7 @@ export default function ContactSection() {
                 <p className="text-[14px] text-muted max-w-[300px]">
                   Thank you for reaching out. Your enquiry has been received and you will hear from us shortly.
                 </p>
-                <button 
+                <button
                   onClick={() => setIsSuccess(false)}
                   className="mt-4 px-6 py-2.5 rounded-full border border-border bg-transparent text-[11px] font-mono font-bold tracking-[0.1em] uppercase text-muted hover:text-heading transition-colors"
                 >
@@ -104,8 +104,8 @@ export default function ContactSection() {
                   <textarea required rows={4} placeholder="Tell me about your situation and what you are trying to solve." className="bg-transparent border border-border rounded-xl px-4 py-4 text-heading text-[14px] placeholder:text-muted/50 focus:outline-none focus:border-accent/50 focus:bg-white/[0.02] transition-colors resize-none"></textarea>
                 </div>
 
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   disabled={isSubmitting}
                   className="w-full bg-gradient-to-r from-accent to-accent-cool text-page font-mono text-[11px] font-bold tracking-[0.1em] uppercase py-4 rounded-xl flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(0,184,219,0.4)] disabled:opacity-70 disabled:cursor-not-allowed transition-all group"
                 >
@@ -160,7 +160,7 @@ export default function ContactSection() {
                 </div>
                 <div className="flex flex-col">
                   <span className="font-mono text-[8px] font-bold tracking-[0.15em] uppercase text-accent mb-1">Address</span>
-                  <span className="text-[13px] font-bold text-heading">Remote advisory across APAC, NA and EU markets</span>
+                  <span className="text-[13px] font-bold text-heading">Remote Advisory Across APAC, NA and EU markets</span>
                 </div>
               </div>
 
